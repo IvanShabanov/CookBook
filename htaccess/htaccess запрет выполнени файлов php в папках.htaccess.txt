@@ -1,0 +1,4 @@
+#запретим выполнение скриптов php из папок, кроме administrator
+RewriteCond %{REQUEST_URI} /(.*)/.*\.php
+RewriteCond %{REQUEST_URI} !^/administrator/ [NC]
+RewriteRule .* / [L]

@@ -1,0 +1,1 @@
+RewriteRule ^\.git(.*)$ / [L,R=301]

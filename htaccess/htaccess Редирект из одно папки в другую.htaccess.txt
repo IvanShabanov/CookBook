@@ -1,0 +1,1 @@
+RewriteRule ^old-folder/(.*)$ /new-folder/$1 [L,R=301]

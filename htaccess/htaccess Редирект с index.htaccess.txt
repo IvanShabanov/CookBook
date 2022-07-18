@@ -1,0 +1,28 @@
+  #Delete index at end
+  RewriteRule ^index$ /  [R=301,L]
+  RewriteRule ^index.php$ /  [R=301,L]
+  RewriteRule ^index.html$ /  [R=301,L]
+
+  #2 вариант
+  RewriteRule ^index[\.php|\.html]? / [L,R=301]
+  
+  #3 вариант
+  RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index HTTP/
+  RewriteRule ^index$ http://site.com/ [R=301,L]
+  RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
+  RewriteRule ^index\.html$ http://site.com/ [R=301,L]
+  RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/
+  RewriteRule ^index\.php$ http://site.com/ [R=301,L]
+  
+  
+#4 вариант  
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^/]+/)*(default|index|main)\.(html|php|htm)\ HTTP/ [NC]
+RewriteRule ^(([^/]+/)*)(default|main|index)\.(html|php|htm)$ http://www.site.com/$1 [L,R=301]
+
+
+# Специально для БИТРИКС
+# Удаляем index.php из адреса
+RewriteCond %{THE_REQUEST} ^GET.*index\.(php|html) [NC]
+# Не применяем к админке, иначе перестает работать страница Highload-блоки
+RewriteCond %{REQUEST_URI} !/bitrix/admin/.* [NC]
+RewriteRule (.*?)index\.(php|html)/*(.*) /$1$3 [R=301,NE,L]
