@@ -1,6 +1,6 @@
 <?
-    /* выберим нужные элементы инфоблока */
-    $rsElements = \Bitrix\Iblock\ElementTable::getList([
+	/* выберим нужные элементы инфоблока */
+	$rsElements = \Bitrix\Iblock\ElementTable::getList([
 		'filter' => [
 			'ID' => $arID,
 			'ACTIVE' => 'Y'
@@ -13,13 +13,13 @@
 	]);
 
 	while ($arEl = $rsElements->fetch()) {
-        /* Получим свойтва элемента */
+		/* Получим свойтва элемента */
 		$obProp = \CIBlockElement::GetProperty(
 			$arEl['IBLOCK_ID'],
 			$arEl['ID'],
 			[],
 			['CODE ' => [
-                /* Коды нужных свойств */
+			/* Коды нужных свойств */
 				'PRICE',
 				'PRICE_PER',
 			]]
@@ -28,5 +28,5 @@
 			$arEl['PROPERTIES'][$arProp['CODE']] = $arProp['VALUE'];
 		};
 
-        print_r ($arEl);
-    };
+		print_r ($arEl);
+	};
