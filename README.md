@@ -23,6 +23,12 @@ https://mrcappuccino.ru/blog/category/bitrix-d7
 
 
 
+Настройка обмена с 1С
+
+https://www.gkexchange.ru/manuals/
+
+
+
 ----------------------------
 
 
