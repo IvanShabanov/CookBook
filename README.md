@@ -29,6 +29,12 @@ https://www.gkexchange.ru/manuals/
 
 
 
+Кастомизация выгрузки из 1С
+
+https://dev.1c-bitrix.ru/community/webdev/user/24164/blog/7651/
+
+
+
 ----------------------------
 
 
