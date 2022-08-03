@@ -35,6 +35,11 @@ https://dev.1c-bitrix.ru/community/webdev/user/24164/blog/7651/
 
 
 
+Миграции БД
+
+https://github.com/intervolga/intervolga.migrato
+
+
 ----------------------------
 
 
