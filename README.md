@@ -40,6 +40,14 @@ https://dev.1c-bitrix.ru/community/webdev/user/24164/blog/7651/
 https://github.com/intervolga/intervolga.migrato
 
 
+https://github.com/andreyryabin/sprint.migration
+
+
+https://github.com/worksolutions/bitrix-reduce-migrations
+
+
+
+
 ----------------------------
 
 
