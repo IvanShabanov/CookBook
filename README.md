@@ -47,6 +47,11 @@ https://github.com/worksolutions/bitrix-reduce-migrations
 
 
 
+Про КЕШ
+
+https://r-morozov.ru/bitrix/vsjo-o-keshirovanii-v-bitriks-d7-tegirovannyj-kesh-kesh-v-komponentah/
+
+
 
 ----------------------------
 
