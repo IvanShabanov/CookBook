@@ -1,4 +1,4 @@
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} \.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$
-    RewriteRule (.*) http://%{HTTP_HOST}/spacer.png [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} \.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$
+RewriteRule (.*) http://%{HTTP_HOST}/spacer.png [L]
