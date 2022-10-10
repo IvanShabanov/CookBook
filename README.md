@@ -35,6 +35,12 @@ https://github.com/worksolutions/bitrix-reduce-migrations
 
 https://r-morozov.ru/bitrix/vsjo-o-keshirovanii-v-bitriks-d7-tegirovannyj-kesh-kesh-v-komponentah/
 
+
+Про разработку модулей
+
+https://1c-bitrix.ru/download/files/ppt/web170614mp/Interactive_map_2.pdf
+
+
 ----------------------------
 
 ## Javascript
