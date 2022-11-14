@@ -1,0 +1,4 @@
+# site.ru/? -> site.ru/
+RewriteCond %{THE_REQUEST} ^[^\s]+\s+[^?]*?\?
+RewriteCond %{QUERY_STRING} =""
+RewriteRule .? https://site.ru%{REQUEST_URI}? [R=301,L]
