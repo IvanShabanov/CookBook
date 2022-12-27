@@ -5,6 +5,15 @@ $('a').each(function () {
 	countlink++;
 });
 
+/* тоже само на чистом JS */
+let countlink = 0;
+document.querySelectorAll('a').forEach(element => {
+	console.log(countlink + ') ' + element.getAttribute('href') + '  (target=' + element.getAttribute('target') + ') ,(rel=' + element.getAttribute('rel') + ') ' + element.textContent);
+	countlink++;
+});
+
+
+
 
 var countlink = 0;
 $('a[rel*="nofollow"]').each(function () {
