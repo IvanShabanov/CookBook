@@ -27,6 +27,6 @@ while($ob = $res->GetNextElement()) {
 	$arFields = $ob->GetFields();
 	$ELEMENT_ID = $arFields['ID'];
 	$IBLOCK_ID = $arFields['IBLOCK_ID'];
-    /* Тут станавливаем нужные свойтсва не затрагивая другие свойства */
+    /* Тут устанавливаем нужные свойтсва не затрагивая другие свойства */
 	CIBlockElement::SetPropertyValuesEx($ELEMENT_ID, $IBLOCK_ID, $property);
 }
