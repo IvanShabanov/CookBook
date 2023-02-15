@@ -1,3 +1,4 @@
+<?php header('Access-Control-Allow-Origin: *'); ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -27,6 +28,7 @@ function GetSitemap(url) {
 	if (url != '') {
         fetch(url, {
             method: 'GET',
+			headers: {'Content-Type': 'application/json'},
         }).then(function (response) {
 			return response.text();
         }).then(function (result){
@@ -111,6 +113,7 @@ function CheckLink(url, res) {
     if (url != '') {
         fetch(url, {
             method: 'GET',
+			headers: {'Content-Type': 'application/json'},
         }).then(function (response) {
             res.innerHTML =  response.status;
 			setTimeout(function() {
