@@ -1,0 +1,14 @@
+1) Генерируем .htpasswd
+https://web-specialist.info/htpasswd-gen/
+
+2) Размещаем в корне сайта файл .htpasswd
+
+3) в .htaccess
+
+AuthType Basic
+AuthName "Protected Area"
+AuthUserFile /PATH_TO_FILE/.htpasswd
+Require valid-user
+
+
+PATH_TO_FILE - путь на дирикторию сайта
