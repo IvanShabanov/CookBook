@@ -75,6 +75,36 @@ function SEOredirects(array
 			}
 		}
 
+		if (file_exists(__DIR__.'/redirects.csv')) {
+			$arRedirects = file(__DIR__.'/redirects.csv');
+			if (is_array($arRedirects)) {
+				$preparedRedirects = array();
+				foreach($arRedirects as $redirect) {
+					$arRedirect = array();
+					$arRedirect = explode(';', $redirect);
+					if (((!empty($arRedirect[0])) && (!empty($arRedirect[1]))) && (trim($arRedirect[0]) !== trim($arRedirect[1]))) {
+						$preparedRedirects[$arRedirect[0]] = $arRedirect[1];
+						$preparedRedirectsKeys[] = $arRedirect[0];
+					}
+				}
+
+				if (!empty($preparedRedirects)) {
+					array_unique($preparedRedirectsKeys);
+					array_multisort(array_map('strlen', $preparedRedirectsKeys), $preparedRedirectsKeys);
+					array_reverse($preparedRedirectsKeys);
+
+					foreach ($preparedRedirectsKeys as $key) {
+						if (preg_match('|'.$key.'|', $newurl)) {
+							$newurl = $preparedRedirects[$key];
+							break;
+						}
+					}
+				}
+
+
+			}
+		}
+
 		if ($cururl != $newurl) {
 			header("HTTP/1.1 301 Moved Permanently");
 			header("Location: ". $newurl);
