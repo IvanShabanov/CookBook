@@ -1,5 +1,6 @@
-<?
 
+<?
+define('REDIRECT_DEBUG', 'N');
 function SEOredirects(array
 		$arParams = [
 			'IGNORE_URLS' 			=> array('/bitrix'),
@@ -13,7 +14,7 @@ function SEOredirects(array
 	) {
 
 
-	function getCurrentUrl($server, $useForwardedHost = false)
+	function getCurrentUrl($server, $useForwardedHost = false, $return = 'full')
 	{
 		$ssl      = (!empty($server['HTTPS']) && $server['HTTPS'] == 'on');
 		$sp       = strtolower($server['SERVER_PROTOCOL']);
@@ -24,6 +25,7 @@ function SEOredirects(array
 		$host     = isset($host) ? $host : $server['SERVER_NAME'] . $port;
 		return $protocol . '://' . $host . $server['REQUEST_URI'];
 	}
+
 
 	$cururl = getCurrentUrl($_SERVER);
 	$enableRedirect = true;
@@ -71,7 +73,7 @@ function SEOredirects(array
 					unset($q[$getParam]);
 				}
 				$query = http_build_query($q);
-				$newurl = "{$path}?$query";
+				$newurl = trim("{$path}?$query", '?');
 			}
 		}
 
@@ -91,10 +93,19 @@ function SEOredirects(array
 				if (!empty($preparedRedirects)) {
 					array_unique($preparedRedirectsKeys);
 					array_multisort(array_map('strlen', $preparedRedirectsKeys), $preparedRedirectsKeys);
-					array_reverse($preparedRedirectsKeys);
-
+					$preparedRedirectsKeys = array_reverse($preparedRedirectsKeys);
+					$arUrl = parse_url($newurl);
+					$comparedUrl = trim($arUrl['path']. '?'. $arUrl['query'], '?');
+					if ((defined('REDIRECT_DEBUG')) && (REDIRECT_DEBUG=='Y')) {
+						echo '<p>$comparedUrl = "'.$comparedUrl.'"</p>';
+					};
 					foreach ($preparedRedirectsKeys as $key) {
-						if (preg_match('|'.$key.'|', $newurl)) {
+						$arUrl = parse_url($key);
+						$compareStr = trim($arUrl['path']. '?'. $arUrl['query'], '?');
+						if (preg_match('|^'.$compareStr.'|', $comparedUrl)) {
+							if ((defined('REDIRECT_DEBUG')) && (REDIRECT_DEBUG=='Y')) {
+								echo '<p>'.$key.' == '.$comparedUrl.'</p>';
+							}
 							$newurl = $preparedRedirects[$key];
 							break;
 						}
@@ -106,8 +117,12 @@ function SEOredirects(array
 		}
 
 		if ($cururl != $newurl) {
-			header("HTTP/1.1 301 Moved Permanently");
-			header("Location: ". $newurl);
+			if ((defined('REDIRECT_DEBUG')) && (REDIRECT_DEBUG=='Y')) {
+				echo '<p>REDIRECT <br>'.$cururl.'<br>to<br><a href="'. $newurl .'">'. $newurl.'</a></p>';
+			} else {
+				header("HTTP/1.1 301 Moved Permanently");
+				header("Location: ". $newurl);
+			}
 			exit();
 		}
 	}
