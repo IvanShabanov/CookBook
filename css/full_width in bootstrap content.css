@@ -1,0 +1,25 @@
+.container .full_width {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+@media (min-width: 768px) {
+    .container .full_width {
+        margin-left: calc(-50vw + 345px);
+        margin-right: calc(-50vw + 345px);
+    }
+}
+
+@media (min-width: 992px) {
+    .container .full_width {
+        margin-left: calc(-50vw + 455px);
+        margin-right: calc(-50vw + 455px);
+    }
+}
+
+@media (min-width: 1200px) {
+    .container .full_width {
+        margin-left: calc(-50vw + 555px);
+        margin-right: calc(-50vw + 555px);
+    }
+}
