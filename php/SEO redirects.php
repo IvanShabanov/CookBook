@@ -146,11 +146,12 @@ function SEOredirects(array	$arParams = [])
 	}
 
 	if ($arParams['ADD_TRAILING_SLASH'] == 'Y') {
-		list($path, $query) = explode('?', $newurl);
-		if (substr($path, -1) != '/') {
-			$path .= '/';
+		$arUrl = parse_url($newurl);
+		if (substr($arUrl['path'], -1) != '/') {
+			if (!file_exists($_SERVER['DOCUMENT_ROOT'].$arUrl['path'])) {
+				$newurl = str_replace($arUrl['path'], $arUrl['path'].'/', $newurl);
+			}
 		}
-		$newurl = trim($path . '?' . $query, '?');
 	}
 
 	if (is_array($arParams['REMOVE_GET_PARAMS'])) {
