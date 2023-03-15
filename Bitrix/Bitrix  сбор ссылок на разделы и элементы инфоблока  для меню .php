@@ -18,7 +18,8 @@
  * $aMenuLinksExt = MenuSectionsElements(15, 0, 1, 3);
  * $aMenuLinks = array_merge($aMenuLinks, $aMenuLinksExt);
  */
-function MenuSectionsElements(int $iblock, int $section_id = 0, int $depth_level = 1, int $max_level = 3) {
+function MenuSectionsElements(int $iblock, int $section_id = 0, int $depth_level = 1, int $max_level = 3)
+{
 	$arResult = [];
 
 	if ($depth_level >= $max_level) {
@@ -27,7 +28,7 @@ function MenuSectionsElements(int $iblock, int $section_id = 0, int $depth_level
 
 	$rsSections = \Bitrix\Iblock\SectionTable::getList([
 		'order' => [
-			'SORT'=>'ASC'
+			'SORT' => 'ASC'
 		],
 		'filter' => [
 			'IBLOCK_ID' => $iblock,
@@ -63,8 +64,8 @@ function MenuSectionsElements(int $iblock, int $section_id = 0, int $depth_level
 				'FROM_IBLOCK' => true,
 				'IS_PARENT' => (count($arResultSection) ? true : false),
 				'DEPTH_LEVEL' => $depth_level,
-            ],
-            ""
+			],
+			""
 		];
 
 		$arResult = array_merge($arResult, $arResultSection);
@@ -72,7 +73,7 @@ function MenuSectionsElements(int $iblock, int $section_id = 0, int $depth_level
 
 	$rsItems = \Bitrix\Iblock\ElementTable::getList([
 		'order' => [
-			'SORT'=>'ASC'
+			'SORT' => 'ASC'
 		],
 		'filter' => [
 			'IBLOCK_ID' => $iblock,
@@ -105,8 +106,8 @@ function MenuSectionsElements(int $iblock, int $section_id = 0, int $depth_level
 				'FROM_IBLOCK' => true,
 				'IS_PARENT' => false,
 				'DEPTH_LEVEL' => $depth_level,
-            ],
-            ""
+			],
+			""
 		];
 	}
 	return $arResult;
