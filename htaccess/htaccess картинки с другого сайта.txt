@@ -1,0 +1,3 @@
+	# Картинки будут брасть с сайта site.ru
+    RewriteCond %{HTTP_HOST} !site.ru
+    RewriteRule \.(jpe?g|gif|bmp|png|webp)$ https://site.ru/%{REQUEST_URI} [L]
