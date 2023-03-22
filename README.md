@@ -15,6 +15,10 @@ Bitrix D7
 
 https://mrcappuccino.ru/blog/category/bitrix-d7
 
+Описание процесса обмена 1с и Битрикс
+
+https://v8.1c.ru/tekhnologii/obmen-dannymi-i-integratsiya/standarty-i-formaty/protokol-obmena-s-saytom/
+
 Настройка обмена с 1С
 
 https://www.gkexchange.ru/manuals/
