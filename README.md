@@ -23,6 +23,8 @@ https://v8.1c.ru/tekhnologii/obmen-dannymi-i-integratsiya/standarty-i-formaty/pr
 
 https://www.gkexchange.ru/manuals/
 
+https://1c.1c-bitrix.ru/support/doc.php
+
 Кастомизация выгрузки из 1С
 
 https://dev.1c-bitrix.ru/community/webdev/user/24164/blog/7651/
