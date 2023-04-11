@@ -12,21 +12,29 @@
 		]
 	]);
 
+	/* Коды нужных свойств */
+	$props = [
+		'PRICE',
+		'PRICE_PER',
+	];
+
 	while ($arEl = $rsElements->fetch()) {
 		/* Получим свойтва элемента */
-		$obProp = \CIBlockElement::GetProperty(
-			$arEl['IBLOCK_ID'],
-			$arEl['ID'],
-			[],
-			['CODE' => [
-			/* Коды нужных свойств */
-				'PRICE',
-				'PRICE_PER',
-			]]
-		);
-		while ($arProp = $obProp->GetNext()) {
-			$arEl['PROPERTIES'][$arProp['CODE']] = $arProp['VALUE'];
-		};
+		foreach ($props as $CODE) {
+			$obProp = \CIBlockElement::GetProperty(
+				$arEl['IBLOCK_ID'],
+				$arEl['ID'],
+				[],
+				['CODE' => $CODE]
+			);
+			while ($arProp = $obProp->GetNext()) {
+				if ($arProp['MULTIPLE'] == 'Y') {
+					$arEl['PROPERTIES'][$arProp['CODE']][] = $arProp['VALUE'];
+				} else {
+					$arEl['PROPERTIES'][$arProp['CODE']] = $arProp['VALUE'];
+				}
+			};
+		}
 
 		print_r ($arEl);
 	};
