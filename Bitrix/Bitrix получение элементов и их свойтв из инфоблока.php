@@ -18,7 +18,7 @@
 			$arEl['IBLOCK_ID'],
 			$arEl['ID'],
 			[],
-			['CODE ' => [
+			['CODE' => [
 			/* Коды нужных свойств */
 				'PRICE',
 				'PRICE_PER',
