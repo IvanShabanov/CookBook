@@ -22,7 +22,7 @@ $sitemap = '';
 if (!empty($_GET['sitemap'])) {
 	$sitemap = $_GET['sitemap'];
 }
-$streems = 10;
+$streems = 3;
 if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 
 	$streems = (int) $_GET['streems'];
@@ -64,6 +64,7 @@ if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 			</td>
 			<td>
 				<button id="btnCheck" type="button" onclick="Start()">Начать проверку</button>
+				<button id="btnDownload" type="button" onclick="PrepareToDownload()" disabled>Скачать результат</button>
 			</td>
 		</tr>
 	</table>
@@ -75,6 +76,8 @@ if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 	<script>
 		const proxy = '<?= basename(__FILE__ . '?token=' . md5(date('YmdH')) . '&url='); ?>';
 		let counter = 0;
+		let checked = 0;
+
 		<? if ($sitemap != '') : ?>
 			Start();
 		<? endif ?>
@@ -83,6 +86,8 @@ if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 			const sitemapUrl = document.querySelector('#sitemapUrl').value;
 			const res = document.querySelector('#res');
 			res.innerHTML = 'loading....';
+			counter = 0;
+			checked = 0;
 			GetSitemap(sitemapUrl);
 		}
 
@@ -173,9 +178,12 @@ if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 		function CheckLineLazy() {
 			const table = document.querySelector('#urlsTable');
 			const trs = table.querySelectorAll('tr');
-			if ((trs.length > 0) && (counter <= trs.length)) {
+			const btnDownload = document.querySelector('#btnDownload');
+			if ((trs.length > 0) && (counter < trs.length)) {
 				CheckLine(trs[counter]);
 				counter++;
+			} else if (counter == checked) {
+				btnDownload.disabled = false;
 			}
 		}
 
@@ -202,6 +210,7 @@ if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 					} else {
 						res.innerHTML = '200';
 					}
+					checked++;
 					setTimeout(function() {
 						CheckLineLazy();
 					}, 100);
@@ -211,6 +220,38 @@ if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 				});
 			};
 		};
+
+		function PrepareToDownload() {
+			const table = document.querySelector('#urlsTable');
+			const trs = table.querySelectorAll('tr');
+			const sitemapUrl = document.querySelector('#sitemapUrl').value;
+			let yourDate = new Date()
+
+			let content = '';
+			if (trs.length > 0) {
+				content += 'Link to sitemap;' + sitemapUrl + "\n";
+				content += 'Date;' + yourDate.toISOString().split('T')[0] + "\n";
+				content += "\n";
+				content += 'URL;HTML CODE' + "\n";
+				trs.forEach((tr) => {
+					const url = tr.querySelector('a').getAttribute('href');;
+					const res = tr.querySelector('.res').textContent;
+					content += '' + url + ';' + res + "\n";
+				})
+				Download(content, 'SitemapChecker_Result,csv', 'text/csv')
+			}
+		}
+
+		function Download(content, filename, contentType) {
+			if (!contentType) contentType = 'application/octet-stream';
+			var a = document.createElement('a');
+			var blob = new Blob([content], {
+				'type': contentType
+			});
+			a.href = window.URL.createObjectURL(blob);
+			a.download = filename;
+			a.click();
+		}
 	</script>
 
 </body>
