@@ -8,11 +8,11 @@
 
 - товары каталога открывались по адресу - "/product/[символьный_код_товара]/"
 
-- использовать только стандартный комплексынй компонент bitrix:catalog
+- использовать только стандартный комплексный компонент bitrix:catalog
 
 ## 1. Настроим урлы в catalog
 
-в файле catalog/index.php делаем такую настройку
+в файле catalog/index.php делаем такую настройку комплексного компонента
 
 	"DETAIL_STRICT_SECTION_CHECK" => "N",
 	"SEF_MODE" => "Y",
@@ -26,15 +26,13 @@
 		"smart_filter" => "catalog/#SECTION_CODE#/filter/#SMART_FILTER_PATH#/apply/"
 	),
 
-## 2. Создаем дирикторию product
+## 2. Настроим правильные хлебные крошки
 
-Создаем дирикторию product и копируем в нее только index.php из дириктории catalog.
+Чтобы при показе товара у нас в хлебных крошках была ссылка на каталог в catalog/index.php добавляем перед вызовом комплексного компонента
 
-Файл .section.php НЕ должен присутсвовать в этой дириктории.
-
-Чтобы у нас в хлебных крошках была ссылка на каталог в product/index.php добавляем
-
-	$APPLICATION->AddChainItem("Каталог", "/catalog/");
+	if (mb_strpos($_SERVER['REQUEST_URI'], '/product/') !== false) {
+		$APPLICATION->AddChainItem("Каталог", "/catalog/");
+	}
 
 ## 3. Настройка в инфоблоке
 
@@ -59,7 +57,7 @@
 		'CONDITION' => '#^/product/#',
 		'RULE' => '',
 		'ID' => NULL,
-		'PATH' => '/product/index.php',
+		'PATH' => '/catalog/index.php',
 		'SORT' => 100,
 	),
 
@@ -69,14 +67,13 @@
 
 	/catalog/[символьный_код_раздела]/[символьный_код_товара]/
 
-в /catalog/index.php
+в /catalog/index.php перед вызовом комплексного компонента и заданием хлебных крошек
 
 	/*
 	Дата отключения редиректа обычно 2 месяца после текущей даты,
 	после этот код вообще можно удалить
 	*/
-	$dateend = 20230715;
-	if (date('Ymd') < $dateend) {
+	if ((date('Ymd') < 20230715) && (mb_strpos($_SERVER['REQUEST_URI'], '/catalog/') !== false)) {
 		[$url, $gets] = explode('?', $_SERVER['REQUEST_URI']);
 		$url_parts = explode('/', trim($url,'/'));
 		$arFilter = [
