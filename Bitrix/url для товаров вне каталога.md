@@ -18,12 +18,12 @@
 	"SEF_MODE" => "Y",
 	"SEF_FOLDER" => "/",
 	"SEF_URL_TEMPLATES" => Array(
-		"compare"=>"catalog/compare.php?action=#ACTION_CODE#",
-		"element"=>"product/#ELEMENT_CODE#/",
-		"search"=>"catalog/search/",
-		"section"=>"catalog/#SECTION_CODE#/",
-		"sections"=>"catalog/",
-		"smart_filter"=>"catalog/#SECTION_CODE#/filter/#SMART_FILTER_PATH#/apply/"
+		"compare" => "catalog/compare.php?action=#ACTION_CODE#",
+		"element" => "product/#ELEMENT_CODE#/",
+		"search" => "catalog/search/",
+		"section" => "catalog/#SECTION_CODE#/",
+		"sections" => "catalog/",
+		"smart_filter" => "catalog/#SECTION_CODE#/filter/#SMART_FILTER_PATH#/apply/"
 	),
 
 ## 2. Создаем дирикторию product
@@ -75,12 +75,13 @@
 	Дата отключения редиректа обычно 2 месяца после текущей даты,
 	после этот код вообще можно удалить
 	*/
-	if (date('Ymd') < 20230715) {
+	$dateend = 20230715;
+	if (date('Ymd') < $dateend) {
 		[$url, $gets] = explode('?', $_SERVER['REQUEST_URI']);
 		$url_parts = explode('/', trim($url,'/'));
 		$arFilter = [
-			"IBLOCK_ID"=>\Axi\Catalog::IBLOCK_ID,
-			"ACTIVE"=>"Y",
+			"IBLOCK_ID" => 1,
+			"ACTIVE" => "Y",
 			"CODE" => $url_parts[count($url_parts) - 1]
 		];
 		$res_count = CIBlockElement::GetList(Array(), $arFilter, Array(), false, Array());
