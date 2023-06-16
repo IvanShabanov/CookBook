@@ -1,32 +1,89 @@
 <?php
-if ((!empty($_GET['token'])) && ($_GET['token'] == md5(date('YmdH')))) {
+@session_start();
+if (!isset($_SESSION['token'])) {
+	$_SESSION['token'] = uniqid();
+}
+
+$token = $_SESSION['token'];
+
+if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 	if (!empty($_GET['url'])) {
-		$data = file_get_contents($_GET['url']);
-		if ($data === false) {
-			$error = error_get_last();
-			if (!empty($error['message'])) {
-				if (mb_strpos($error['message'], 'HTTP/1.1') !== false) {
-					list($trash, $header) = explode('HTTP/1.1', $error['message']);
-					$header = 'HTTP/1.1' . $header;
-					header($header);
-					die();
-				}
+		if ($_GET['url'] == '.') {
+
+			$result = DirList($_SERVER['DOCUMENT_ROOT'].'/', array(
+				'bitrix',
+				'upload',
+				'local',
+				'images'
+			));
+
+			foreach ($result as $r) {
+				$https = 'https://'.$_SERVER['HTTP_HOST'].'/';
+				$link = $https.str_replace($_SERVER['DOCUMENT_ROOT'].'/','',$r);
+				echo $link."\r\n";
 			}
+
 		} else {
-			echo $data;
+			$data = file_get_contents($_GET['url']);
+			if ($data === false) {
+				$error = error_get_last();
+				if (!empty($error['message'])) {
+					if (mb_strpos($error['message'], 'HTTP/1.1') !== false) {
+						list($trash, $header) = explode('HTTP/1.1', $error['message']);
+						$header = 'HTTP/1.1' . $header;
+						header($header);
+						die();
+					}
+				}
+			} else {
+				if ($_GET['url'] == __FILE__) {
+					header('Content-Description: File Transfer');
+					header('Content-Type: application/octet-stream');
+					header("Cache-Control: no-cache, must-revalidate");
+					header("Expires: 0");
+					header('Content-Disposition: attachment; filename="'.basename(__FILE__).'"');
+					header('Content-Length: '. filesize(__FILE__));
+					header('Pragma: public');
+				};
+				echo $data;
+			}
 		}
 	}
 	die();
 }
-$sitemap = '';
-if (!empty($_GET['sitemap'])) {
-	$sitemap = $_GET['sitemap'];
-}
+
+
+function DirList($directory, $ignore = array('bitrix', 'upload', 'uploads')) {
+	$result = array();
+	if ($handle = opendir($directory)) {
+		while (false !== ($file = readdir($handle))) {
+			if ($file != '.' and $file != '..' and is_dir($directory.$file)) {
+				if (!in_array($file, $ignore)) {
+					$result[] = $directory.$file.'/';
+					$result = array_merge($result, DirList($directory.$file.'/', $ignore));
+				};
+			};
+		};
+	};
+	closedir($handle);
+	return $result;
+};
+
+
+
 $streems = 3;
 if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 	$streems = (int) $_GET['streems'];
 }
-
+$onload = '';
+if (!empty($_GET['pageurl'])) {
+	$url = $_GET['pageurl'];
+	if (mb_strpos($url, '.xml')) {
+		$onload = 'GetSitemap("'.$url.'", function() { Start(); })';
+	} else {
+		$onload = 'GetPage("'.$url.'", function() { Start(); })';
+	}
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -35,16 +92,49 @@ if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Links chekcer</title>
+	<meta name="autor" content="Ivan Shabanov">
+	<title>Проверка ссылок</title>
+	<style>
+		body {
+			padding: 20px;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 14px;
+		}
+		button, input, textarea {
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 14px;
+		}
+		table {
+			width: 100%;
+		}
+		table tr:hover td {
+			background-color: rgba(255, 255, 0, 0.1);
+		}
+		table tr td {
+			padding: 5px;
+		}
+		table#urlsTable tr td {
+			border-top: 1px solid rgba(0, 0, 0, 0.1);
+			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		}
+		textarea#log {
+			width: 100%;
+			height: 50px;
+		}
+	</style>
 </head>
 
 <body>
 	<h1>Проверка ссылок</h1>
-	<p>Проверить все ссылки и после автоматом поставиться на скачивание результат</p>
-	<table>
+	<p>(c) <a href="https://github.com/IvanShabanov">Ivan Shabanov</a> 2023</p>
+	<table style="width: 100%;">
 		<tr>
-			<td>
-				Ссылки на проверку
+			<td style="width: 30%;">
+				<p>Ссылки на проверку:</p>
+				<p><button id="getFromSitemep" onclick="GetSitemap(prompt('Url sitemep.xml'))">Загрузить из sitemap.xml</button></p>
+				<p><button id="getFromPage" onclick="GetPage(prompt('Url страницы'))">Собрать ссылки со страницы</button></p>
+				<p><button id="getDirs" onclick="GetDirs()">Каталоги текущего сайта</button><br>
+				<a href="?url=<?=__FILE__;?>&token=<?=$token;?>" download="<??>">скрипт</a> должен лежать на сайте, который проверяется</p>
 			</td>
 			<td>
 				<textarea id="links" style="width: 100%; min-height: 150px;"></textarea>
@@ -66,20 +156,18 @@ if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 				<button id="btnDownload" type="button" onclick="PrepareToDownload()" disabled>Скачать результат</button>
 			</td>
 		</tr>
-
-
-
-
 	</table>
 
-
+	<textarea id="log"></textarea>
 
 	<div id="res"></div>
 
 	<script>
-		const proxy = '<?= basename(__FILE__ . '?token=' . md5(date('YmdH')) . '&url='); ?>';
+		const proxy = '<?= basename(__FILE__ . '?token=' . $token . '&url='); ?>';
 		let counter = 0;
 		let checked = 0;
+		let streems_active = 0;
+		let streems_max = 0;
 
 		function Start() {
 			const res = document.querySelector('#res');
@@ -88,6 +176,112 @@ if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 			counter = 0;
 			checked = 0;
 			CreateResultTable(links);
+		}
+
+		function log(text) {
+			const el = document.querySelector('textarea#log');
+			el.value += text + "\r\n";
+		}
+
+		function GetUrl(url, callback) {
+			log('GetUrl: ' + url);
+			fetch(proxy + url, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+			}).then(function(response) {
+				return response.text();
+			}).then(function(result) {
+				callback(result);
+			}).catch(function(err) {
+				log('ERROR cant get ' + url);
+				log('Error: ' + err);
+			});
+		}
+
+		function GetDirs(callback) {
+			const url = '.';
+			GetUrl(url, function(result) {
+				document.querySelector('#links').value = result;
+				if (typeof callback == 'function') {
+					callback();
+				};
+			});
+		}
+
+		function GetPage(url, callback) {
+			log('GetPage: ' + url);
+			const indexUrl = new URL(url);
+			const domain = indexUrl.protocol + '//' + indexUrl.hostname;
+			GetUrl(url, function(result) {
+				log('Start collect links');
+				let parser = new DOMParser();
+    			let resultDom = parser.parseFromString(result, 'text/html');
+				let links = '';
+				let urls = resultDom.getElementsByTagName('a');
+
+				if (urls.length > 0) {
+					for (var i = 0; i < urls.length; i++) {
+						const urlElement = urls[i];
+						let link = urlElement.getAttribute('href');
+						if ((link) && (typeof link != 'undefined')) {
+							if ((link.includes('tel:')) || (link.includes('mailto:')) || (link.includes('javascript:'))) {
+								link = '';
+							}
+						} else {
+							link = '';
+						}
+						if (link != '') {
+							if (!link.includes('//')) {
+								link = domain + link;
+							}
+							if (links != '') {
+								links +=  "\r\n";
+							};
+							links += link;
+						};
+					};
+					document.querySelector('#links').value = links;
+					log('Links collected');
+					if (typeof callback == 'function') {
+						callback();
+					};
+				};
+			});
+		}
+
+		function GetSitemap(url, callback) {
+			log('GetSitemap: ' + url);
+			if (url != '') {
+				GetUrl(url, function(result) {
+					log('Start parsing sitemap.xml');
+					let parser = new DOMParser();
+					let SitemapContent = parser.parseFromString(result, "text/xml");
+					let links = '';
+					let urls = SitemapContent.getElementsByTagName('url');
+					if (urls.length == 0) {
+						urls = SitemapContent.getElementsByTagName('sitemap');
+					}
+
+					if (urls.length > 0) {
+						for (var i = 0; i < urls.length; i++) {
+							const urlElement = urls[i];
+							const link = urlElement.getElementsByTagName('loc')[0].textContent;
+							if (links != '') {
+								links += "\r\n";
+							}
+							links += link;
+						};
+
+					}
+					document.querySelector('#links').value = links;
+					log('Links collected');
+					if (typeof callback == 'function') {
+						callback();
+					};
+				});
+			};
 		}
 
 		function CreateResultTable(links) {
@@ -102,13 +296,16 @@ if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 					const loc = urlElement.trim();
 					if (loc != '') {
 						table += '<tr>';
-						table += '<td class="link"  style="border-bottom: 1px solid #888;">';
+						table += '<td class="link">';
 						table += '<a href="' + loc + '" target="_blank">' + loc + '</a>';
 						table += '</td>';
 						table += '<td class="res">';
 						table += '</td>';
 						table += '<td>';
-						table += '<button type="button">Повторить проверку</button>';
+						table += '<button type="button" title="Повторить проверку">&#10227;</button>';
+						table += '</td>';
+						table += '<td>';
+						table += '<a href="?pageurl=' + loc + '" target="_blank">Проверить ссылки на странице</a>';
 						table += '</td>';
 						table += '</tr>';
 					}
@@ -134,22 +331,25 @@ if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 					CheckLine(tr);
 				});
 			});
-			const streems = document.querySelector('#streems');
-			const imax = 0 + streems.value;
-			for (let i = 0; i < Math.min(imax, trs.length); i++) {
-				CheckLineLazy();
-			}
+			CheckLineLazy();
 		}
 
 		function CheckLineLazy() {
-			const table = document.querySelector('#urlsTable');
-			const trs = table.querySelectorAll('tr');
-			const btnDownload = document.querySelector('#btnDownload');
-			if ((trs.length > 0) && (counter < trs.length)) {
-				CheckLine(trs[counter]);
-				counter++;
-			} else if (counter == checked) {
-				btnDownload.disabled = false;
+			const streems = document.querySelector('#streems');
+			streems_max = streems.value;
+			if (streems_active < streems_max) {
+				const table = document.querySelector('#urlsTable');
+				const trs = table.querySelectorAll('tr');
+				const btnDownload = document.querySelector('#btnDownload');
+				if ((trs.length > 0) && (counter < trs.length)) {
+					CheckLine(trs[counter]);
+					counter++;
+					if (streems_active < streems_max) {
+						CheckLineLazy();
+					};
+				} else if (counter == checked) {
+					btnDownload.disabled = false;
+				}
 			}
 		}
 
@@ -162,6 +362,7 @@ if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 
 		function CheckLink(url, res) {
 			if (url != '') {
+				streems_active ++;
 				fetch(proxy + url, {
 					method: 'GET',
 					headers: {
@@ -176,11 +377,12 @@ if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 					}
 					checked++;
 					setTimeout(function() {
+						streems_active --;
 						CheckLineLazy();
 					}, 100);
 				}).catch(function(err) {
-					res.innerHTML = 'ERROR';
-					console.log('Something went wrong. ', err);
+					log('ERROR cant get ' + url);
+					log('Error: ' + err);
 				});
 			};
 		};
@@ -215,6 +417,8 @@ if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 			a.download = filename;
 			a.click();
 		}
+
+		<?=$onload;?>;
 	</script>
 
 </body>
