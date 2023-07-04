@@ -23,7 +23,7 @@ https://www.gkexchange.ru/manuals/
 
 https://1c.1c-bitrix.ru/support/doc.php
 
-Если нуюно дебажить обмен обычно все происходит в файле
+Если нужно дебажить обмен обычно все происходит в файле
 
 /bitrix/modules/iblock/classes/general/cml2.php
 
