@@ -469,7 +469,6 @@ if (!empty($_GET['pageurl'])) {
 			const res = tr.querySelector('.res');
 			res.innerHTML = 'loading....';
 			CheckLink(url, res);
-			hide200();
 		}
 
 		function CheckLink(url, res) {
@@ -486,6 +485,7 @@ if (!empty($_GET['pageurl'])) {
 						res.innerHTML = '<div style="padding: 10px; background: #a00; color: #fff">' + status + '</div>';
 					} else {
 						res.innerHTML = '200';
+						hide200();
 					}
 					checked++;
 					setTimeout(function() {
