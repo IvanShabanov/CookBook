@@ -250,6 +250,15 @@ if (!empty($_GET['pageurl'])) {
 				<input id="streems" type="number" placeholder="кол-во потоков" value="<?= $streems ?>" />
 			</td>
 		</tr>
+
+		<tr>
+			<td>
+				Скрыть страницы с кодом 200
+			</td>
+			<td>
+				<input id="hide200" type="checkbox" value="Y" onclick="hide200();" />
+			</td>
+		</tr>
 		<tr>
 			<td>
 			</td>
@@ -460,6 +469,7 @@ if (!empty($_GET['pageurl'])) {
 			const res = tr.querySelector('.res');
 			res.innerHTML = 'loading....';
 			CheckLink(url, res);
+			hide200();
 		}
 
 		function CheckLink(url, res) {
@@ -489,9 +499,27 @@ if (!empty($_GET['pageurl'])) {
 			};
 		};
 
+		function hide200() {
+			const hide = document.querySelector('#hide200');
+			const table = document.querySelector('#urlsTable');
+			const trs = table?.querySelectorAll('tr');
+			if (trs.length > 0) {
+				trs.forEach((tr) => {
+					const res = tr.querySelector('.res').textContent;
+					if (res == '200') {
+						if (hide.checked) {
+							tr.style.display = 'none';
+						} else {
+							tr.style.display = '';
+						}
+					}
+				})
+			}
+		}
+
 		function PrepareToDownload() {
 			const table = document.querySelector('#urlsTable');
-			const trs = table.querySelectorAll('tr');
+			const trs = table?.querySelectorAll('tr');
 			let content = '';
 			let yourDate = new Date()
 
