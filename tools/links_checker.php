@@ -89,7 +89,7 @@ function http_header($code)
 		505 => "HTTP Version Not Supported"
 	];
 	if (isset($codes[$code])) {
-		return  'HTTP/1.1 '.$code.' '.$codes[$code];
+		return  'HTTP/1.1 ' . $code . ' ' . $codes[$code];
 	}
 	return false;
 }
@@ -237,6 +237,9 @@ if (!empty($_GET['pageurl'])) {
 				<p><button id="getDirs" onclick="GetDirs()">Каталоги текущего сайта</button><br>
 					<a href="?url=<?= __FILE__; ?>&token=<?= $token; ?>" download="<? ?>">скрипт</a> должен лежать на сайте, который проверяется
 				</p>
+				<p><button id="getHtml" onclick="GetFromHTML()">Получить ссылки из HTML</button><br>
+					Вставьте HTML код в поле и нажмите кнопку
+				</p>
 			</td>
 			<td>
 				<textarea id="links" style="width: 100%; min-height: 150px;"></textarea>
@@ -294,6 +297,42 @@ if (!empty($_GET['pageurl'])) {
 			el.value += text + "\r\n";
 		}
 
+		function parseHtml(result, domain, callback) {
+			let parser = new DOMParser();
+			let resultDom = parser.parseFromString(result, 'text/html');
+			let links = '';
+			let urls = resultDom.getElementsByTagName('a');
+
+			if (urls.length > 0) {
+				for (var i = 0; i < urls.length; i++) {
+					const urlElement = urls[i];
+					let link = urlElement.getAttribute('href');
+					if ((link) && (typeof link != 'undefined')) {
+						if ((link.includes('tel:')) || (link.includes('mailto:')) || (link.includes('javascript:'))) {
+							link = '';
+						}
+					} else {
+						link = '';
+					}
+					if (link != '') {
+						if (!link.includes('//')) {
+							link = domain + link;
+						}
+						if (links != '') {
+							links += "\r\n";
+						};
+						links += link;
+					};
+				};
+				document.querySelector('#links').value = links;
+				log('Links collected');
+
+				if (typeof callback == 'function') {
+					callback();
+				};
+			};
+		}
+
 		function GetUrl(url, callback) {
 			log('GetUrl: ' + url);
 			fetch(proxy + url, {
@@ -327,38 +366,7 @@ if (!empty($_GET['pageurl'])) {
 			const domain = indexUrl.protocol + '//' + indexUrl.hostname;
 			GetUrl(url, function(result) {
 				log('Start collect links');
-				let parser = new DOMParser();
-				let resultDom = parser.parseFromString(result, 'text/html');
-				let links = '';
-				let urls = resultDom.getElementsByTagName('a');
-
-				if (urls.length > 0) {
-					for (var i = 0; i < urls.length; i++) {
-						const urlElement = urls[i];
-						let link = urlElement.getAttribute('href');
-						if ((link) && (typeof link != 'undefined')) {
-							if ((link.includes('tel:')) || (link.includes('mailto:')) || (link.includes('javascript:'))) {
-								link = '';
-							}
-						} else {
-							link = '';
-						}
-						if (link != '') {
-							if (!link.includes('//')) {
-								link = domain + link;
-							}
-							if (links != '') {
-								links += "\r\n";
-							};
-							links += link;
-						};
-					};
-					document.querySelector('#links').value = links;
-					log('Links collected');
-					if (typeof callback == 'function') {
-						callback();
-					};
-				};
+				parseHtml(result, domain, callback);
 			});
 		}
 
@@ -393,6 +401,14 @@ if (!empty($_GET['pageurl'])) {
 					};
 				});
 			};
+		}
+
+		function GetFromHTML(callback) {
+			log('GetFromHTML');
+			const result = document.querySelector('#links').value;
+			const domain = prompt('Домен', '');
+			document.querySelector('#links').value = '';
+			parseHtml(result, domain, callback);
 		}
 
 		function CreateResultTable(links) {
