@@ -6,11 +6,99 @@ if (!isset($_SESSION['token'])) {
 
 $token = $_SESSION['token'];
 
+function get_contents($url, $params = array())
+{
+	$result = array();
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+	if ((isset($params['USER_AGENT'])) && ($params['USER_AGENT'] != '')) {
+		curl_setopt($ch, CURLOPT_USERAGENT, $params['USER_AGENT']);
+	};
+	if ((isset($params['POST'])) && ($params['POST'] != '')) {
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $params['POST']);
+	};
+	if ((isset($params['REFER'])) && ($params['REFER'] != '')) {
+		curl_setopt($ch, CURLOPT_REFERER, $params['REFER']);
+	};
+	if ((isset($params['COOKIEFILE'])) && ($params['COOKIEFILE'] != '')) {
+		curl_setopt($ch, CURLOPT_COOKIEJAR, $params['COOKIEFILE']);
+		curl_setopt($ch, CURLOPT_COOKIEFILE, $params['COOKIEFILE']);
+	};
+	if ((isset($params['IGNORE_SSL_ERRORS'])) && ($params['IGNORE_SSL_ERRORS'] != '')) {
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+	}
+	$response = curl_exec($ch);
+
+	if (!$response) {
+		$result['error'] = curl_error($ch);
+	} else {
+		$info = curl_getinfo($ch);
+		$result['content'] = $response;
+		$result['info'] = $info;
+	}
+	curl_close($ch);
+	return $result;
+}
+
+function http_header($code)
+{
+	$codes = [
+		100 => "Continue",
+		101 => "Switching Protocols",
+		200 => "OK",
+		201 => "Created",
+		202 => "Accepted",
+		203 => "Non-Authoritative Information",
+		204 => "No Content",
+		205 => "Reset Content",
+		206 => "Partial Content",
+		300 => "Multiple Choices",
+		301 => "Moved Permanently",
+		302 => "Found",
+		303 => "See Other",
+		304 => "Not Modified",
+		305 => "Use Proxy",
+		306 => "(Unused)",
+		307 => "Temporary Redirect",
+		400 => "Bad Request",
+		401 => "Unauthorized",
+		402 => "Payment Required",
+		403 => "Forbidden",
+		404 => "Not Found",
+		405 => "Method Not Allowed",
+		406 => "Not Acceptable",
+		407 => "Proxy Authentication Required",
+		408 => "Request Timeout",
+		409 => "Conflict",
+		410 => "Gone",
+		411 => "Length Required",
+		412 => "Precondition Failed",
+		413 => "Request Entity Too Large",
+		414 => "Request-URI Too Long",
+		415 => "Unsupported Media Type",
+		416 => "Requested Range Not Satisfiable",
+		417 => "Expectation Failed",
+		500 => "Internal Server Error",
+		501 => "Not Implemented",
+		502 => "Bad Gateway",
+		503 => "Service Unavailable",
+		504 => "Gateway Timeout",
+		505 => "HTTP Version Not Supported"
+	];
+	if (isset($codes[$code])) {
+		return  'HTTP/1.1 '.$code.' '.$codes[$code];
+	}
+	return false;
+}
+
 if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 	if (!empty($_GET['url'])) {
 		if ($_GET['url'] == '.') {
 
-			$result = DirList($_SERVER['DOCUMENT_ROOT'].'/', array(
+			$result = DirList($_SERVER['DOCUMENT_ROOT'] . '/', array(
 				'bitrix',
 				'upload',
 				'local',
@@ -18,34 +106,38 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 			));
 
 			foreach ($result as $r) {
-				$https = 'https://'.$_SERVER['HTTP_HOST'].'/';
-				$link = $https.str_replace($_SERVER['DOCUMENT_ROOT'].'/','',$r);
-				echo $link."\r\n";
+				$https = 'https://' . $_SERVER['HTTP_HOST'] . '/';
+				$link = $https . str_replace($_SERVER['DOCUMENT_ROOT'] . '/', '', $r);
+				echo $link . "\r\n";
 			}
-
 		} else {
-			$data = file_get_contents($_GET['url']);
-			if ($data === false) {
-				$error = error_get_last();
-				if (!empty($error['message'])) {
-					if (mb_strpos($error['message'], 'HTTP/1.1') !== false) {
-						list($trash, $header) = explode('HTTP/1.1', $error['message']);
-						$header = 'HTTP/1.1' . $header;
-						header($header);
-						die();
-					}
-				}
-			} else {
-				if ($_GET['url'] == __FILE__) {
-					header('Content-Description: File Transfer');
-					header('Content-Type: application/octet-stream');
-					header("Cache-Control: no-cache, must-revalidate");
-					header("Expires: 0");
-					header('Content-Disposition: attachment; filename="'.basename(__FILE__).'"');
-					header('Content-Length: '. filesize(__FILE__));
-					header('Pragma: public');
-				};
+
+
+			if ($_GET['url'] == __FILE__) {
+				$data = file_get_contents($_GET['url']);
+				header('Content-Description: File Transfer');
+				header('Content-Type: application/octet-stream');
+				header("Cache-Control: no-cache, must-revalidate");
+				header("Expires: 0");
+				header('Content-Disposition: attachment; filename="' . basename(__FILE__) . '"');
+				header('Content-Length: ' . filesize(__FILE__));
+				header('Pragma: public');
 				echo $data;
+			} else {
+				$curl_params = $_SERVER;
+				$url = $_GET['url'];
+				$res = get_contents($url, $curl_params);
+				if ((isset($res['error'])) && ($res['error'] != '')) {
+					$header = http_header(500);
+					header($header);
+					die();
+				}
+				if ((isset($res['info']['http_code'])) && ($res['info']['http_code'] != 200)) {
+					$header = http_header($res['info']['http_code']);
+					header($header);
+					die();
+				}
+				echo $res['content'];
 			}
 		}
 	}
@@ -53,14 +145,15 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 }
 
 
-function DirList($directory, $ignore = array('bitrix', 'upload', 'uploads')) {
+function DirList($directory, $ignore = array('bitrix', 'upload', 'uploads'))
+{
 	$result = array();
 	if ($handle = opendir($directory)) {
 		while (false !== ($file = readdir($handle))) {
-			if ($file != '.' and $file != '..' and is_dir($directory.$file)) {
+			if ($file != '.' and $file != '..' and is_dir($directory . $file)) {
 				if (!in_array($file, $ignore)) {
-					$result[] = $directory.$file.'/';
-					$result = array_merge($result, DirList($directory.$file.'/', $ignore));
+					$result[] = $directory . $file . '/';
+					$result = array_merge($result, DirList($directory . $file . '/', $ignore));
 				};
 			};
 		};
@@ -79,9 +172,9 @@ $onload = '';
 if (!empty($_GET['pageurl'])) {
 	$url = $_GET['pageurl'];
 	if (mb_strpos($url, '.xml')) {
-		$onload = 'GetSitemap("'.$url.'", function() { Start(); })';
+		$onload = 'GetSitemap("' . $url . '", function() { Start(); })';
 	} else {
-		$onload = 'GetPage("'.$url.'", function() { Start(); })';
+		$onload = 'GetPage("' . $url . '", function() { Start(); })';
 	}
 }
 ?>
@@ -100,23 +193,31 @@ if (!empty($_GET['pageurl'])) {
 			font-family: Arial, Helvetica, sans-serif;
 			font-size: 14px;
 		}
-		button, input, textarea {
+
+		button,
+		input,
+		textarea {
 			font-family: Arial, Helvetica, sans-serif;
 			font-size: 14px;
 		}
+
 		table {
 			width: 100%;
 		}
+
 		table tr:hover td {
 			background-color: rgba(255, 255, 0, 0.1);
 		}
+
 		table tr td {
 			padding: 5px;
 		}
+
 		table#urlsTable tr td {
 			border-top: 1px solid rgba(0, 0, 0, 0.1);
 			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 		}
+
 		textarea#log {
 			width: 100%;
 			height: 50px;
@@ -134,7 +235,8 @@ if (!empty($_GET['pageurl'])) {
 				<p><button id="getFromSitemep" onclick="GetSitemap(prompt('Url sitemep.xml'))">Загрузить из sitemap.xml</button></p>
 				<p><button id="getFromPage" onclick="GetPage(prompt('Url страницы'))">Собрать ссылки со страницы</button></p>
 				<p><button id="getDirs" onclick="GetDirs()">Каталоги текущего сайта</button><br>
-				<a href="?url=<?=__FILE__;?>&token=<?=$token;?>" download="<??>">скрипт</a> должен лежать на сайте, который проверяется</p>
+					<a href="?url=<?= __FILE__; ?>&token=<?= $token; ?>" download="<? ?>">скрипт</a> должен лежать на сайте, который проверяется
+				</p>
 			</td>
 			<td>
 				<textarea id="links" style="width: 100%; min-height: 150px;"></textarea>
@@ -217,7 +319,7 @@ if (!empty($_GET['pageurl'])) {
 			GetUrl(url, function(result) {
 				log('Start collect links');
 				let parser = new DOMParser();
-    			let resultDom = parser.parseFromString(result, 'text/html');
+				let resultDom = parser.parseFromString(result, 'text/html');
 				let links = '';
 				let urls = resultDom.getElementsByTagName('a');
 
@@ -237,7 +339,7 @@ if (!empty($_GET['pageurl'])) {
 								link = domain + link;
 							}
 							if (links != '') {
-								links +=  "\r\n";
+								links += "\r\n";
 							};
 							links += link;
 						};
@@ -362,7 +464,7 @@ if (!empty($_GET['pageurl'])) {
 
 		function CheckLink(url, res) {
 			if (url != '') {
-				streems_active ++;
+				streems_active++;
 				fetch(proxy + url, {
 					method: 'GET',
 					headers: {
@@ -377,7 +479,7 @@ if (!empty($_GET['pageurl'])) {
 					}
 					checked++;
 					setTimeout(function() {
-						streems_active --;
+						streems_active--;
 						CheckLineLazy();
 					}, 100);
 				}).catch(function(err) {
@@ -418,7 +520,7 @@ if (!empty($_GET['pageurl'])) {
 			a.click();
 		}
 
-		<?=$onload;?>;
+		<?= $onload; ?>;
 	</script>
 
 </body>
