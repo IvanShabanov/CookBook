@@ -262,6 +262,15 @@ if (!empty($_GET['pageurl'])) {
 				<input id="hide200" type="checkbox" value="Y" onclick="hide200();" />
 			</td>
 		</tr>
+
+		<tr>
+			<td>
+				Собирать Title и Description
+			</td>
+			<td>
+				<input id="title_descr" type="checkbox" value="Y" />
+			</td>
+		</tr>
 		<tr>
 			<td>
 			</td>
@@ -297,7 +306,7 @@ if (!empty($_GET['pageurl'])) {
 			el.value += text + "\r\n";
 		}
 
-		function parseHtml(result, domain, callback) {
+		function parseHtml(result, base, callback) {
 			let parser = new DOMParser();
 			let resultDom = parser.parseFromString(result, 'text/html');
 			let links = '';
@@ -308,16 +317,14 @@ if (!empty($_GET['pageurl'])) {
 					const urlElement = urls[i];
 					let link = urlElement.getAttribute('href');
 					if ((link) && (typeof link != 'undefined')) {
-						if ((link.includes('tel:')) || (link.includes('mailto:')) || (link.includes('javascript:'))) {
+						if ((link.includes('tel:')) || (link.includes('mailto:')) || (link.includes('javascript:')) || (link.includes('#'))) {
 							link = '';
 						}
 					} else {
 						link = '';
 					}
 					if (link != '') {
-						if (!link.includes('//')) {
-							link = domain + link;
-						}
+						link = new URL(link, base);
 						if (links != '') {
 							links += "\r\n";
 						};
@@ -362,11 +369,9 @@ if (!empty($_GET['pageurl'])) {
 
 		function GetPage(url, callback) {
 			log('GetPage: ' + url);
-			const indexUrl = new URL(url);
-			const domain = indexUrl.protocol + '//' + indexUrl.hostname;
 			GetUrl(url, function(result) {
 				log('Start collect links');
-				parseHtml(result, domain, callback);
+				parseHtml(result, url, callback);
 			});
 		}
 
@@ -406,10 +411,25 @@ if (!empty($_GET['pageurl'])) {
 		function GetFromHTML(callback) {
 			log('GetFromHTML');
 			const result = document.querySelector('#links').value;
-			const domain = prompt('Домен', '');
+			const domain = prompt('Базовый URL (base url)', '');
 			document.querySelector('#links').value = '';
 			parseHtml(result, domain, callback);
 		}
+
+		function getTitle(result) {
+			let parser = new DOMParser();
+			let resultDom = parser.parseFromString(result, 'text/html');
+			let title = resultDom.querySelector('title');
+			return 	title?.innerHTML;
+		}
+
+		function getDescription(result) {
+			let parser = new DOMParser();
+			let resultDom = parser.parseFromString(result, 'text/html');
+			let description = resultDom.querySelector('meta[name="description"]');
+			return 	description?.getAttribute('content');
+		}
+
 
 		function CreateResultTable(links) {
 
@@ -427,6 +447,10 @@ if (!empty($_GET['pageurl'])) {
 						table += '<a href="' + loc + '" target="_blank">' + loc + '</a>';
 						table += '</td>';
 						table += '<td class="res">';
+						table += '</td>';
+						table += '<td class="title">';
+						table += '</td>';
+						table += '<td class="description">';
 						table += '</td>';
 						table += '<td>';
 						table += '<button type="button" title="Повторить проверку">&#10227;</button>';
@@ -502,12 +526,26 @@ if (!empty($_GET['pageurl'])) {
 					} else {
 						res.innerHTML = '200';
 						hide200();
+
 					}
 					checked++;
 					setTimeout(function() {
 						streems_active--;
 						CheckLineLazy();
 					}, 100);
+					return response.text();
+				}).then(function(result) {
+					const need_meta = document.querySelector('#title_descr');
+					if (need_meta.checked) {
+						const title_place = res.parentElement?.querySelector('.title');
+						const desc_place = res.parentElement?.querySelector('.description');
+						if (title_place) {
+							title_place.innerHTML = getTitle(result);
+						}
+						if (desc_place) {
+							desc_place.innerHTML = getDescription(result);
+						}
+					}
 				}).catch(function(err) {
 					log('ERROR cant get ' + url);
 					log('Error: ' + err);
@@ -547,7 +585,9 @@ if (!empty($_GET['pageurl'])) {
 				trs.forEach((tr) => {
 					const url = tr.querySelector('a').getAttribute('href');;
 					const res = tr.querySelector('.res').textContent;
-					content += '' + url + ';' + res + "\n";
+					const title = tr.querySelector('.title').textContent;
+					const desc = tr.querySelector('.description').textContent;
+					content += '"' + url + '";"' + res + '";"' + title.replace('"', '&quot;') + '";"' + desc.replace('"', '&quot;') + '"' +  "\n";
 				})
 				Download(content, 'LinkChecker_Result,csv', 'text/csv')
 			}
