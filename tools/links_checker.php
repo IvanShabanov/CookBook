@@ -15,14 +15,22 @@ function get_contents($url, $params = array())
 	curl_setopt($ch, CURLINFO_HEADER_OUT, true);
 	if ((isset($params['USER_AGENT'])) && ($params['USER_AGENT'] != '')) {
 		curl_setopt($ch, CURLOPT_USERAGENT, $params['USER_AGENT']);
+	} else {
+		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36');
 	};
 	if ((isset($params['POST'])) && ($params['POST'] != '')) {
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $params['POST']);
 	};
 	if ((isset($params['REFER'])) && ($params['REFER'] != '')) {
 		curl_setopt($ch, CURLOPT_REFERER, $params['REFER']);
+	} else {
+		curl_setopt($ch, CURLOPT_REFERER, 'https://ya.ru');
 	};
 	if ((isset($params['COOKIEFILE'])) && ($params['COOKIEFILE'] != '')) {
+		curl_setopt($ch, CURLOPT_COOKIEJAR, $params['COOKIEFILE']);
+		curl_setopt($ch, CURLOPT_COOKIEFILE, $params['COOKIEFILE']);
+	} else {
+		$params['COOKIEFILE'] = __DIR__.'/linkы_checker.cookie.txt';
 		curl_setopt($ch, CURLOPT_COOKIEJAR, $params['COOKIEFILE']);
 		curl_setopt($ch, CURLOPT_COOKIEFILE, $params['COOKIEFILE']);
 	};
@@ -125,7 +133,7 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 				echo $data;
 			} else {
 				$curl_params = $_SERVER;
-				$url = $_GET['url'];
+				$url = str_replace('??', '&', $_GET['url']);
 				$res = get_contents($url, $curl_params);
 				if ((isset($res['error'])) && ($res['error'] != '')) {
 					$header = http_header(500);
@@ -170,7 +178,7 @@ if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 }
 $onload = '';
 if (!empty($_GET['pageurl'])) {
-	$url = $_GET['pageurl'];
+	$url = str_replace('??', '&', $_GET['pageurl']);
 	if (mb_strpos($url, '.xml')) {
 		$onload = 'GetSitemap("' . $url . '", function() { Start(); })';
 	} else {
@@ -265,7 +273,7 @@ if (!empty($_GET['pageurl'])) {
 
 		<tr>
 			<td>
-				Собирать Title и Description
+				Собирать Title, Description и H1 (первый)
 			</td>
 			<td>
 				<input id="title_descr" type="checkbox" value="Y" />
@@ -342,7 +350,7 @@ if (!empty($_GET['pageurl'])) {
 
 		function GetUrl(url, callback) {
 			log('GetUrl: ' + url);
-			fetch(proxy + url, {
+			fetch(proxy + url.replace('&', '??'), {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json'
@@ -431,6 +439,13 @@ if (!empty($_GET['pageurl'])) {
 		}
 
 
+		function getH1(result) {
+			let parser = new DOMParser();
+			let resultDom = parser.parseFromString(result, 'text/html');
+			let h1 = resultDom.querySelector('body h1');
+			return 	h1?.innerHTML;
+		}
+
 		function CreateResultTable(links) {
 
 			const res = document.querySelector('#res');
@@ -452,11 +467,13 @@ if (!empty($_GET['pageurl'])) {
 						table += '</td>';
 						table += '<td class="description">';
 						table += '</td>';
+						table += '<td class="h1">';
+						table += '</td>';
 						table += '<td>';
 						table += '<button type="button" title="Повторить проверку">&#10227;</button>';
 						table += '</td>';
 						table += '<td>';
-						table += '<a href="?pageurl=' + loc + '" target="_blank">Проверить ссылки на странице</a>';
+						table += '<a href="?pageurl=' + loc.replace('&', '??') + '" target="_blank">Проверить ссылки на странице</a>';
 						table += '</td>';
 						table += '</tr>';
 					}
@@ -514,7 +531,7 @@ if (!empty($_GET['pageurl'])) {
 		function CheckLink(url, res) {
 			if (url != '') {
 				streems_active++;
-				fetch(proxy + url, {
+				fetch(proxy + url.replace('&', '??'), {
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json'
@@ -539,11 +556,15 @@ if (!empty($_GET['pageurl'])) {
 					if (need_meta.checked) {
 						const title_place = res.parentElement?.querySelector('.title');
 						const desc_place = res.parentElement?.querySelector('.description');
+						const h1_place = res.parentElement?.querySelector('.h1');
 						if (title_place) {
 							title_place.innerHTML = getTitle(result);
 						}
 						if (desc_place) {
 							desc_place.innerHTML = getDescription(result);
+						}
+						if (h1_place) {
+							h1_place.innerHTML = getH1(result);
 						}
 					}
 				}).catch(function(err) {
@@ -571,6 +592,7 @@ if (!empty($_GET['pageurl'])) {
 			}
 		}
 
+
 		function PrepareToDownload() {
 			const table = document.querySelector('#urlsTable');
 			const trs = table?.querySelectorAll('tr');
@@ -578,17 +600,18 @@ if (!empty($_GET['pageurl'])) {
 			let yourDate = new Date()
 
 			if (trs.length > 0) {
-				content += 'Date;' + yourDate.toISOString().split('T')[0] + "\n";
-				content += "\n";
-				content += 'URL;HTML CODE' + "\n";
-
+				content += 'URL;HTML CODE;TITLE;DESCRIPTION;H1' + "\n";
 				trs.forEach((tr) => {
 					const url = tr.querySelector('a').getAttribute('href');;
 					const res = tr.querySelector('.res').textContent;
 					const title = tr.querySelector('.title').textContent;
 					const desc = tr.querySelector('.description').textContent;
-					content += '"' + url + '";"' + res + '";"' + title.replace('"', '&quot;') + '";"' + desc.replace('"', '&quot;') + '"' +  "\n";
+					const h1 = tr.querySelector('.h1').textContent;
+					content += '"' + url + '";"' + res + '";"' + title.replace('"', '&quot;') + '";"' + desc.replace('"', '&quot;') + '";"' + h1.replace('"', '&quot;') + '"' +  "\n";
 				})
+				content += "\n";
+				content += "\n";
+				content += 'Date;' + yourDate.toISOString().split('T')[0] + "\n";
 				Download(content, 'LinkChecker_Result,csv', 'text/csv')
 			}
 		}
