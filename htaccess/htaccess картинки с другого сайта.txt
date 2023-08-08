@@ -2,5 +2,5 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-l
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{HTTP_HOST} !site.ru
+    RewriteCond %{HTTP_HOST} !(www\.)*site\.ru$
     RewriteRule \.(jpe?g|gif|bmp|png|webp)$ https://site.ru/%{REQUEST_URI} [L]
