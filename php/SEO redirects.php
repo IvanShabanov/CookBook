@@ -23,7 +23,12 @@ SEOredirects(
 		'REMOVE_INDEX' 			=> 'Y',		// Редирект с index.php / html
 		'REMOVE_DOUBLE_SLASH' 	=> 'Y',		// Редирект с адресов с двойными слешами
 		'ADD_TRAILING_SLASH'	=> 'Y',		// Добавлять завершающий слеш
-		'REMOVE_GET_PARAMS' 	=> []		// Массив удаляемых GET параметров
+		'REMOVE_GET_PARAMS' 	=> [],		// Массив удаляемых GET параметров
+		'TEST_URLS'				=> [],
+		'TEST_PARAMS'			=> [
+			'USE_HTTPS' 			=> 'N',
+			'USE_WWW' 				=> 'N',
+		]
 	]
 );
 */
@@ -110,6 +115,16 @@ function SEOredirects(array	$arParams = [])
 
 
 	$cururl = getCurrentUrl($_SERVER);
+
+	/* Если сайт на тестовом домене */
+	if (is_array($arParams['TEST_URLS'])) {
+		foreach ($arParams['TEST_URLS'] as $ignoreUrl) {
+			if (mb_strpos($cururl, $ignoreUrl) !== false) {
+				$arParams = array_merge($arParams, $arParams['TEST_PARAMS']);
+			}
+		}
+	}
+
 
 	if (is_array($arParams['IGNORE_URLS'])) {
 		foreach ($arParams['IGNORE_URLS'] as $ignoreUrl) {
