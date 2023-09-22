@@ -45,7 +45,7 @@ https://github.com/worksolutions/bitrix-reduce-migrations
 https://r-morozov.ru/bitrix/vsjo-o-keshirovanii-v-bitriks-d7-tegirovannyj-kesh-kesh-v-komponentah/
 
 
-Про разработку модулей
+Коспозитный КЕШ зависящий от COOKIES/SECTION/ и т.п.
 
-https://1c-bitrix.ru/download/files/ppt/web170614mp/Interactive_map_2.pdf
+https://dev.1c-bitrix.ru/community/webdev/user/127124/blog/38176/
 
