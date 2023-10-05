@@ -180,9 +180,9 @@ $onload = '';
 if (!empty($_GET['pageurl'])) {
 	$url = str_replace('??', '&', $_GET['pageurl']);
 	if (mb_strpos($url, '.xml')) {
-		$onload = 'GetSitemap("' . $url . '", function() { Start(); })';
+		$onload = 'GetSitemap("' . $url . '", function() { })';
 	} else {
-		$onload = 'GetPage("' . $url . '", function() { Start(); })';
+		$onload = 'GetPage("' . $url . '", function() { })';
 	}
 }
 ?>
@@ -281,10 +281,19 @@ if (!empty($_GET['pageurl'])) {
 		</tr>
 		<tr>
 			<td>
+				Искать на страницах текст
+			</td>
+			<td>
+				<input id="search_text" type="text" value="<?=strip_tags(trim($_GET['search_text']))?>" />
+			</td>
+		</tr>
+
+		<tr>
+			<td>
 			</td>
 			<td>
 				<button id="btnCheck" type="button" onclick="Start()">Начать проверку</button>
-				<button id="btnDownload" type="button" onclick="PrepareToDownload()" disabled>Скачать результат</button>
+				<button id="btnDownload" type="button" onclick="PrepareToDownload()">Скачать результат</button>
 			</td>
 		</tr>
 	</table>
@@ -424,24 +433,18 @@ if (!empty($_GET['pageurl'])) {
 			parseHtml(result, domain, callback);
 		}
 
-		function getTitle(result) {
-			let parser = new DOMParser();
-			let resultDom = parser.parseFromString(result, 'text/html');
+		function getTitle(resultDom) {
 			let title = resultDom.querySelector('title');
 			return 	title?.innerHTML;
 		}
 
-		function getDescription(result) {
-			let parser = new DOMParser();
-			let resultDom = parser.parseFromString(result, 'text/html');
+		function getDescription(resultDom) {
 			let description = resultDom.querySelector('meta[name="description"]');
 			return 	description?.getAttribute('content');
 		}
 
 
-		function getH1(result) {
-			let parser = new DOMParser();
-			let resultDom = parser.parseFromString(result, 'text/html');
+		function getH1(resultDom) {
 			let h1 = resultDom.querySelector('body h1');
 			return 	h1?.innerHTML;
 		}
@@ -456,6 +459,11 @@ if (!empty($_GET['pageurl'])) {
 				for (var i = 0; i < urls.length; i++) {
 					const urlElement = urls[i];
 					const loc = urlElement.trim();
+					const search_text = document.querySelector('#search_text');
+					let linktoscan = '?pageurl=' + loc.replace('&', '??');
+					if (search_text.value !== '') {
+						linktoscan = linktoscan + '&search_text=' + search_text.value;
+					};
 					if (loc != '') {
 						table += '<tr>';
 						table += '<td class="link">';
@@ -473,7 +481,8 @@ if (!empty($_GET['pageurl'])) {
 						table += '<button type="button" title="Повторить проверку">&#10227;</button>';
 						table += '</td>';
 						table += '<td>';
-						table += '<a href="?pageurl=' + loc.replace('&', '??') + '" target="_blank">Проверить ссылки на странице</a>';
+
+						table += '<a href="' + linktoscan + '" target="_blank">Проверить ссылки на странице</a>';
 						table += '</td>';
 						table += '</tr>';
 					}
@@ -543,7 +552,6 @@ if (!empty($_GET['pageurl'])) {
 					} else {
 						res.innerHTML = '200';
 						hide200();
-
 					}
 					checked++;
 					setTimeout(function() {
@@ -553,18 +561,29 @@ if (!empty($_GET['pageurl'])) {
 					return response.text();
 				}).then(function(result) {
 					const need_meta = document.querySelector('#title_descr');
+					const search_text = document.querySelector('#search_text');
 					if (need_meta.checked) {
 						const title_place = res.parentElement?.querySelector('.title');
 						const desc_place = res.parentElement?.querySelector('.description');
 						const h1_place = res.parentElement?.querySelector('.h1');
+						let parser = new DOMParser();
+						let resultDom = parser.parseFromString(result, 'text/html');
 						if (title_place) {
-							title_place.innerHTML = getTitle(result);
+							title_place.innerHTML = getTitle(resultDom);
 						}
 						if (desc_place) {
-							desc_place.innerHTML = getDescription(result);
+							desc_place.innerHTML = getDescription(resultDom);
 						}
 						if (h1_place) {
-							h1_place.innerHTML = getH1(result);
+							h1_place.innerHTML = getH1(resultDom);
+						}
+					}
+					if (search_text.value !== '') {
+						const search_text_reg = '/' + search_text.value + '/g';
+						if (parseInt(result.search(search_text_reg)) > -1) {
+							res.innerHTML = res.innerHTML + ' найдено';
+						} else if (result.indexOf(search_text.value) > 0) {
+							res.innerHTML = res.innerHTML + ' найдено';
 						}
 					}
 				}).catch(function(err) {
