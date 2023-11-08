@@ -1,9 +1,9 @@
 <?
 $cnt = CIBlockElement::GetList(
-    array(),
-    array('IBLOCK_ID' => xx, .....),
-    array(),
+    [],
+    ['IBLOCK_ID' => xx, ],
+    [], /* Важно чтобы тут был пустой массив */
     false, /* Важно чтобы тут был false */
-    array('ID', 'NAME')
+    ['ID', 'NAME']
 );
 echo $cnt;
