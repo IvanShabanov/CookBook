@@ -27,3 +27,8 @@ $app = \Bitrix\Main\Application::getInstance();
 $response = $app->getContext()->getResponse();
 $responseHeadersHandler = $response->getHeaders();
 $responseHeadersHandler->set('Content-Type', 'text/javascript; charset=UTF-8');
+
+$buffer = 'Тут контент';
+
+$response->flush($buffer);
+$app->terminate();
