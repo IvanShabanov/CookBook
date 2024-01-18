@@ -76,7 +76,7 @@
 				if ($uriPart == 'catalog') {
 					$collectPart =  true;
 				};
-				if (in_array($uriPart, 'serach', 'filter')) {
+				if (in_array($uriPart, 'search', 'filter')) {
 					$collectPart =  false;
 				};
 				if ($collectPart) {
@@ -86,7 +86,7 @@
 		}
 		if (count($urlParts) > 2) {
 			/* Если кол-во частей урла больше 2 - скорее всго нам надо сделать редирект */
-			$urlLastPart = $url_parts[count($url_parts) - 1];
+			$urlLastPart = end($urlParts);
 			/* Проверим есть ли товар с символьныйм кодом из последней части урла */
 			$arFilter = [
 				"IBLOCK_ID" => $IBLOCK_ID,
