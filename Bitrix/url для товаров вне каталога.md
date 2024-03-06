@@ -110,8 +110,8 @@
 					"GLOBAL_ACTIVE" => "Y",
 					"CODE" => $urlLastPart
 				];
-				$res_count = \CIBlockSection::GetList([], $arFilterSection, [], false, []);
-				if ($res_count > 0) {
+				$res = \CIBlockSection::GetList([], $arFilterSection, false, []);
+				if ($res->GetNext()) {
 					/* Редирект на раздел */
 					LocalRedirect(
 						'/catalog/' . $urlLastPart . '/',
