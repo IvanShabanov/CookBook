@@ -30,7 +30,7 @@ function get_contents($url, $params = array())
 		curl_setopt($ch, CURLOPT_COOKIEJAR, $params['COOKIEFILE']);
 		curl_setopt($ch, CURLOPT_COOKIEFILE, $params['COOKIEFILE']);
 	} else {
-		$params['COOKIEFILE'] = __DIR__.'/linkы_checker.cookie.txt';
+		$params['COOKIEFILE'] = __DIR__ . '/linkы_checker.cookie.txt';
 		curl_setopt($ch, CURLOPT_COOKIEJAR, $params['COOKIEFILE']);
 		curl_setopt($ch, CURLOPT_COOKIEFILE, $params['COOKIEFILE']);
 	};
@@ -102,6 +102,136 @@ function http_header($code)
 	return false;
 }
 
+/* Return
+	array(
+		[] => array(
+			'original' - original filename
+			'uploaded' - uploaded filename
+			'full_path' - full path to uploaded file
+		)
+		['errors'] => array(
+			'Text of error'
+		)
+	)
+*/
+/* $fieldname - input name */
+/* $dir - upload directory */
+/* $savenames - false/true save origin file names */
+/* $avalable_extensions = array () */
+/* $pattern - preg выражение по которому проверяется допустимость файла */
+function SimpleUpload($fieldname, $dir, $savenames = false, $avalable_extensions = null, $pattern = null): array
+{
+	$Result = array();
+	if (substr($dir, 0, -1) != '/') {
+		$dir .= '/';
+	};
+	if (is_array($_FILES[$fieldname]["tmp_name"])) {
+		foreach ($_FILES[$fieldname]["tmp_name"] as $key => $value) {
+			if (!empty($_FILES[$fieldname]["tmp_name"][$key])) {
+				$upload_this = true;
+				$file = array();
+				$file['original'] = basename($_FILES[$fieldname]["name"][$key]);
+
+				$file['uploaded'] = $file['original'];
+				$extension = explode(".", $file['original']);
+				$extension = end($extension);
+				$extension = mb_strtolower($extension);
+				if (!$savenames) {
+					$hash = substr(md5(uniqid(microtime())), 1, 16);
+					$file['uploaded'] = $hash . '.' . $extension;
+				}
+				$file['full_path'] = $dir . $file['uploaded'];
+
+				if (!is_null($avalable_extensions)) {
+					if (!is_array($avalable_extensions)) {
+						$avalable_extensions = explode(',', $avalable_extensions);
+					};
+					if (is_array($avalable_extensions)) {
+						if (!in_array($extension, $avalable_extensions)) {
+							$upload_this = false;
+							$Result['errors'][] = 'Не допустимый тип файла: ' . $file['original'];
+						}
+					}
+				};
+				if (!is_null($pattern)) {
+					if (!preg_match($pattern, $file['uploaded'])) {
+						$upload_this = false;
+						$Result['errors'][] = 'Не допустимые символы в имени файла: ' . $file['original'];
+					}
+				};
+				if ($upload_this) {
+					$tmp_name = $_FILES[$fieldname]["tmp_name"][$key];
+					$isloaded = true;
+					if (!move_uploaded_file($tmp_name, $file['full_path'])) {
+						if (!copy($tmp_name, $file['full_path'])) {
+							$isloaded = false;
+						}
+					}
+					if ($isloaded) {
+						$Result[] = $file;
+					} else {
+						$Result['errors'][] = 'Ошибка загрузки: ' . $file['original'];
+					};
+				};
+			};
+		};
+	} else {
+		if (!empty($_FILES[$fieldname]["tmp_name"])) {
+			$upload_this = true;
+			$file = array();
+			$file['original'] = basename($_FILES[$fieldname]["name"]);
+			$file['uploaded'] = $file['original'];
+			$extension = explode(".", $file['original']);
+			$extension = end($extension);
+			$extension = mb_strtolower($extension);
+			if (!$savenames) {
+				$hash = substr(md5(uniqid(microtime())), 1, 16);
+				$file['uploaded'] = $hash . '.' . $extension;
+			}
+			$file['full_path'] = $dir . $file['uploaded'];
+
+			if (!is_null($avalable_extensions)) {
+				if (!is_array($avalable_extensions)) {
+					$avalable_extensions = explode(',', $avalable_extensions);
+				};
+				if (is_array($avalable_extensions)) {
+					if (!in_array($extension, $avalable_extensions)) {
+						$upload_this = false;
+						$Result['errors'][] = 'Не допустимый тип файла: ' . $file['original'];
+					}
+				}
+			};
+			if (!is_null($pattern)) {
+				if (!preg_match($pattern, $file['uploaded'])) {
+					$upload_this = false;
+					$Result['errors'][] = 'Не допустимые символы в имени файла: ' . $file['original'];
+				}
+			};
+			if ($upload_this) {
+				$tmp_name = $_FILES[$fieldname]["tmp_name"];
+				$isloaded = true;
+				if (!move_uploaded_file($tmp_name, $file['full_path'])) {
+					if (!copy($tmp_name, $file['full_path'])) {
+						$isloaded = false;
+					}
+				}
+				if ($isloaded) {
+					$Result[] = $file;
+				} else {
+					$Result['errors'][] = 'Ошибка загрузки: ' . $file['original'];
+				};
+			};
+		};
+	};
+	return $Result;
+}
+
+function any2utf($text)
+{
+	$text = preg_replace('/[^[:print:]]/', '', $text);
+	return iconv(mb_detect_encoding($text, mb_detect_order(), true), "UTF-8", $text);
+}
+
 if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 	if (!empty($_GET['url'])) {
 		if ($_GET['url'] == '.') {
@@ -146,6 +276,44 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 					die();
 				}
 				echo $res['content'];
+			}
+		}
+	} elseif ($_GET['action'] == 'file') {
+		$result = SimpleUpload('file', __DIR__, false, 'csv');
+		$result = array_shift($result);
+
+		if (!is_array($result) || !empty($result['error'])) {
+			die();
+		}
+
+		if (!file_exists($result['full_path'])) {
+			die();
+		}
+		$filecontent = file($result['full_path']);
+
+		@unlink($result['full_path']);
+		$links = [];
+		switch ($_POST['filetype']) {
+			case 'yadirect':
+				foreach ($filecontent as $key => $fileline)
+				{
+					if ($key <= 2) {
+						continue;
+					}
+
+					$arfileline  = explode("\t", trim($fileline));
+
+					$arQuiklinks = explode('||', any2utf($arfileline[31]));
+					$links[]     = any2utf($arfileline[18]);
+					$links       = array_merge($links, $arQuiklinks);
+				}
+				break;
+		}
+		if (!empty($links)) {
+			foreach ($links as $link) {
+				echo $link . "\n";
+
+				// echo '<a href="' . $link . '">' . $link . '</a><br><br>';
 			}
 		}
 	}
@@ -235,7 +403,7 @@ if (!empty($_GET['pageurl'])) {
 
 <body>
 	<h1>Проверка ссылок</h1>
-	<p>(c) <a href="https://github.com/IvanShabanov">Ivan Shabanov</a> 2023</p>
+	<p>(c) <a href="https://github.com/IvanShabanov">Ivan Shabanov</a> 2023-2024</p>
 	<table style="width: 100%;">
 		<tr>
 			<td style="width: 30%;">
@@ -248,9 +416,24 @@ if (!empty($_GET['pageurl'])) {
 				<p><button id="getHtml" onclick="GetFromHTML()">Получить ссылки из HTML</button><br>
 					Вставьте HTML код в поле и нажмите кнопку
 				</p>
+				<p>
 			</td>
 			<td>
 				<textarea id="links" style="width: 100%; min-height: 150px;"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p>Собрать ссылки из файла</p>
+			</td>
+			<td>
+				<form id="formfile" action="?action=file&token=<?= $token ?>" enctype="multipart/form-data" method="post" onsubmit="GetFromFile(event)">
+					<input type="file" name="file" />
+					<select name="filetype">
+						<option value="yadirect">CSV Yandex Direct</option>
+					</select>
+					<input type="submit" value="Отправить" />
+				</form>
 			</td>
 		</tr>
 		<tr>
@@ -260,6 +443,14 @@ if (!empty($_GET['pageurl'])) {
 			<td>
 				<input id="streems" type="number" placeholder="кол-во потоков" value="<?= $streems ?>" />
 			</td>
+		</tr>
+
+		<td>
+			Собирать новые ссылки со страниц
+		</td>
+		<td>
+			<input id="collect_pages" type="checkbox" value="Y" />
+		</td>
 		</tr>
 
 		<tr>
@@ -280,11 +471,13 @@ if (!empty($_GET['pageurl'])) {
 			</td>
 		</tr>
 		<tr>
+
+		<tr>
 			<td>
 				Искать на страницах текст
 			</td>
 			<td>
-				<input id="search_text" type="text" value="<?=strip_tags(trim($_GET['search_text']))?>" />
+				<input id="search_text" type="text" value="<?= strip_tags(trim($_GET['search_text'])) ?>" />
 			</td>
 		</tr>
 
@@ -433,20 +626,48 @@ if (!empty($_GET['pageurl'])) {
 			parseHtml(result, domain, callback);
 		}
 
+		function GetFromFile(event) {
+			event.preventDefault();
+
+			const form = document.querySelector('#formfile');
+			const file = form.querySelector('input[name="file"]');
+			const filetype = form.querySelector('select[name="filetype"]')?.value;
+			const action = form.getAttribute('action');
+			if (form && file && filetype && action) {
+
+				let data = new FormData();
+				data.append('filetype', filetype);
+				data.append('file', file.files[0]);
+
+				fetch(action, {
+					method: 'POST',
+					body: data,
+				}).then(function (response) {
+					return response.text(); /* to get HTML */
+					//return response.json(); /* to get JSON */
+				}).then(function (result) {
+					document.querySelector('#links').value = result;
+				})
+				.catch(function (err) {
+					console.log('Something went wrong. ', err);
+				});
+			}
+		}
+
 		function getTitle(resultDom) {
 			let title = resultDom.querySelector('title');
-			return 	title?.innerHTML;
+			return title?.innerHTML;
 		}
 
 		function getDescription(resultDom) {
 			let description = resultDom.querySelector('meta[name="description"]');
-			return 	description?.getAttribute('content');
+			return description?.getAttribute('content');
 		}
 
 
 		function getH1(resultDom) {
 			let h1 = resultDom.querySelector('body h1');
-			return 	h1?.innerHTML;
+			return h1?.innerHTML;
 		}
 
 		function CreateResultTable(links) {
@@ -626,7 +847,7 @@ if (!empty($_GET['pageurl'])) {
 					const title = tr.querySelector('.title').textContent;
 					const desc = tr.querySelector('.description').textContent;
 					const h1 = tr.querySelector('.h1').textContent;
-					content += '"' + url + '";"' + res + '";"' + title.replace('"', '&quot;') + '";"' + desc.replace('"', '&quot;') + '";"' + h1.replace('"', '&quot;') + '"' +  "\n";
+					content += '"' + url + '";"' + res + '";"' + title.replace('"', '&quot;') + '";"' + desc.replace('"', '&quot;') + '";"' + h1.replace('"', '&quot;') + '"' + "\n";
 				})
 				content += "\n";
 				content += "\n";
