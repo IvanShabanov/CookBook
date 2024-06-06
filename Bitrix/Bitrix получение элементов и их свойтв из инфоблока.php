@@ -28,6 +28,9 @@
 				['CODE' => $CODE]
 			);
 			while ($arProp = $obProp->GetNext()) {
+				if ($arProp['PROPERTY_TYPE'] == 'L' && !empty($arProp['VALUE_ENUM'])) {
+					$arProp['VALUE'] = $arProp['VALUE_ENUM'];
+				}
 				if ($arProp['MULTIPLE'] == 'Y') {
 					$arEl['PROPERTIES'][$arProp['CODE']][] = $arProp['VALUE'];
 				} else {
