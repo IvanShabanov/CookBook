@@ -100,6 +100,7 @@
 				/* Редирект на товар */
 				LocalRedirect(
 					'/product/' . $urlLastPart . '/',
+					true,
 					'301 Moved Permanently'
 				);
 			} else {
@@ -115,6 +116,7 @@
 					/* Редирект на раздел */
 					LocalRedirect(
 						'/catalog/' . $urlLastPart . '/',
+						true,
 						'301 Moved Permanently'
 					);
 				}
