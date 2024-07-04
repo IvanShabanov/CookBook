@@ -1,6 +1,6 @@
 {
     "bitrix:eshopapp.top": {
-        "prefix": "bitrix:eshopapp.top",
+        "prefix": ["includecomponent__bitrix_eshopapp.top", "bitrix:eshopapp.top"],
         "body": [
             "// Top \u044d\u043b\u0435\u043c\u0435\u043d\u0442\u043e\u0432 \u043a\u0430\u0442\u0430\u043b\u043e\u0433\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -54,7 +54,7 @@
         ]
     },
     "bitrix:eshopapp.basket": {
-        "prefix": "bitrix:eshopapp.basket",
+        "prefix": ["includecomponent__bitrix_eshopapp.basket", "bitrix:eshopapp.basket"],
         "body": [
             "// \u041a\u043e\u0440\u0437\u0438\u043d\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -93,7 +93,7 @@
         ]
     },
     "bitrix:eshopapp.ajax.delivery.calculator": {
-        "prefix": "bitrix:eshopapp.ajax.delivery.calculator",
+        "prefix": ["includecomponent__bitrix_eshopapp.ajax.delivery.calculator", "bitrix:eshopapp.ajax.delivery.calculator"],
         "body": [
             "// \u041a\u0430\u043b\u044c\u043a\u0443\u043b\u044f\u0442\u043e\u0440 \u0434\u043e\u0441\u0442\u0430\u0432\u043a\u0438 (AJAX)",
             "$APPLICATION->IncludeComponent(",
@@ -105,7 +105,7 @@
         ]
     },
     "bitrix:eshopapp.order.ajax": {
-        "prefix": "bitrix:eshopapp.order.ajax",
+        "prefix": ["includecomponent__bitrix_eshopapp.order.ajax", "bitrix:eshopapp.order.ajax"],
         "body": [
             "// \u041e\u0434\u043d\u043e\u0448\u0430\u0433\u043e\u0432\u043e\u0435 \u043e\u0444\u043e\u0440\u043c\u043b\u0435\u043d\u0438\u0435 \u0437\u0430\u043a\u0430\u0437\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -138,7 +138,7 @@
         ]
     },
     "bitrix:eshop.facebook.plugin": {
-        "prefix": "bitrix:eshop.facebook.plugin",
+        "prefix": ["includecomponent__bitrix_eshop.facebook.plugin", "bitrix:eshop.facebook.plugin"],
         "body": [
             "// \u041f\u043b\u0430\u0433\u0438\u043d facebook",
             "$APPLICATION->IncludeComponent(",
@@ -155,7 +155,7 @@
         ]
     },
     "bitrix:news": {
-        "prefix": "bitrix:news",
+        "prefix": ["includecomponent__bitrix_news", "bitrix:news"],
         "body": [
             "// \u041d\u043e\u0432\u043e\u0441\u0442\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -259,7 +259,7 @@
         ]
     },
     "bitrix:news.list": {
-        "prefix": "bitrix:news.list",
+        "prefix": ["includecomponent__bitrix_news.list", "bitrix:news.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u043d\u043e\u0432\u043e\u0441\u0442\u0435\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -328,7 +328,7 @@
         ]
     },
     "bitrix:news.detail": {
-        "prefix": "bitrix:news.detail",
+        "prefix": ["includecomponent__bitrix_news.detail", "bitrix:news.detail"],
         "body": [
             "// \u041d\u043e\u0432\u043e\u0441\u0442\u044c \u0434\u0435\u0442\u0430\u043b\u044c\u043d\u043e",
             "$APPLICATION->IncludeComponent(",
@@ -389,7 +389,7 @@
         ]
     },
     "bitrix:news.line": {
-        "prefix": "bitrix:news.line",
+        "prefix": ["includecomponent__bitrix_news.line", "bitrix:news.line"],
         "body": [
             "// \u041b\u0435\u043d\u0442\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -425,7 +425,7 @@
         ]
     },
     "bitrix:news.calendar": {
-        "prefix": "bitrix:news.calendar",
+        "prefix": ["includecomponent__bitrix_news.calendar", "bitrix:news.calendar"],
         "body": [
             "// \u041a\u0430\u043b\u0435\u043d\u0434\u0430\u0440\u044c",
             "$APPLICATION->IncludeComponent(",
@@ -472,7 +472,7 @@
         ]
     },
     "bitrix:news.index": {
-        "prefix": "bitrix:news.index",
+        "prefix": ["includecomponent__bitrix_news.index", "bitrix:news.index"],
         "body": [
             "// \u0412\u0441\u0435 \u043d\u043e\u0432\u043e\u0441\u0442\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -513,7 +513,7 @@
         ]
     },
     "bitrix:photo": {
-        "prefix": "bitrix:photo",
+        "prefix": ["includecomponent__bitrix_photo", "bitrix:photo"],
         "body": [
             "// \u0424\u043e\u0442\u043e\u0433\u0430\u043b\u0435\u0440\u0435\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -603,7 +603,7 @@
         ]
     },
     "bitrix:photo.sections.top": {
-        "prefix": "bitrix:photo.sections.top",
+        "prefix": ["includecomponent__bitrix_photo.sections.top", "bitrix:photo.sections.top"],
         "body": [
             "// \u0420\u0430\u0437\u0434\u0435\u043b\u044b \u0441 TOP\u043e\u043c \u0444\u043e\u0442\u043e\u0433\u0440\u0430\u0444\u0438\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -646,7 +646,7 @@
         ]
     },
     "bitrix:photo.section": {
-        "prefix": "bitrix:photo.section",
+        "prefix": ["includecomponent__bitrix_photo.section", "bitrix:photo.section"],
         "body": [
             "// \u0424\u043e\u0442\u043e\u0433\u0440\u0430\u0444\u0438\u0438 \u0440\u0430\u0437\u0434\u0435\u043b\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -712,7 +712,7 @@
         ]
     },
     "bitrix:photo.detail": {
-        "prefix": "bitrix:photo.detail",
+        "prefix": ["includecomponent__bitrix_photo.detail", "bitrix:photo.detail"],
         "body": [
             "// \u0424\u043e\u0442\u043e\u0433\u0440\u0430\u0444\u0438\u044f \u0434\u0435\u0442\u0430\u043b\u044c\u043d\u043e",
             "$APPLICATION->IncludeComponent(",
@@ -762,7 +762,7 @@
         ]
     },
     "bitrix:photo.random": {
-        "prefix": "bitrix:photo.random",
+        "prefix": ["includecomponent__bitrix_photo.random", "bitrix:photo.random"],
         "body": [
             "// \u0421\u043b\u0443\u0447\u0430\u0439\u043d\u043e\u0435 \u0444\u043e\u0442\u043e",
             "$APPLICATION->IncludeComponent(",
@@ -790,7 +790,7 @@
         ]
     },
     "bitrix:photogallery": {
-        "prefix": "bitrix:photogallery",
+        "prefix": ["includecomponent__bitrix_photogallery", "bitrix:photogallery"],
         "body": [
             "// \u0424\u043e\u0442\u043e\u0433\u0430\u043b\u0435\u0440\u0435\u044f 2.0",
             "$APPLICATION->IncludeComponent(",
@@ -874,7 +874,7 @@
         ]
     },
     "bitrix:photogallery_user": {
-        "prefix": "bitrix:photogallery_user",
+        "prefix": ["includecomponent__bitrix_photogallery_user", "bitrix:photogallery_user"],
         "body": [
             "// \u0424\u043e\u0442\u043e\u0433\u0430\u043b\u0435\u0440\u0435\u044f 2.0 (\u043c\u043d\u043e\u0433\u043e\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u0441\u043a\u0430\u044f)",
             "$APPLICATION->IncludeComponent(",
@@ -967,7 +967,7 @@
         ]
     },
     "bitrix:photogallery.section": {
-        "prefix": "bitrix:photogallery.section",
+        "prefix": ["includecomponent__bitrix_photogallery.section", "bitrix:photogallery.section"],
         "body": [
             "// \u0410\u043b\u044c\u0431\u043e\u043c",
             "$APPLICATION->IncludeComponent(",
@@ -1008,7 +1008,7 @@
         ]
     },
     "bitrix:photogallery.section.list": {
-        "prefix": "bitrix:photogallery.section.list",
+        "prefix": ["includecomponent__bitrix_photogallery.section.list", "bitrix:photogallery.section.list"],
         "body": [
             "// \u0410\u043b\u044c\u0431\u043e\u043c (\u0441\u043f\u0438\u0441\u043e\u043a)",
             "$APPLICATION->IncludeComponent(",
@@ -1056,7 +1056,7 @@
         ]
     },
     "bitrix:photogallery.user": {
-        "prefix": "bitrix:photogallery.user",
+        "prefix": ["includecomponent__bitrix_photogallery.user", "bitrix:photogallery.user"],
         "body": [
             "// \u041f\u0430\u043d\u0435\u043b\u044c",
             "$APPLICATION->IncludeComponent(",
@@ -1091,7 +1091,7 @@
         ]
     },
     "bitrix:photogallery.gallery.edit": {
-        "prefix": "bitrix:photogallery.gallery.edit",
+        "prefix": ["includecomponent__bitrix_photogallery.gallery.edit", "bitrix:photogallery.gallery.edit"],
         "body": [
             "// \u0424\u043e\u0442\u043e\u0433\u0430\u043b\u0435\u0440\u0435\u044f (\u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435)",
             "$APPLICATION->IncludeComponent(",
@@ -1120,7 +1120,7 @@
         ]
     },
     "bitrix:photogallery.gallery.list": {
-        "prefix": "bitrix:photogallery.gallery.list",
+        "prefix": ["includecomponent__bitrix_photogallery.gallery.list", "bitrix:photogallery.gallery.list"],
         "body": [
             "// \u0424\u043e\u0442\u043e\u0433\u0430\u043b\u0435\u0440\u0435\u044f (\u0441\u043f\u0438\u0441\u043e\u043a)",
             "$APPLICATION->IncludeComponent(",
@@ -1160,7 +1160,7 @@
         ]
     },
     "bitrix:photogallery.interface": {
-        "prefix": "bitrix:photogallery.interface",
+        "prefix": ["includecomponent__bitrix_photogallery.interface", "bitrix:photogallery.interface"],
         "body": [
             "// \u0424\u043e\u0442\u043e\u0433\u0430\u043b\u0435\u0440\u0435\u044f (\u0448\u0430\u0431\u043b\u043e\u043d\u044b)",
             "$APPLICATION->IncludeComponent(",
@@ -1172,7 +1172,7 @@
         ]
     },
     "bitrix:photogallery.imagerotator": {
-        "prefix": "bitrix:photogallery.imagerotator",
+        "prefix": ["includecomponent__bitrix_photogallery.imagerotator", "bitrix:photogallery.imagerotator"],
         "body": [
             "// Flash-\u0441\u043b\u0430\u0439\u0434\u0448\u043e\u0443",
             "$APPLICATION->IncludeComponent(",
@@ -1219,7 +1219,7 @@
         ]
     },
     "bitrix:photogallery.section.edit.icon": {
-        "prefix": "bitrix:photogallery.section.edit.icon",
+        "prefix": ["includecomponent__bitrix_photogallery.section.edit.icon", "bitrix:photogallery.section.edit.icon"],
         "body": [
             "// \u0410\u043b\u044c\u0431\u043e\u043c (\u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u043e\u0431\u043b\u043e\u0436\u043a\u0438)",
             "$APPLICATION->IncludeComponent(",
@@ -1251,7 +1251,7 @@
         ]
     },
     "bitrix:photogallery.section.edit": {
-        "prefix": "bitrix:photogallery.section.edit",
+        "prefix": ["includecomponent__bitrix_photogallery.section.edit", "bitrix:photogallery.section.edit"],
         "body": [
             "// \u0410\u043b\u044c\u0431\u043e\u043c (\u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435)",
             "$APPLICATION->IncludeComponent(",
@@ -1286,7 +1286,7 @@
         ]
     },
     "bitrix:photogallery.detail.list.ex": {
-        "prefix": "bitrix:photogallery.detail.list.ex",
+        "prefix": ["includecomponent__bitrix_photogallery.detail.list.ex", "bitrix:photogallery.detail.list.ex"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u0444\u043e\u0442\u043e (\u0441\u043e \u0441\u043b\u0430\u0439\u0434\u0435\u0440\u043e\u043c)",
             "$APPLICATION->IncludeComponent(",
@@ -1337,7 +1337,7 @@
         ]
     },
     "bitrix:photogallery.detail": {
-        "prefix": "bitrix:photogallery.detail",
+        "prefix": ["includecomponent__bitrix_photogallery.detail", "bitrix:photogallery.detail"],
         "body": [
             "// \u0424\u043e\u0442\u043e",
             "$APPLICATION->IncludeComponent(",
@@ -1383,7 +1383,7 @@
         ]
     },
     "bitrix:photogallery.upload": {
-        "prefix": "bitrix:photogallery.upload",
+        "prefix": ["includecomponent__bitrix_photogallery.upload", "bitrix:photogallery.upload"],
         "body": [
             "// \u0424\u043e\u0442\u043e (\u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0430)",
             "$APPLICATION->IncludeComponent(",
@@ -1429,7 +1429,7 @@
         ]
     },
     "bitrix:photogallery.detail.comment": {
-        "prefix": "bitrix:photogallery.detail.comment",
+        "prefix": ["includecomponent__bitrix_photogallery.detail.comment", "bitrix:photogallery.detail.comment"],
         "body": [
             "// \u0424\u043e\u0442\u043e (\u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0438)",
             "$APPLICATION->IncludeComponent(",
@@ -1462,7 +1462,7 @@
         ]
     },
     "bitrix:photogallery.detail.edit": {
-        "prefix": "bitrix:photogallery.detail.edit",
+        "prefix": ["includecomponent__bitrix_photogallery.detail.edit", "bitrix:photogallery.detail.edit"],
         "body": [
             "// \u0424\u043e\u0442\u043e (\u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435)",
             "$APPLICATION->IncludeComponent(",
@@ -1492,7 +1492,7 @@
         ]
     },
     "bitrix:photogallery.detail.list": {
-        "prefix": "bitrix:photogallery.detail.list",
+        "prefix": ["includecomponent__bitrix_photogallery.detail.list", "bitrix:photogallery.detail.list"],
         "body": [
             "// \u0424\u043e\u0442\u043e (\u0441\u043f\u0438\u0441\u043e\u043a)",
             "$APPLICATION->IncludeComponent(",
@@ -1540,7 +1540,7 @@
         ]
     },
     "bitrix:catalog.section.list": {
-        "prefix": "bitrix:catalog.section.list",
+        "prefix": ["includecomponent__bitrix_catalog.section.list", "bitrix:catalog.section.list"],
         "body": [
             "// \u0421\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430 \u0440\u0430\u0437\u0434\u0435\u043b\u043e\u0432",
             "$APPLICATION->IncludeComponent(",
@@ -1576,7 +1576,7 @@
         ]
     },
     "bitrix:catalog.section": {
-        "prefix": "bitrix:catalog.section",
+        "prefix": ["includecomponent__bitrix_catalog.section", "bitrix:catalog.section"],
         "body": [
             "// \u042d\u043b\u0435\u043c\u0435\u043d\u0442\u044b \u0440\u0430\u0437\u0434\u0435\u043b\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -1674,7 +1674,7 @@
         ]
     },
     "bitrix:catalog": {
-        "prefix": "bitrix:catalog",
+        "prefix": ["includecomponent__bitrix_catalog", "bitrix:catalog"],
         "body": [
             "// \u041a\u0430\u0442\u0430\u043b\u043e\u0433",
             "$APPLICATION->IncludeComponent(",
@@ -1811,7 +1811,7 @@
         ]
     },
     "bitrix:catalog.search": {
-        "prefix": "bitrix:catalog.search",
+        "prefix": ["includecomponent__bitrix_catalog.search", "bitrix:catalog.search"],
         "body": [
             "// \u041f\u043e\u0438\u0441\u043a \u043f\u043e \u043a\u0430\u0442\u0430\u043b\u043e\u0433\u0443",
             "$APPLICATION->IncludeComponent(",
@@ -1890,7 +1890,7 @@
         ]
     },
     "bitrix:catalog.brandblock": {
-        "prefix": "bitrix:catalog.brandblock",
+        "prefix": ["includecomponent__bitrix_catalog.brandblock", "bitrix:catalog.brandblock"],
         "body": [
             "// \u0411\u0440\u0435\u043d\u0434\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -1921,7 +1921,7 @@
         ]
     },
     "bitrix:furniture.catalog.index": {
-        "prefix": "bitrix:furniture.catalog.index",
+        "prefix": ["includecomponent__bitrix_furniture.catalog.index", "bitrix:furniture.catalog.index"],
         "body": [
             "// \u041f\u0440\u0435\u0437\u0435\u043d\u0442\u0430\u0446\u0438\u043e\u043d\u043d\u044b\u0439 \u0441\u043f\u0438\u0441\u043e\u043a",
             "$APPLICATION->IncludeComponent(",
@@ -1944,7 +1944,7 @@
         ]
     },
     "bitrix:furniture.catalog.random": {
-        "prefix": "bitrix:furniture.catalog.random",
+        "prefix": ["includecomponent__bitrix_furniture.catalog.random", "bitrix:furniture.catalog.random"],
         "body": [
             "// \u0421\u043f\u0435\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0435 \u043f\u0440\u0435\u0434\u043b\u043e\u0436\u0435\u043d\u0438\u0435",
             "$APPLICATION->IncludeComponent(",
@@ -1972,7 +1972,7 @@
         ]
     },
     "bitrix:catalog.element": {
-        "prefix": "bitrix:catalog.element",
+        "prefix": ["includecomponent__bitrix_catalog.element", "bitrix:catalog.element"],
         "body": [
             "// \u042d\u043b\u0435\u043c\u0435\u043d\u0442 \u043a\u0430\u0442\u0430\u043b\u043e\u0433\u0430 \u0434\u0435\u0442\u0430\u043b\u044c\u043d\u043e",
             "$APPLICATION->IncludeComponent(",
@@ -2054,7 +2054,7 @@
         ]
     },
     "bitrix:catalog.compare.list": {
-        "prefix": "bitrix:catalog.compare.list",
+        "prefix": ["includecomponent__bitrix_catalog.compare.list", "bitrix:catalog.compare.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u0441\u0440\u0430\u0432\u043d\u0438\u0432\u0430\u0435\u043c\u044b\u0445 \u044d\u043b\u0435\u043c\u0435\u043d\u0442\u043e\u0432 \u043a\u0430\u0442\u0430\u043b\u043e\u0433\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -2086,7 +2086,7 @@
         ]
     },
     "bitrix:catalog.compare.result": {
-        "prefix": "bitrix:catalog.compare.result",
+        "prefix": ["includecomponent__bitrix_catalog.compare.result", "bitrix:catalog.compare.result"],
         "body": [
             "// \u0422\u0430\u0431\u043b\u0438\u0446\u0430 \u0441\u0440\u0430\u0432\u043d\u0435\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -2138,7 +2138,7 @@
         ]
     },
     "bitrix:catalog.smart.filter": {
-        "prefix": "bitrix:catalog.smart.filter",
+        "prefix": ["includecomponent__bitrix_catalog.smart.filter", "bitrix:catalog.smart.filter"],
         "body": [
             "// \u0423\u043c\u043d\u044b\u0439 \u0444\u0438\u043b\u044c\u0442\u0440",
             "$APPLICATION->IncludeComponent(",
@@ -2175,7 +2175,7 @@
         ]
     },
     "bitrix:catalog.filter": {
-        "prefix": "bitrix:catalog.filter",
+        "prefix": ["includecomponent__bitrix_catalog.filter", "bitrix:catalog.filter"],
         "body": [
             "// \u0424\u0438\u043b\u044c\u0442\u0440 \u043f\u043e \u044d\u043b\u0435\u043c\u0435\u043d\u0442\u0430\u043c",
             "$APPLICATION->IncludeComponent(",
@@ -2211,7 +2211,7 @@
         ]
     },
     "bitrix:catalog.main": {
-        "prefix": "bitrix:catalog.main",
+        "prefix": ["includecomponent__bitrix_catalog.main", "bitrix:catalog.main"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u043e\u043d\u043d\u044b\u0445 \u0431\u043b\u043e\u043a\u043e\u0432 \u0437\u0430\u0434\u0430\u043d\u043d\u043e\u0433\u043e \u0442\u0438\u043f\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -2235,7 +2235,7 @@
         ]
     },
     "bitrix:catalog.top": {
-        "prefix": "bitrix:catalog.top",
+        "prefix": ["includecomponent__bitrix_catalog.top", "bitrix:catalog.top"],
         "body": [
             "// Top \u044d\u043b\u0435\u043c\u0435\u043d\u0442\u043e\u0432 \u043a\u0430\u0442\u0430\u043b\u043e\u0433\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -2302,7 +2302,7 @@
         ]
     },
     "bitrix:catalog.set.constructor": {
-        "prefix": "bitrix:catalog.set.constructor",
+        "prefix": ["includecomponent__bitrix_catalog.set.constructor", "bitrix:catalog.set.constructor"],
         "body": [
             "// \u041a\u043e\u043d\u0441\u0442\u0440\u0443\u043a\u0442\u043e\u0440 \u043d\u0430\u0431\u043e\u0440\u043e\u0432",
             "$APPLICATION->IncludeComponent(",
@@ -2333,7 +2333,7 @@
         ]
     },
     "bitrix:catalog.sections.top": {
-        "prefix": "bitrix:catalog.sections.top",
+        "prefix": ["includecomponent__bitrix_catalog.sections.top", "bitrix:catalog.sections.top"],
         "body": [
             "// \u0420\u0430\u0437\u0434\u0435\u043b\u044b \u0441 top\u043e\u043c \u044d\u043b\u0435\u043c\u0435\u043d\u0442\u043e\u0432",
             "$APPLICATION->IncludeComponent(",
@@ -2396,7 +2396,7 @@
         ]
     },
     "bitrix:catalog.link.list": {
-        "prefix": "bitrix:catalog.link.list",
+        "prefix": ["includecomponent__bitrix_catalog.link.list", "bitrix:catalog.link.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u0441\u0432\u044f\u0437\u0430\u043d\u043d\u044b\u0445 \u044d\u043b\u0435\u043c\u0435\u043d\u0442\u043e\u0432",
             "$APPLICATION->IncludeComponent(",
@@ -2473,7 +2473,7 @@
         ]
     },
     "bitrix:lists": {
-        "prefix": "bitrix:lists",
+        "prefix": ["includecomponent__bitrix_lists", "bitrix:lists"],
         "body": [
             "// \u0423\u043d\u0438\u0432\u0435\u0440\u0441\u0430\u043b\u044c\u043d\u044b\u0435 \u0441\u043f\u0438\u0441\u043a\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -2521,7 +2521,7 @@
         ]
     },
     "bitrix:lists.lists": {
-        "prefix": "bitrix:lists.lists",
+        "prefix": ["includecomponent__bitrix_lists.lists", "bitrix:lists.lists"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043a\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -2546,7 +2546,7 @@
         ]
     },
     "bitrix:lists.list": {
-        "prefix": "bitrix:lists.list",
+        "prefix": ["includecomponent__bitrix_lists.list", "bitrix:lists.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a",
             "$APPLICATION->IncludeComponent(",
@@ -2579,7 +2579,7 @@
         ]
     },
     "bitrix:lists.sections": {
-        "prefix": "bitrix:lists.sections",
+        "prefix": ["includecomponent__bitrix_lists.sections", "bitrix:lists.sections"],
         "body": [
             "// \u0420\u0430\u0437\u0434\u0435\u043b\u044b \u0441\u043f\u0438\u0441\u043a\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -2607,7 +2607,7 @@
         ]
     },
     "bitrix:lists.element.edit": {
-        "prefix": "bitrix:lists.element.edit",
+        "prefix": ["includecomponent__bitrix_lists.element.edit", "bitrix:lists.element.edit"],
         "body": [
             "// \u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u044d\u043b\u0435\u043c\u0435\u043d\u0442\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -2639,7 +2639,7 @@
         ]
     },
     "bitrix:lists.list.edit": {
-        "prefix": "bitrix:lists.list.edit",
+        "prefix": ["includecomponent__bitrix_lists.list.edit", "bitrix:lists.list.edit"],
         "body": [
             "// \u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u0441\u043f\u0438\u0441\u043a\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -2666,7 +2666,7 @@
         ]
     },
     "bitrix:lists.fields": {
-        "prefix": "bitrix:lists.fields",
+        "prefix": ["includecomponent__bitrix_lists.fields", "bitrix:lists.fields"],
         "body": [
             "// \u041f\u043e\u043b\u044f \u0441\u043f\u0438\u0441\u043a\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -2694,7 +2694,7 @@
         ]
     },
     "bitrix:lists.field.edit": {
-        "prefix": "bitrix:lists.field.edit",
+        "prefix": ["includecomponent__bitrix_lists.field.edit", "bitrix:lists.field.edit"],
         "body": [
             "// \u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u043f\u043e\u043b\u044f \u0441\u043f\u0438\u0441\u043a\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -2723,7 +2723,7 @@
         ]
     },
     "bitrix:lists.element.navchain": {
-        "prefix": "bitrix:lists.element.navchain",
+        "prefix": ["includecomponent__bitrix_lists.element.navchain", "bitrix:lists.element.navchain"],
         "body": [
             "// \u041d\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u043e\u043d\u043d\u0430\u044f \u0446\u0435\u043f\u043e\u0447\u043a\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -2751,7 +2751,7 @@
         ]
     },
     "bitrix:lists.menu": {
-        "prefix": "bitrix:lists.menu",
+        "prefix": ["includecomponent__bitrix_lists.menu", "bitrix:lists.menu"],
         "body": [
             "// \u041c\u0435\u043d\u044e \u0441\u043f\u0438\u0441\u043a\u043e\u0432",
             "$APPLICATION->IncludeComponent(",
@@ -2776,7 +2776,7 @@
         ]
     },
     "bitrix:lists.file": {
-        "prefix": "bitrix:lists.file",
+        "prefix": ["includecomponent__bitrix_lists.file", "bitrix:lists.file"],
         "body": [
             "// \u0421\u043a\u0430\u0447\u0438\u0432\u0430\u043d\u0438\u0435 \u0444\u0430\u0439\u043b\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -2796,7 +2796,7 @@
         ]
     },
     "bitrix:map.google.view": {
-        "prefix": "bitrix:map.google.view",
+        "prefix": ["includecomponent__bitrix_map.google.view", "bitrix:map.google.view"],
         "body": [
             "// Google: \u043d\u0430\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u0435\u043c\u0430\u044f \u043a\u0430\u0440\u0442\u0430 - http://dev.1c-bitrix.ru/user_help/content/fileman/components_2/google_maps/map_google_view.php",
             "$APPLICATION->IncludeComponent(",
@@ -2819,7 +2819,7 @@
         ]
     },
     "bitrix:map.google.search": {
-        "prefix": "bitrix:map.google.search",
+        "prefix": ["includecomponent__bitrix_map.google.search", "bitrix:map.google.search"],
         "body": [
             "// Google: \u043f\u043e\u0438\u0441\u043a \u043f\u043e \u0430\u0434\u0440\u0435\u0441\u0443 - http://dev.1c-bitrix.ru/user_help/content/fileman/components_2/google_maps/map_google_search.php",
             "$APPLICATION->IncludeComponent(",
@@ -2842,7 +2842,7 @@
         ]
     },
     "bitrix:highloadblock.view": {
-        "prefix": "bitrix:highloadblock.view",
+        "prefix": ["includecomponent__bitrix_highloadblock.view", "bitrix:highloadblock.view"],
         "body": [
             "// \u0417\u0430\u043f\u0438\u0441\u044c \u0434\u0435\u0442\u0430\u043b\u044c\u043d\u043e - http://dev.1c-bitrix.ru/user_help/content/highloadblock/components_2/highloadblock_view.php",
             "$APPLICATION->IncludeComponent(",
@@ -2859,7 +2859,7 @@
         ]
     },
     "bitrix:highloadblock.list": {
-        "prefix": "bitrix:highloadblock.list",
+        "prefix": ["includecomponent__bitrix_highloadblock.list", "bitrix:highloadblock.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u0437\u0430\u043f\u0438\u0441\u0435\u0439 - http://dev.1c-bitrix.ru/user_help/content/highloadblock/components_2/highloadblock_list.php",
             "$APPLICATION->IncludeComponent(",
@@ -2875,7 +2875,7 @@
         ]
     },
     "bitrix:rss.show": {
-        "prefix": "bitrix:rss.show",
+        "prefix": ["includecomponent__bitrix_rss.show", "bitrix:rss.show"],
         "body": [
             "// RSS \u043d\u043e\u0432\u043e\u0441\u0442\u0438 (\u0438\u043c\u043f\u043e\u0440\u0442)",
             "$APPLICATION->IncludeComponent(",
@@ -2898,7 +2898,7 @@
         ]
     },
     "bitrix:rss.out": {
-        "prefix": "bitrix:rss.out",
+        "prefix": ["includecomponent__bitrix_rss.out", "bitrix:rss.out"],
         "body": [
             "// RSS \u043d\u043e\u0432\u043e\u0441\u0442\u0438 (\u044d\u043a\u0441\u043f\u043e\u0440\u0442)",
             "$APPLICATION->IncludeComponent(",
@@ -2936,7 +2936,7 @@
         ]
     },
     "bitrix:wiki": {
-        "prefix": "bitrix:wiki",
+        "prefix": ["includecomponent__bitrix_wiki", "bitrix:wiki"],
         "body": [
             "// Wiki - http://dev.1c-bitrix.ru/user_help/content/wiki/components_2/wiki.php",
             "$APPLICATION->IncludeComponent(",
@@ -2987,7 +2987,7 @@
         ]
     },
     "bitrix:wiki.menu": {
-        "prefix": "bitrix:wiki.menu",
+        "prefix": ["includecomponent__bitrix_wiki.menu", "bitrix:wiki.menu"],
         "body": [
             "// \u041c\u0435\u043d\u044e - http://dev.1c-bitrix.ru/user_help/content/wiki/components_2/wiki_menu.php",
             "$APPLICATION->IncludeComponent(",
@@ -3022,7 +3022,7 @@
         ]
     },
     "bitrix:wiki.show": {
-        "prefix": "bitrix:wiki.show",
+        "prefix": ["includecomponent__bitrix_wiki.show", "bitrix:wiki.show"],
         "body": [
             "// \u0421\u0442\u0440\u0430\u043d\u0438\u0446\u0430 - http://dev.1c-bitrix.ru/user_help/content/wiki/components_2/wiki_show.php",
             "$APPLICATION->IncludeComponent(",
@@ -3065,7 +3065,7 @@
         ]
     },
     "bitrix:wiki.edit": {
-        "prefix": "bitrix:wiki.edit",
+        "prefix": ["includecomponent__bitrix_wiki.edit", "bitrix:wiki.edit"],
         "body": [
             "// \u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 - http://dev.1c-bitrix.ru/user_help/content/wiki/components_2/wiki_edit.php",
             "$APPLICATION->IncludeComponent(",
@@ -3100,7 +3100,7 @@
         ]
     },
     "bitrix:wiki.categories": {
-        "prefix": "bitrix:wiki.categories",
+        "prefix": ["includecomponent__bitrix_wiki.categories", "bitrix:wiki.categories"],
         "body": [
             "// \u041a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u0438 - http://dev.1c-bitrix.ru/user_help/content/wiki/components_2/wiki_categories.php",
             "$APPLICATION->IncludeComponent(",
@@ -3124,7 +3124,7 @@
         ]
     },
     "bitrix:wiki.history": {
-        "prefix": "bitrix:wiki.history",
+        "prefix": ["includecomponent__bitrix_wiki.history", "bitrix:wiki.history"],
         "body": [
             "// \u0418\u0441\u0442\u043e\u0440\u0438\u044f - http://dev.1c-bitrix.ru/user_help/content/wiki/components_2/wiki_history.php",
             "$APPLICATION->IncludeComponent(",
@@ -3165,7 +3165,7 @@
         ]
     },
     "bitrix:wiki.discussion": {
-        "prefix": "bitrix:wiki.discussion",
+        "prefix": ["includecomponent__bitrix_wiki.discussion", "bitrix:wiki.discussion"],
         "body": [
             "// \u041e\u0431\u0441\u0443\u0436\u0434\u0435\u043d\u0438\u0435 - http://dev.1c-bitrix.ru/user_help/content/wiki/components_2/wiki_discussion.php",
             "$APPLICATION->IncludeComponent(",
@@ -3210,7 +3210,7 @@
         ]
     },
     "bitrix:wiki.history.diff": {
-        "prefix": "bitrix:wiki.history.diff",
+        "prefix": ["includecomponent__bitrix_wiki.history.diff", "bitrix:wiki.history.diff"],
         "body": [
             "// \u0421\u0440\u0430\u0432\u043d\u0435\u043d\u0438\u0435 \u0432\u0435\u0440\u0441\u0438\u0438 - http://dev.1c-bitrix.ru/user_help/content/wiki/components_2/wiki_history_diff.php",
             "$APPLICATION->IncludeComponent(",
@@ -3251,7 +3251,7 @@
         ]
     },
     "bitrix:currency.rates": {
-        "prefix": "bitrix:currency.rates",
+        "prefix": ["includecomponent__bitrix_currency.rates", "bitrix:currency.rates"],
         "body": [
             "// \u0422\u0430\u0431\u043b\u0438\u0446\u0430 \u043a\u0443\u0440\u0441\u043e\u0432 \u0432\u0430\u043b\u044e\u0442",
             "$APPLICATION->IncludeComponent(",
@@ -3274,7 +3274,7 @@
         ]
     },
     "bitrix:iblock.element.add": {
-        "prefix": "bitrix:iblock.element.add",
+        "prefix": ["includecomponent__bitrix_iblock.element.add", "bitrix:iblock.element.add"],
         "body": [
             "// \u0414\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u044d\u043b\u0435\u043c\u0435\u043d\u0442\u043e\u0432 \u0438\u043d\u0444\u043e\u0431\u043b\u043e\u043a\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -3338,7 +3338,7 @@
         ]
     },
     "bitrix:iblock.element.add.list": {
-        "prefix": "bitrix:iblock.element.add.list",
+        "prefix": ["includecomponent__bitrix_iblock.element.add.list", "bitrix:iblock.element.add.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u0441\u0432\u043e\u0438\u0445 \u044d\u043b\u0435\u043c\u0435\u043d\u0442\u043e\u0432",
             "$APPLICATION->IncludeComponent(",
@@ -3370,7 +3370,7 @@
         ]
     },
     "bitrix:infoportal.element.add.form": {
-        "prefix": "bitrix:infoportal.element.add.form",
+        "prefix": ["includecomponent__bitrix_infoportal.element.add.form", "bitrix:infoportal.element.add.form"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u0434\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u0438\u044f / \u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -3425,7 +3425,7 @@
         ]
     },
     "bitrix:iblock.element.add.form": {
-        "prefix": "bitrix:iblock.element.add.form",
+        "prefix": ["includecomponent__bitrix_iblock.element.add.form", "bitrix:iblock.element.add.form"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u0434\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u0438\u044f / \u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -3480,7 +3480,7 @@
         ]
     },
     "bitrix:iblock.vote": {
-        "prefix": "bitrix:iblock.vote",
+        "prefix": ["includecomponent__bitrix_iblock.vote", "bitrix:iblock.vote"],
         "body": [
             "// \u0413\u043e\u043b\u043e\u0441\u043e\u0432\u0430\u043d\u0438\u0435",
             "$APPLICATION->IncludeComponent(",
@@ -3508,7 +3508,7 @@
         ]
     },
     "bitrix:calendar.grid": {
-        "prefix": "bitrix:calendar.grid",
+        "prefix": ["includecomponent__bitrix_calendar.grid", "bitrix:calendar.grid"],
         "body": [
             "// \u041a\u0430\u043b\u0435\u043d\u0434\u0430\u0440\u044c \u0441\u043e\u0431\u044b\u0442\u0438\u0439 2.0 - http://dev.1c-bitrix.ru/user_help/service/calendar/components/calendar_2_0.php",
             "$APPLICATION->IncludeComponent(",
@@ -3523,7 +3523,7 @@
         ]
     },
     "bitrix:calendar.livefeed.view": {
-        "prefix": "bitrix:calendar.livefeed.view",
+        "prefix": ["includecomponent__bitrix_calendar.livefeed.view", "bitrix:calendar.livefeed.view"],
         "body": [
             "// \u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 \u0441\u043e\u0431\u044b\u0442\u0438\u044f \u043a\u0430\u043b\u0435\u043d\u0434\u0430\u0440\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -3547,7 +3547,7 @@
         ]
     },
     "bitrix:calendar.events.list": {
-        "prefix": "bitrix:calendar.events.list",
+        "prefix": ["includecomponent__bitrix_calendar.events.list", "bitrix:calendar.events.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u0441\u043e\u0431\u044b\u0442\u0438\u0439 \u043a\u0430\u043b\u0435\u043d\u0434\u0430\u0440\u044f 2.0 - http://dev.1c-bitrix.ru/user_help/service/calendar/components/calendar_events_list.php",
             "$APPLICATION->IncludeComponent(",
@@ -3571,7 +3571,7 @@
         ]
     },
     "bitrix:calendar.livefeed.edit": {
-        "prefix": "bitrix:calendar.livefeed.edit",
+        "prefix": ["includecomponent__bitrix_calendar.livefeed.edit", "bitrix:calendar.livefeed.edit"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f \u0441\u043e\u0431\u044b\u0442\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -3595,7 +3595,7 @@
         ]
     },
     "bitrix:main.map": {
-        "prefix": "bitrix:main.map",
+        "prefix": ["includecomponent__bitrix_main.map", "bitrix:main.map"],
         "body": [
             "// \u041a\u0430\u0440\u0442\u0430 \u0441\u0430\u0439\u0442\u0430 - http://dev.1c-bitrix.ru/user_help/settings/settings/components_2/sitemap/main_map.php",
             "$APPLICATION->IncludeComponent(",
@@ -3620,7 +3620,7 @@
         ]
     },
     "bitrix:iblock.tv": {
-        "prefix": "bitrix:iblock.tv",
+        "prefix": ["includecomponent__bitrix_iblock.tv", "bitrix:iblock.tv"],
         "body": [
             "// \u0412\u0438\u0434\u0435\u043e\u0442\u0435\u043a\u0430 - http://dev.1c-bitrix.ru/user_help/content/fileman/components_2/media/iblock_tv.php",
             "$APPLICATION->IncludeComponent(",
@@ -3653,7 +3653,7 @@
         ]
     },
     "bitrix:player": {
-        "prefix": "bitrix:player",
+        "prefix": ["includecomponent__bitrix_player", "bitrix:player"],
         "body": [
             "// \u041c\u0435\u0434\u0438\u0430 \u043f\u0440\u043e\u0438\u0433\u0440\u044b\u0432\u0430\u0442\u0435\u043b\u044c - http://dev.1c-bitrix.ru/user_help/content/fileman/components_2/media/player.php",
             "$APPLICATION->IncludeComponent(",
@@ -3719,7 +3719,7 @@
         ]
     },
     "bitrix:map.yandex.view": {
-        "prefix": "bitrix:map.yandex.view",
+        "prefix": ["includecomponent__bitrix_map.yandex.view", "bitrix:map.yandex.view"],
         "body": [
             "// \u042f\u043d\u0434\u0435\u043a\u0441.\u041a\u0430\u0440\u0442\u044b: \u043d\u0430\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u0435\u043c\u0430\u044f \u043a\u0430\u0440\u0442\u0430 - http://dev.1c-bitrix.ru/user_help/content/fileman/components_2/yandex_map/map_yandex_view.php",
             "$APPLICATION->IncludeComponent(",
@@ -3742,7 +3742,7 @@
         ]
     },
     "bitrix:map.yandex.search": {
-        "prefix": "bitrix:map.yandex.search",
+        "prefix": ["includecomponent__bitrix_map.yandex.search", "bitrix:map.yandex.search"],
         "body": [
             "// \u042f\u043d\u0434\u0435\u043a\u0441.\u041a\u0430\u0440\u0442\u044b: \u043f\u043e\u0438\u0441\u043a \u043f\u043e \u0430\u0434\u0440\u0435\u0441\u0443 - http://dev.1c-bitrix.ru/user_help/content/fileman/components_2/yandex_map/map_yandex_search.php",
             "$APPLICATION->IncludeComponent(",
@@ -3765,7 +3765,7 @@
         ]
     },
     "bitrix:catalog.import.1c": {
-        "prefix": "bitrix:catalog.import.1c",
+        "prefix": ["includecomponent__bitrix_catalog.import.1c", "bitrix:catalog.import.1c"],
         "body": [
             "// \u0418\u043c\u043f\u043e\u0440\u0442 \u043a\u0430\u0442\u0430\u043b\u043e\u0433\u0430 \u0438\u0437 1\u0441",
             "$APPLICATION->IncludeComponent(",
@@ -3808,7 +3808,7 @@
         ]
     },
     "bitrix:catalog.export.1c": {
-        "prefix": "bitrix:catalog.export.1c",
+        "prefix": ["includecomponent__bitrix_catalog.export.1c", "bitrix:catalog.export.1c"],
         "body": [
             "// \u042d\u043a\u0441\u043f\u043e\u0440\u0442 \u043a\u0430\u0442\u0430\u043b\u043e\u0433\u0430 \u0432 1\u0441",
             "$APPLICATION->IncludeComponent(",
@@ -3829,7 +3829,7 @@
         ]
     },
     "bitrix:catalog.comments": {
-        "prefix": "bitrix:catalog.comments",
+        "prefix": ["includecomponent__bitrix_catalog.comments", "bitrix:catalog.comments"],
         "body": [
             "// \u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0438 \u043a \u0442\u043e\u0432\u0430\u0440\u0430\u043c",
             "$APPLICATION->IncludeComponent(",
@@ -3864,7 +3864,7 @@
         ]
     },
     "bitrix:catalog.socnets.buttons": {
-        "prefix": "bitrix:catalog.socnets.buttons",
+        "prefix": ["includecomponent__bitrix_catalog.socnets.buttons", "bitrix:catalog.socnets.buttons"],
         "body": [
             "// \u041a\u043d\u043e\u043f\u043a\u0438 \u0441\u043e\u0446\u0438\u0430\u043b\u044c\u043d\u044b\u0445 \u0441\u0435\u0442\u0435\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -3897,7 +3897,7 @@
         ]
     },
     "bitrix:furniture.vacancies": {
-        "prefix": "bitrix:furniture.vacancies",
+        "prefix": ["includecomponent__bitrix_furniture.vacancies", "bitrix:furniture.vacancies"],
         "body": [
             "// \u0412\u0430\u043a\u0430\u043d\u0441\u0438\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -3919,7 +3919,7 @@
         ]
     },
     "bitrix:support.faq": {
-        "prefix": "bitrix:support.faq",
+        "prefix": ["includecomponent__bitrix_support.faq", "bitrix:support.faq"],
         "body": [
             "// FAQ",
             "$APPLICATION->IncludeComponent(",
@@ -3960,7 +3960,7 @@
         ]
     },
     "bitrix:support.faq.element.detail": {
-        "prefix": "bitrix:support.faq.element.detail",
+        "prefix": ["includecomponent__bitrix_support.faq.element.detail", "bitrix:support.faq.element.detail"],
         "body": [
             "// \u0412\u043e\u043f\u0440\u043e\u0441 FAQ",
             "$APPLICATION->IncludeComponent(",
@@ -3994,7 +3994,7 @@
         ]
     },
     "bitrix:support.faq.element.list": {
-        "prefix": "bitrix:support.faq.element.list",
+        "prefix": ["includecomponent__bitrix_support.faq.element.list", "bitrix:support.faq.element.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u0432\u043e\u043f\u0440\u043e\u0441\u043e\u0432 FAQ \u0438\u0437 \u0441\u0435\u043a\u0446\u0438\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -4028,7 +4028,7 @@
         ]
     },
     "bitrix:support.faq.section.list": {
-        "prefix": "bitrix:support.faq.section.list",
+        "prefix": ["includecomponent__bitrix_support.faq.section.list", "bitrix:support.faq.section.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u043a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u0439 FAQ",
             "$APPLICATION->IncludeComponent(",
@@ -4057,7 +4057,7 @@
         ]
     },
     "bitrix:webservice.server": {
-        "prefix": "bitrix:webservice.server",
+        "prefix": ["includecomponent__bitrix_webservice.server", "bitrix:webservice.server"],
         "body": [
             "// SOAP&WSDL \u0441\u0435\u0440\u0432\u0435\u0440 - http://dev.1c-bitrix.ru/user_help/settings/webservice/components_2/webservice_server.php",
             "$APPLICATION->IncludeComponent(",
@@ -4074,7 +4074,7 @@
         ]
     },
     "bitrix:webservice.statistic": {
-        "prefix": "bitrix:webservice.statistic",
+        "prefix": ["includecomponent__bitrix_webservice.statistic", "bitrix:webservice.statistic"],
         "body": [
             "// \u0412\u0435\u0431-\u0441\u0435\u0440\u0432\u0438\u0441\u044b \u043c\u043e\u0434\u0443\u043b\u044f \u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0438 - http://dev.1c-bitrix.ru/user_help/settings/webservice/components_2/webservice_statistic.php",
             "$APPLICATION->IncludeComponent(",
@@ -4086,7 +4086,7 @@
         ]
     },
     "bitrix:webservice.checkauth": {
-        "prefix": "bitrix:webservice.checkauth",
+        "prefix": ["includecomponent__bitrix_webservice.checkauth", "bitrix:webservice.checkauth"],
         "body": [
             "// \u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u0430\u0443\u0442\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0438 - http://dev.1c-bitrix.ru/user_help/settings/webservice/components_2/webservice_checkauth.php",
             "$APPLICATION->IncludeComponent(",
@@ -4098,7 +4098,7 @@
         ]
     },
     "bitrix:form": {
-        "prefix": "bitrix:form",
+        "prefix": ["includecomponent__bitrix_form", "bitrix:form"],
         "body": [
             "// \u0412\u0435\u0431-\u0444\u043e\u0440\u043c\u0430 - http://dev.1c-bitrix.ru/user_help/service/form/components_2/form.php",
             "$APPLICATION->IncludeComponent(",
@@ -4157,7 +4157,7 @@
         ]
     },
     "bitrix:form.result.new": {
-        "prefix": "bitrix:form.result.new",
+        "prefix": ["includecomponent__bitrix_form.result.new", "bitrix:form.result.new"],
         "body": [
             "// \u0417\u0430\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u0435 \u0432\u0435\u0431-\u0444\u043e\u0440\u043c\u044b - http://dev.1c-bitrix.ru/user_help/service/form/components_2/form_result_new.php",
             "$APPLICATION->IncludeComponent(",
@@ -4194,7 +4194,7 @@
         ]
     },
     "bitrix:form.result.view": {
-        "prefix": "bitrix:form.result.view",
+        "prefix": ["includecomponent__bitrix_form.result.view", "bitrix:form.result.view"],
         "body": [
             "// \u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u0430 - http://dev.1c-bitrix.ru/user_help/service/form/components_2/form_result_view.php",
             "$APPLICATION->IncludeComponent(",
@@ -4222,7 +4222,7 @@
         ]
     },
     "bitrix:form.result.edit": {
-        "prefix": "bitrix:form.result.edit",
+        "prefix": ["includecomponent__bitrix_form.result.edit", "bitrix:form.result.edit"],
         "body": [
             "// \u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u0430 - http://dev.1c-bitrix.ru/user_help/service/form/components_2/form_result_edit.php",
             "$APPLICATION->IncludeComponent(",
@@ -4254,7 +4254,7 @@
         ]
     },
     "bitrix:form.result.list": {
-        "prefix": "bitrix:form.result.list",
+        "prefix": ["includecomponent__bitrix_form.result.list", "bitrix:form.result.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u043e\u0432 - http://dev.1c-bitrix.ru/user_help/service/form/components_2/form_result_list.php",
             "$APPLICATION->IncludeComponent(",
@@ -4285,7 +4285,7 @@
         ]
     },
     "bitrix:form.result.list.my": {
-        "prefix": "bitrix:form.result.list.my",
+        "prefix": ["includecomponent__bitrix_form.result.list.my", "bitrix:form.result.list.my"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u0441\u0432\u043e\u0438\u0445 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u043e\u0432 - http://dev.1c-bitrix.ru/user_help/service/form/components_2/form_result_list_my.php",
             "$APPLICATION->IncludeComponent(",
@@ -4306,7 +4306,7 @@
         ]
     },
     "bitrix:idea": {
-        "prefix": "bitrix:idea",
+        "prefix": ["includecomponent__bitrix_idea", "bitrix:idea"],
         "body": [
             "// \u0418\u0434\u0435\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -4387,7 +4387,7 @@
         ]
     },
     "bitrix:idea.popup": {
-        "prefix": "bitrix:idea.popup",
+        "prefix": ["includecomponent__bitrix_idea.popup", "bitrix:idea.popup"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u0434\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u0438\u0438 \u0438\u0434\u0435\u0438 (popup)",
             "$APPLICATION->IncludeComponent(",
@@ -4423,7 +4423,7 @@
         ]
     },
     "bitrix:learning.course": {
-        "prefix": "bitrix:learning.course",
+        "prefix": ["includecomponent__bitrix_learning.course", "bitrix:learning.course"],
         "body": [
             "// \u0423\u0447\u0435\u0431\u043d\u044b\u0439 \u043a\u0443\u0440\u0441",
             "$APPLICATION->IncludeComponent(",
@@ -4478,7 +4478,7 @@
         ]
     },
     "bitrix:learning.course.contents": {
-        "prefix": "bitrix:learning.course.contents",
+        "prefix": ["includecomponent__bitrix_learning.course.contents", "bitrix:learning.course.contents"],
         "body": [
             "// \u0412\u0441\u0435 \u043c\u0430\u0442\u0435\u0440\u0438\u0430\u043b\u044b \u043a\u0443\u0440\u0441\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -4502,7 +4502,7 @@
         ]
     },
     "bitrix:learning.course.tree": {
-        "prefix": "bitrix:learning.course.tree",
+        "prefix": ["includecomponent__bitrix_learning.course.tree", "bitrix:learning.course.tree"],
         "body": [
             "// \u0414\u0435\u0440\u0435\u0432\u043e \u043a\u0443\u0440\u0441\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -4529,7 +4529,7 @@
         ]
     },
     "bitrix:learning.course.detail": {
-        "prefix": "bitrix:learning.course.detail",
+        "prefix": ["includecomponent__bitrix_learning.course.detail", "bitrix:learning.course.detail"],
         "body": [
             "// \u0414\u0435\u0442\u0430\u043b\u044c\u043d\u044b\u0439 \u0432\u044b\u0432\u043e\u0434 \u043a\u0443\u0440\u0441\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -4553,7 +4553,7 @@
         ]
     },
     "bitrix:learning.course.list": {
-        "prefix": "bitrix:learning.course.list",
+        "prefix": ["includecomponent__bitrix_learning.course.list", "bitrix:learning.course.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u043a\u0443\u0440\u0441\u043e\u0432",
             "$APPLICATION->IncludeComponent(",
@@ -4575,7 +4575,7 @@
         ]
     },
     "bitrix:learning.search": {
-        "prefix": "bitrix:learning.search",
+        "prefix": ["includecomponent__bitrix_learning.search", "bitrix:learning.search"],
         "body": [
             "// \u041f\u043e\u0438\u0441\u043a \u043f\u043e \u043a\u0443\u0440\u0441\u0430\u043c",
             "$APPLICATION->IncludeComponent(",
@@ -4594,7 +4594,7 @@
         ]
     },
     "bitrix:learning.student.gradebook": {
-        "prefix": "bitrix:learning.student.gradebook",
+        "prefix": ["includecomponent__bitrix_learning.student.gradebook", "bitrix:learning.student.gradebook"],
         "body": [
             "// \u0416\u0443\u0440\u043d\u0430\u043b \u0441\u0442\u0443\u0434\u0435\u043d\u0442\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -4614,7 +4614,7 @@
         ]
     },
     "bitrix:learning.student.certificates": {
-        "prefix": "bitrix:learning.student.certificates",
+        "prefix": ["includecomponent__bitrix_learning.student.certificates", "bitrix:learning.student.certificates"],
         "body": [
             "// \u041e\u0442\u0447\u0435\u0442 \u043f\u043e \u043a\u0443\u0440\u0441\u0430\u043c",
             "$APPLICATION->IncludeComponent(",
@@ -4633,7 +4633,7 @@
         ]
     },
     "bitrix:learning.student.profile": {
-        "prefix": "bitrix:learning.student.profile",
+        "prefix": ["includecomponent__bitrix_learning.student.profile", "bitrix:learning.student.profile"],
         "body": [
             "// \u041f\u0440\u043e\u0444\u0438\u043b\u044c \u0441\u0442\u0443\u0434\u0435\u043d\u0442\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -4651,7 +4651,7 @@
         ]
     },
     "bitrix:learning.student.transcript": {
-        "prefix": "bitrix:learning.student.transcript",
+        "prefix": ["includecomponent__bitrix_learning.student.transcript", "bitrix:learning.student.transcript"],
         "body": [
             "// \u0420\u0435\u0437\u044e\u043c\u0435 \u0441\u0442\u0443\u0434\u0435\u043d\u0442\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -4670,7 +4670,7 @@
         ]
     },
     "bitrix:learning.test": {
-        "prefix": "bitrix:learning.test",
+        "prefix": ["includecomponent__bitrix_learning.test", "bitrix:learning.test"],
         "body": [
             "// \u041a\u043e\u043d\u0442\u0440\u043e\u043b\u044c\u043d\u044b\u0439 \u0442\u0435\u0441\u0442",
             "$APPLICATION->IncludeComponent(",
@@ -4695,7 +4695,7 @@
         ]
     },
     "bitrix:learning.test.self": {
-        "prefix": "bitrix:learning.test.self",
+        "prefix": ["includecomponent__bitrix_learning.test.self", "bitrix:learning.test.self"],
         "body": [
             "// \u0421\u0430\u043c\u043e\u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -4720,7 +4720,7 @@
         ]
     },
     "bitrix:learning.test.list": {
-        "prefix": "bitrix:learning.test.list",
+        "prefix": ["includecomponent__bitrix_learning.test.list", "bitrix:learning.test.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u0442\u0435\u0441\u0442\u043e\u0432",
             "$APPLICATION->IncludeComponent(",
@@ -4743,7 +4743,7 @@
         ]
     },
     "bitrix:learning.chapter.detail": {
-        "prefix": "bitrix:learning.chapter.detail",
+        "prefix": ["includecomponent__bitrix_learning.chapter.detail", "bitrix:learning.chapter.detail"],
         "body": [
             "// \u0414\u0435\u0442\u0430\u043b\u044c\u043d\u044b\u0439 \u0432\u044b\u0432\u043e\u0434 \u0433\u043b\u0430\u0432\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -4773,7 +4773,7 @@
         ]
     },
     "bitrix:learning.lesson.detail": {
-        "prefix": "bitrix:learning.lesson.detail",
+        "prefix": ["includecomponent__bitrix_learning.lesson.detail", "bitrix:learning.lesson.detail"],
         "body": [
             "// \u0414\u0435\u0442\u0430\u043b\u044c\u043d\u044b\u0439 \u0432\u044b\u0432\u043e\u0434 \u0443\u0440\u043e\u043a\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -4802,7 +4802,7 @@
         ]
     },
     "bitrix:voting.current": {
-        "prefix": "bitrix:voting.current",
+        "prefix": ["includecomponent__bitrix_voting.current", "bitrix:voting.current"],
         "body": [
             "// \u0422\u0435\u043a\u0443\u0449\u0438\u0439 \u043e\u043f\u0440\u043e\u0441",
             "$APPLICATION->IncludeComponent(",
@@ -4831,7 +4831,7 @@
         ]
     },
     "bitrix:voting.result": {
-        "prefix": "bitrix:voting.result",
+        "prefix": ["includecomponent__bitrix_voting.result", "bitrix:voting.result"],
         "body": [
             "// \u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u044b \u043e\u043f\u0440\u043e\u0441\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -4852,7 +4852,7 @@
         ]
     },
     "bitrix:voting.list": {
-        "prefix": "bitrix:voting.list",
+        "prefix": ["includecomponent__bitrix_voting.list", "bitrix:voting.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u043e\u043f\u0440\u043e\u0441\u043e\u0432",
             "$APPLICATION->IncludeComponent(",
@@ -4871,7 +4871,7 @@
         ]
     },
     "bitrix:voting.form": {
-        "prefix": "bitrix:voting.form",
+        "prefix": ["includecomponent__bitrix_voting.form", "bitrix:voting.form"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u043e\u043f\u0440\u043e\u0441\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -4894,7 +4894,7 @@
         ]
     },
     "bitrix:subscribe.news": {
-        "prefix": "bitrix:subscribe.news",
+        "prefix": ["includecomponent__bitrix_subscribe.news", "bitrix:subscribe.news"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u043d\u043e\u0432\u043e\u0441\u0442\u0435\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -4913,7 +4913,7 @@
         ]
     },
     "bitrix:subscribe.index": {
-        "prefix": "bitrix:subscribe.index",
+        "prefix": ["includecomponent__bitrix_subscribe.index", "bitrix:subscribe.index"],
         "body": [
             "// \u0421\u0442\u0440\u0430\u043d\u0438\u0446\u0430 \u0440\u0430\u0441\u0441\u044b\u043b\u043e\u043a",
             "$APPLICATION->IncludeComponent(",
@@ -4940,7 +4940,7 @@
         ]
     },
     "bitrix:subscribe.edit": {
-        "prefix": "bitrix:subscribe.edit",
+        "prefix": ["includecomponent__bitrix_subscribe.edit", "bitrix:subscribe.edit"],
         "body": [
             "// \u0421\u0442\u0440\u0430\u043d\u0438\u0446\u0430 \u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f \u043f\u043e\u0434\u043f\u0438\u0441\u043a\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -4972,7 +4972,7 @@
         ]
     },
     "bitrix:subscribe.simple": {
-        "prefix": "bitrix:subscribe.simple",
+        "prefix": ["includecomponent__bitrix_subscribe.simple", "bitrix:subscribe.simple"],
         "body": [
             "// \u0423\u043f\u0440\u043e\u0449\u0435\u043d\u043d\u043e\u0435 \u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u043f\u043e\u0434\u043f\u0438\u0441\u043a\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -5002,7 +5002,7 @@
         ]
     },
     "bitrix:subscribe.form": {
-        "prefix": "bitrix:subscribe.form",
+        "prefix": ["includecomponent__bitrix_subscribe.form", "bitrix:subscribe.form"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u043f\u043e\u0434\u043f\u0438\u0441\u043a\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -5028,7 +5028,7 @@
         ]
     },
     "bitrix:advertising.banner": {
-        "prefix": "bitrix:advertising.banner",
+        "prefix": ["includecomponent__bitrix_advertising.banner", "bitrix:advertising.banner"],
         "body": [
             "// \u0411\u0430\u043d\u043d\u0435\u0440",
             "$APPLICATION->IncludeComponent(",
@@ -5049,7 +5049,7 @@
         ]
     },
     "bitrix:support.ticket": {
-        "prefix": "bitrix:support.ticket",
+        "prefix": ["includecomponent__bitrix_support.ticket", "bitrix:support.ticket"],
         "body": [
             "// \u0422\u0435\u0445\u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -5077,7 +5077,7 @@
         ]
     },
     "bitrix:support.wizard": {
-        "prefix": "bitrix:support.wizard",
+        "prefix": ["includecomponent__bitrix_support.wizard", "bitrix:support.wizard"],
         "body": [
             "// \u0422\u0435\u0445\u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0430 \u0441 \u043c\u0430\u0441\u0442\u0435\u0440\u043e\u043c",
             "$APPLICATION->IncludeComponent(",
@@ -5120,7 +5120,7 @@
         ]
     },
     "bitrix:support.ticket.edit": {
-        "prefix": "bitrix:support.ticket.edit",
+        "prefix": ["includecomponent__bitrix_support.ticket.edit", "bitrix:support.ticket.edit"],
         "body": [
             "// \u0421\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u043d\u043e\u0432\u043e\u0433\u043e, \u043b\u0438\u0431\u043e \u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044e\u0449\u0435\u0433\u043e \u043e\u0431\u0440\u0430\u0449\u0435\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -5145,7 +5145,7 @@
         ]
     },
     "bitrix:support.ticket.list": {
-        "prefix": "bitrix:support.ticket.list",
+        "prefix": ["includecomponent__bitrix_support.ticket.list", "bitrix:support.ticket.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u043e\u0431\u0440\u0430\u0449\u0435\u043d\u0438\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -5165,7 +5165,7 @@
         ]
     },
     "bitrix:iblock.wizard": {
-        "prefix": "bitrix:iblock.wizard",
+        "prefix": ["includecomponent__bitrix_iblock.wizard", "bitrix:iblock.wizard"],
         "body": [
             "// \u041c\u0430\u0441\u0442\u0435\u0440 \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f \u043e\u0431\u0440\u0430\u0449\u0435\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -5200,7 +5200,7 @@
         ]
     },
     "bitrix:bizproc.wizards": {
-        "prefix": "bitrix:bizproc.wizards",
+        "prefix": ["includecomponent__bitrix_bizproc.wizards", "bitrix:bizproc.wizards"],
         "body": [
             "// \u0411\u0438\u0437\u043d\u0435\u0441-\u043f\u0440\u043e\u0446\u0435\u0441\u0441",
             "$APPLICATION->IncludeComponent(",
@@ -5244,7 +5244,7 @@
         ]
     },
     "bitrix:blog": {
-        "prefix": "bitrix:blog",
+        "prefix": ["includecomponent__bitrix_blog", "bitrix:blog"],
         "body": [
             "// \u0411\u043b\u043e\u0433\u0438 - http://dev.1c-bitrix.ru/user_help/service/blogs/components_2/blog.php",
             "$APPLICATION->IncludeComponent(",
@@ -5336,7 +5336,7 @@
         ]
     },
     "bitrix:blog.blog": {
-        "prefix": "bitrix:blog.blog",
+        "prefix": ["includecomponent__bitrix_blog.blog", "bitrix:blog.blog"],
         "body": [
             "// \u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f \u0431\u043b\u043e\u0433\u0430 - http://dev.1c-bitrix.ru/user_help/service/blogs/components_2/blog_blog.php",
             "$APPLICATION->IncludeComponent(",
@@ -5392,7 +5392,7 @@
         ]
     },
     "bitrix:blog.blog.draft": {
-        "prefix": "bitrix:blog.blog.draft",
+        "prefix": ["includecomponent__bitrix_blog.blog.draft", "bitrix:blog.blog.draft"],
         "body": [
             "// \u0427\u0435\u0440\u043d\u043e\u0432\u0438\u043a\u0438 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0439 \u0431\u043b\u043e\u0433\u0430 - http://dev.1c-bitrix.ru/user_help/service/blogs/components_2/blog_blog_draft.php",
             "$APPLICATION->IncludeComponent(",
@@ -5426,7 +5426,7 @@
         ]
     },
     "bitrix:blog.blog.moderation": {
-        "prefix": "bitrix:blog.blog.moderation",
+        "prefix": ["includecomponent__bitrix_blog.blog.moderation", "bitrix:blog.blog.moderation"],
         "body": [
             "// \u041d\u0435\u043e\u043f\u0443\u0431\u043b\u0438\u043a\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f \u0431\u043b\u043e\u0433\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -5460,7 +5460,7 @@
         ]
     },
     "bitrix:blog.friends": {
-        "prefix": "bitrix:blog.friends",
+        "prefix": ["includecomponent__bitrix_blog.friends", "bitrix:blog.friends"],
         "body": [
             "// \u041b\u0435\u043d\u0442\u0430 \u0434\u0440\u0443\u0437\u0435\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -5500,7 +5500,7 @@
         ]
     },
     "bitrix:blog.new_posts.list": {
-        "prefix": "bitrix:blog.new_posts.list",
+        "prefix": ["includecomponent__bitrix_blog.new_posts.list", "bitrix:blog.new_posts.list"],
         "body": [
             "// \u041f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f \u0432\u0441\u0435\u0445 \u0431\u043b\u043e\u0433\u043e\u0432",
             "$APPLICATION->IncludeComponent(",
@@ -5550,7 +5550,7 @@
         ]
     },
     "bitrix:blog.post": {
-        "prefix": "bitrix:blog.post",
+        "prefix": ["includecomponent__bitrix_blog.post", "bitrix:blog.post"],
         "body": [
             "// \u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435 \u0434\u0435\u0442\u0430\u043b\u044c\u043d\u043e",
             "$APPLICATION->IncludeComponent(",
@@ -5597,7 +5597,7 @@
         ]
     },
     "bitrix:blog.post.comment": {
-        "prefix": "bitrix:blog.post.comment",
+        "prefix": ["includecomponent__bitrix_blog.post.comment", "bitrix:blog.post.comment"],
         "body": [
             "// \u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0438 \u043a \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044e",
             "$APPLICATION->IncludeComponent(",
@@ -5652,7 +5652,7 @@
         ]
     },
     "bitrix:blog.new_blogs": {
-        "prefix": "bitrix:blog.new_blogs",
+        "prefix": ["includecomponent__bitrix_blog.new_blogs", "bitrix:blog.new_blogs"],
         "body": [
             "// \u041d\u043e\u0432\u044b\u0435 \u0431\u043b\u043e\u0433\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -5693,7 +5693,7 @@
         ]
     },
     "bitrix:blog.popular_blogs": {
-        "prefix": "bitrix:blog.popular_blogs",
+        "prefix": ["includecomponent__bitrix_blog.popular_blogs", "bitrix:blog.popular_blogs"],
         "body": [
             "// \u041f\u043e\u043f\u0443\u043b\u044f\u0440\u043d\u044b\u0435 \u0431\u043b\u043e\u0433\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -5735,7 +5735,7 @@
         ]
     },
     "bitrix:blog.new_posts": {
-        "prefix": "bitrix:blog.new_posts",
+        "prefix": ["includecomponent__bitrix_blog.new_posts", "bitrix:blog.new_posts"],
         "body": [
             "// \u041d\u043e\u0432\u044b\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -5779,7 +5779,7 @@
         ]
     },
     "bitrix:blog.popular_posts": {
-        "prefix": "bitrix:blog.popular_posts",
+        "prefix": ["includecomponent__bitrix_blog.popular_posts", "bitrix:blog.popular_posts"],
         "body": [
             "// \u041f\u043e\u043f\u0443\u043b\u044f\u0440\u043d\u044b\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -5825,7 +5825,7 @@
         ]
     },
     "bitrix:blog.commented_posts": {
-        "prefix": "bitrix:blog.commented_posts",
+        "prefix": ["includecomponent__bitrix_blog.commented_posts", "bitrix:blog.commented_posts"],
         "body": [
             "// \u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0438\u0440\u0443\u0435\u043c\u044b\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -5869,7 +5869,7 @@
         ]
     },
     "bitrix:blog.new_comments": {
-        "prefix": "bitrix:blog.new_comments",
+        "prefix": ["includecomponent__bitrix_blog.new_comments", "bitrix:blog.new_comments"],
         "body": [
             "// \u041d\u043e\u0432\u044b\u0435 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -5910,7 +5910,7 @@
         ]
     },
     "bitrix:blog.groups": {
-        "prefix": "bitrix:blog.groups",
+        "prefix": ["includecomponent__bitrix_blog.groups", "bitrix:blog.groups"],
         "body": [
             "// \u0413\u0440\u0443\u043f\u043f\u044b \u0431\u043b\u043e\u0433\u043e\u0432",
             "$APPLICATION->IncludeComponent(",
@@ -5944,7 +5944,7 @@
         ]
     },
     "bitrix:blog.group.blog": {
-        "prefix": "bitrix:blog.group.blog",
+        "prefix": ["includecomponent__bitrix_blog.group.blog", "bitrix:blog.group.blog"],
         "body": [
             "// \u0411\u043b\u043e\u0433\u0438 \u0433\u0440\u0443\u043f\u043f\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -5984,7 +5984,7 @@
         ]
     },
     "bitrix:blog.blog.edit": {
-        "prefix": "bitrix:blog.blog.edit",
+        "prefix": ["includecomponent__bitrix_blog.blog.edit", "bitrix:blog.blog.edit"],
         "body": [
             "// \u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u0431\u043b\u043e\u0433\u0430 - http://dev.1c-bitrix.ru/user_help/service/blogs/components_2/blog_blog_edit.php",
             "$APPLICATION->IncludeComponent(",
@@ -6011,7 +6011,7 @@
         ]
     },
     "bitrix:blog.post.edit": {
-        "prefix": "bitrix:blog.post.edit",
+        "prefix": ["includecomponent__bitrix_blog.post.edit", "bitrix:blog.post.edit"],
         "body": [
             "// \u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -6057,7 +6057,7 @@
         ]
     },
     "bitrix:blog.info": {
-        "prefix": "bitrix:blog.info",
+        "prefix": ["includecomponent__bitrix_blog.info", "bitrix:blog.info"],
         "body": [
             "// \u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u0431\u043b\u043e\u0433\u0435",
             "$APPLICATION->IncludeComponent(",
@@ -6093,7 +6093,7 @@
         ]
     },
     "bitrix:blog.menu": {
-        "prefix": "bitrix:blog.menu",
+        "prefix": ["includecomponent__bitrix_blog.menu", "bitrix:blog.menu"],
         "body": [
             "// \u041c\u0435\u043d\u044e \u0431\u043b\u043e\u0433\u043e\u0432",
             "$APPLICATION->IncludeComponent(",
@@ -6129,7 +6129,7 @@
         ]
     },
     "bitrix:blog.calendar": {
-        "prefix": "bitrix:blog.calendar",
+        "prefix": ["includecomponent__bitrix_blog.calendar", "bitrix:blog.calendar"],
         "body": [
             "// \u041a\u0430\u043b\u0435\u043d\u0434\u0430\u0440\u044c - http://dev.1c-bitrix.ru/user_help/service/blogs/components_2/blog_calendar.php",
             "$APPLICATION->IncludeComponent(",
@@ -6161,7 +6161,7 @@
         ]
     },
     "bitrix:blog.category": {
-        "prefix": "bitrix:blog.category",
+        "prefix": ["includecomponent__bitrix_blog.category", "bitrix:blog.category"],
         "body": [
             "// \u0422\u0435\u0433\u0438 \u0431\u043b\u043e\u0433\u0430 - http://dev.1c-bitrix.ru/user_help/service/blogs/components_2/blog_category.php",
             "$APPLICATION->IncludeComponent(",
@@ -6179,7 +6179,7 @@
         ]
     },
     "bitrix:blog.blog.favorite": {
-        "prefix": "bitrix:blog.blog.favorite",
+        "prefix": ["includecomponent__bitrix_blog.blog.favorite", "bitrix:blog.blog.favorite"],
         "body": [
             "// \u041b\u0443\u0447\u0448\u0438\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f \u0431\u043b\u043e\u0433\u0430 - http://dev.1c-bitrix.ru/user_help/service/blogs/components_2/blog_blog_favorite.php",
             "$APPLICATION->IncludeComponent(",
@@ -6218,7 +6218,7 @@
         ]
     },
     "bitrix:blog.rss": {
-        "prefix": "bitrix:blog.rss",
+        "prefix": ["includecomponent__bitrix_blog.rss", "bitrix:blog.rss"],
         "body": [
             "// RSS \u0431\u043b\u043e\u0433\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -6257,7 +6257,7 @@
         ]
     },
     "bitrix:blog.rss.all": {
-        "prefix": "bitrix:blog.rss.all",
+        "prefix": ["includecomponent__bitrix_blog.rss.all", "bitrix:blog.rss.all"],
         "body": [
             "// RSS \u0431\u043b\u043e\u0433\u043e\u0432 \u043f\u043e \u0433\u0440\u0443\u043f\u043f\u0430\u043c/\u0441\u0430\u0439\u0442\u0430\u043c",
             "$APPLICATION->IncludeComponent(",
@@ -6293,7 +6293,7 @@
         ]
     },
     "bitrix:blog.rss.link": {
-        "prefix": "bitrix:blog.rss.link",
+        "prefix": ["includecomponent__bitrix_blog.rss.link", "bitrix:blog.rss.link"],
         "body": [
             "// \u0421\u0441\u044b\u043b\u043a\u0438 \u043d\u0430 RSS \u0431\u043b\u043e\u0433\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -6325,7 +6325,7 @@
         ]
     },
     "bitrix:blog.search": {
-        "prefix": "bitrix:blog.search",
+        "prefix": ["includecomponent__bitrix_blog.search", "bitrix:blog.search"],
         "body": [
             "// \u041f\u043e\u0438\u0441\u043a \u043f\u043e \u0431\u043b\u043e\u0433\u0430\u043c",
             "$APPLICATION->IncludeComponent(",
@@ -6357,7 +6357,7 @@
         ]
     },
     "bitrix:blog.user": {
-        "prefix": "bitrix:blog.user",
+        "prefix": ["includecomponent__bitrix_blog.user", "bitrix:blog.user"],
         "body": [
             "// \u041f\u0440\u043e\u0444\u0438\u043b\u044c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -6390,7 +6390,7 @@
         ]
     },
     "bitrix:blog.user.group": {
-        "prefix": "bitrix:blog.user.group",
+        "prefix": ["includecomponent__bitrix_blog.user.group", "bitrix:blog.user.group"],
         "body": [
             "// \u0413\u0440\u0443\u043f\u043f\u044b \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439 \u0431\u043b\u043e\u0433\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -6408,7 +6408,7 @@
         ]
     },
     "bitrix:blog.user.settings": {
-        "prefix": "bitrix:blog.user.settings",
+        "prefix": ["includecomponent__bitrix_blog.user.settings", "bitrix:blog.user.settings"],
         "body": [
             "// \u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439 \u0431\u043b\u043e\u0433\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -6435,7 +6435,7 @@
         ]
     },
     "bitrix:blog.user.settings.edit": {
-        "prefix": "bitrix:blog.user.settings.edit",
+        "prefix": ["includecomponent__bitrix_blog.user.settings.edit", "bitrix:blog.user.settings.edit"],
         "body": [
             "// \u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043f\u0440\u0430\u0432 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f \u0431\u043b\u043e\u0433\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -6463,7 +6463,7 @@
         ]
     },
     "bitrix:blog.metaweblog": {
-        "prefix": "bitrix:blog.metaweblog",
+        "prefix": ["includecomponent__bitrix_blog.metaweblog", "bitrix:blog.metaweblog"],
         "body": [
             "// \u041f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 \u0434\u0430\u043d\u043d\u044b\u0445 \u0432 \u0444\u043e\u0440\u043c\u0430\u0442\u0435 metaWeblog",
             "$APPLICATION->IncludeComponent(",
@@ -6475,7 +6475,7 @@
         ]
     },
     "bitrix:blog.post.trackback": {
-        "prefix": "bitrix:blog.post.trackback",
+        "prefix": ["includecomponent__bitrix_blog.post.trackback", "bitrix:blog.post.trackback"],
         "body": [
             "// Trackback\u0438 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -6507,7 +6507,7 @@
         ]
     },
     "bitrix:blog.post.trackback.get": {
-        "prefix": "bitrix:blog.post.trackback.get",
+        "prefix": ["includecomponent__bitrix_blog.post.trackback.get", "bitrix:blog.post.trackback.get"],
         "body": [
             "// \u041f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 Trackback\u043e\u0432 \u043a \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044e",
             "$APPLICATION->IncludeComponent(",
@@ -6531,7 +6531,7 @@
         ]
     },
     "bitrix:socialnetwork": {
-        "prefix": "bitrix:socialnetwork",
+        "prefix": ["includecomponent__bitrix_socialnetwork", "bitrix:socialnetwork"],
         "body": [
             "// \u0421\u043e\u0446\u0438\u0430\u043b\u044c\u043d\u0430\u044f \u0441\u0435\u0442\u044c",
             "$APPLICATION->IncludeComponent(",
@@ -6742,7 +6742,7 @@
         ]
     },
     "bitrix:socialnetwork_group": {
-        "prefix": "bitrix:socialnetwork_group",
+        "prefix": ["includecomponent__bitrix_socialnetwork_group", "bitrix:socialnetwork_group"],
         "body": [
             "// \u0421\u043e\u0446\u0438\u0430\u043b\u044c\u043d\u0430\u044f \u0441\u0435\u0442\u044c - \u0433\u0440\u0443\u043f\u043f\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -6909,7 +6909,7 @@
         ]
     },
     "bitrix:socialnetwork_user": {
-        "prefix": "bitrix:socialnetwork_user",
+        "prefix": ["includecomponent__bitrix_socialnetwork_user", "bitrix:socialnetwork_user"],
         "body": [
             "// \u0421\u043e\u0446\u0438\u0430\u043b\u044c\u043d\u0430\u044f \u0441\u0435\u0442\u044c - \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c",
             "$APPLICATION->IncludeComponent(",
@@ -7092,7 +7092,7 @@
         ]
     },
     "bitrix:socialnetwork.blog.menu": {
-        "prefix": "bitrix:socialnetwork.blog.menu",
+        "prefix": ["includecomponent__bitrix_socialnetwork.blog.menu", "bitrix:socialnetwork.blog.menu"],
         "body": [
             "// \u041c\u0435\u043d\u044e \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -7118,7 +7118,7 @@
         ]
     },
     "bitrix:socialnetwork.forum.topic.last": {
-        "prefix": "bitrix:socialnetwork.forum.topic.last",
+        "prefix": ["includecomponent__bitrix_socialnetwork.forum.topic.last", "bitrix:socialnetwork.forum.topic.last"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0445 \u0442\u0435\u043c",
             "$APPLICATION->IncludeComponent(",
@@ -7145,7 +7145,7 @@
         ]
     },
     "bitrix:socialnetwork.forum.topic.new": {
-        "prefix": "bitrix:socialnetwork.forum.topic.new",
+        "prefix": ["includecomponent__bitrix_socialnetwork.forum.topic.new", "bitrix:socialnetwork.forum.topic.new"],
         "body": [
             "// \u0422\u0435\u043c\u0430 (\u0441\u043e\u0437\u0434\u0430\u043d\u0438\u0435)",
             "$APPLICATION->IncludeComponent(",
@@ -7181,7 +7181,7 @@
         ]
     },
     "bitrix:socialnetwork.forum.topic.read": {
-        "prefix": "bitrix:socialnetwork.forum.topic.read",
+        "prefix": ["includecomponent__bitrix_socialnetwork.forum.topic.read", "bitrix:socialnetwork.forum.topic.read"],
         "body": [
             "// \u0422\u0435\u043c\u0430 (\u0447\u0442\u0435\u043d\u0438\u0435)",
             "$APPLICATION->IncludeComponent(",
@@ -7229,7 +7229,7 @@
         ]
     },
     "bitrix:socialnetwork.forum.topic.list": {
-        "prefix": "bitrix:socialnetwork.forum.topic.list",
+        "prefix": ["includecomponent__bitrix_socialnetwork.forum.topic.list", "bitrix:socialnetwork.forum.topic.list"],
         "body": [
             "// \u0422\u0435\u043c\u044b (\u0441\u043f\u0438\u0441\u043e\u043a)",
             "$APPLICATION->IncludeComponent(",
@@ -7270,7 +7270,7 @@
         ]
     },
     "bitrix:socialnetwork.user_search_input": {
-        "prefix": "bitrix:socialnetwork.user_search_input",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_search_input", "bitrix:socialnetwork.user_search_input"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u0432\u0432\u043e\u0434\u0430 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -7288,7 +7288,7 @@
         ]
     },
     "bitrix:socialnetwork.forum.post_form": {
-        "prefix": "bitrix:socialnetwork.forum.post_form",
+        "prefix": ["includecomponent__bitrix_socialnetwork.forum.post_form", "bitrix:socialnetwork.forum.post_form"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -7325,7 +7325,7 @@
         ]
     },
     "bitrix:socialnetwork.blog.blog": {
-        "prefix": "bitrix:socialnetwork.blog.blog",
+        "prefix": ["includecomponent__bitrix_socialnetwork.blog.blog", "bitrix:socialnetwork.blog.blog"],
         "body": [
             "// \u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -7380,7 +7380,7 @@
         ]
     },
     "bitrix:socialnetwork.blog.moderation": {
-        "prefix": "bitrix:socialnetwork.blog.moderation",
+        "prefix": ["includecomponent__bitrix_socialnetwork.blog.moderation", "bitrix:socialnetwork.blog.moderation"],
         "body": [
             "// \u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f - \u043c\u043e\u0434\u0435\u0440\u0430\u0446\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -7426,7 +7426,7 @@
         ]
     },
     "bitrix:socialnetwork.blog.draft": {
-        "prefix": "bitrix:socialnetwork.blog.draft",
+        "prefix": ["includecomponent__bitrix_socialnetwork.blog.draft", "bitrix:socialnetwork.blog.draft"],
         "body": [
             "// \u0427\u0435\u0440\u043d\u043e\u0432\u0438\u043a\u0438 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -7472,7 +7472,7 @@
         ]
     },
     "bitrix:socialnetwork.blog.post": {
-        "prefix": "bitrix:socialnetwork.blog.post",
+        "prefix": ["includecomponent__bitrix_socialnetwork.blog.post", "bitrix:socialnetwork.blog.post"],
         "body": [
             "// \u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435 \u0434\u0435\u0442\u0430\u043b\u044c\u043d\u043e",
             "$APPLICATION->IncludeComponent(",
@@ -7516,7 +7516,7 @@
         ]
     },
     "bitrix:socialnetwork.blog.post.comment": {
-        "prefix": "bitrix:socialnetwork.blog.post.comment",
+        "prefix": ["includecomponent__bitrix_socialnetwork.blog.post.comment", "bitrix:socialnetwork.blog.post.comment"],
         "body": [
             "// \u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0438 \u043a \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044e",
             "$APPLICATION->IncludeComponent(",
@@ -7561,7 +7561,7 @@
         ]
     },
     "bitrix:socialnetwork.group": {
-        "prefix": "bitrix:socialnetwork.group",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group", "bitrix:socialnetwork.group"],
         "body": [
             "// \u041f\u0440\u043e\u0444\u0438\u043b\u044c \u0433\u0440\u0443\u043f\u043f\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -7609,7 +7609,7 @@
         ]
     },
     "bitrix:socialnetwork.user_profile": {
-        "prefix": "bitrix:socialnetwork.user_profile",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_profile", "bitrix:socialnetwork.user_profile"],
         "body": [
             "// \u041f\u0440\u043e\u0444\u0438\u043b\u044c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -7668,7 +7668,7 @@
         ]
     },
     "bitrix:socialnetwork.user_profile_edit": {
-        "prefix": "bitrix:socialnetwork.user_profile_edit",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_profile_edit", "bitrix:socialnetwork.user_profile_edit"],
         "body": [
             "// \u041f\u0440\u043e\u0444\u0438\u043b\u044c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -7700,7 +7700,7 @@
         ]
     },
     "bitrix:socialnetwork.group_top": {
-        "prefix": "bitrix:socialnetwork.group_top",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_top", "bitrix:socialnetwork.group_top"],
         "body": [
             "// Top \u0433\u0440\u0443\u043f\u043f",
             "$APPLICATION->IncludeComponent(",
@@ -7736,7 +7736,7 @@
         ]
     },
     "bitrix:socialnetwork.bizproc": {
-        "prefix": "bitrix:socialnetwork.bizproc",
+        "prefix": ["includecomponent__bitrix_socialnetwork.bizproc", "bitrix:socialnetwork.bizproc"],
         "body": [
             "// \u0411\u0438\u0437\u043d\u0435\u0441-\u043f\u0440\u043e\u0446\u0435\u0441\u0441\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -7759,7 +7759,7 @@
         ]
     },
     "bitrix:socialnetwork.messages_input": {
-        "prefix": "bitrix:socialnetwork.messages_input",
+        "prefix": ["includecomponent__bitrix_socialnetwork.messages_input", "bitrix:socialnetwork.messages_input"],
         "body": [
             "// \u0412\u0445\u043e\u0434\u044f\u0449\u0438\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -7793,7 +7793,7 @@
         ]
     },
     "bitrix:socialnetwork.user_leave_group": {
-        "prefix": "bitrix:socialnetwork.user_leave_group",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_leave_group", "bitrix:socialnetwork.user_leave_group"],
         "body": [
             "// \u0412\u044b\u0445\u043e\u0434 \u0438\u0437 \u0433\u0440\u0443\u043f\u043f\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -7821,7 +7821,7 @@
         ]
     },
     "bitrix:socialnetwork.user_groups": {
-        "prefix": "bitrix:socialnetwork.user_groups",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_groups", "bitrix:socialnetwork.user_groups"],
         "body": [
             "// \u0413\u0440\u0443\u043f\u043f\u044b \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -7859,7 +7859,7 @@
         ]
     },
     "bitrix:socialnetwork.user_birthday": {
-        "prefix": "bitrix:socialnetwork.user_birthday",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_birthday", "bitrix:socialnetwork.user_birthday"],
         "body": [
             "// \u0414\u043d\u0438 \u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f \u0434\u0440\u0443\u0437\u0435\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -7884,7 +7884,7 @@
         ]
     },
     "bitrix:socialnetwork.user_friends_add": {
-        "prefix": "bitrix:socialnetwork.user_friends_add",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_friends_add", "bitrix:socialnetwork.user_friends_add"],
         "body": [
             "// \u0414\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0434\u0440\u0443\u0433\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -7910,7 +7910,7 @@
         ]
     },
     "bitrix:socialnetwork.user_friends": {
-        "prefix": "bitrix:socialnetwork.user_friends",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_friends", "bitrix:socialnetwork.user_friends"],
         "body": [
             "// \u0414\u0440\u0443\u0437\u044c\u044f \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -7943,7 +7943,7 @@
         ]
     },
     "bitrix:socialnetwork.user_request_group": {
-        "prefix": "bitrix:socialnetwork.user_request_group",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_request_group", "bitrix:socialnetwork.user_request_group"],
         "body": [
             "// \u0417\u0430\u043f\u0440\u043e\u0441 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f \u043d\u0430 \u0432\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u0435 \u0432 \u0433\u0440\u0443\u043f\u043f\u0443",
             "$APPLICATION->IncludeComponent(",
@@ -7972,7 +7972,7 @@
         ]
     },
     "bitrix:socialnetwork.group_requests": {
-        "prefix": "bitrix:socialnetwork.group_requests",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_requests", "bitrix:socialnetwork.group_requests"],
         "body": [
             "// \u0417\u0430\u043f\u0440\u043e\u0441\u044b \u043d\u0430 \u0432\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u0435 \u0432 \u0433\u0440\u0443\u043f\u043f\u0443",
             "$APPLICATION->IncludeComponent(",
@@ -8005,7 +8005,7 @@
         ]
     },
     "bitrix:socialnetwork.group_requests.ex": {
-        "prefix": "bitrix:socialnetwork.group_requests.ex",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_requests.ex", "bitrix:socialnetwork.group_requests.ex"],
         "body": [
             "// \u0417\u0430\u043f\u0440\u043e\u0441\u044b \u043d\u0430 \u0432\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u0435 \u0432 \u0433\u0440\u0443\u043f\u043f\u0443",
             "$APPLICATION->IncludeComponent(",
@@ -8040,7 +8040,7 @@
         ]
     },
     "bitrix:socialnetwork.messages_requests": {
-        "prefix": "bitrix:socialnetwork.messages_requests",
+        "prefix": ["includecomponent__bitrix_socialnetwork.messages_requests", "bitrix:socialnetwork.messages_requests"],
         "body": [
             "// \u0417\u0430\u043f\u0440\u043e\u0441\u044b \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044e",
             "$APPLICATION->IncludeComponent(",
@@ -8067,7 +8067,7 @@
         ]
     },
     "bitrix:socialnetwork.messages_output": {
-        "prefix": "bitrix:socialnetwork.messages_output",
+        "prefix": ["includecomponent__bitrix_socialnetwork.messages_output", "bitrix:socialnetwork.messages_output"],
         "body": [
             "// \u0418\u0441\u0445\u043e\u0434\u044f\u0449\u0438\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -8099,7 +8099,7 @@
         ]
     },
     "bitrix:socialnetwork.activity": {
-        "prefix": "bitrix:socialnetwork.activity",
+        "prefix": ["includecomponent__bitrix_socialnetwork.activity", "bitrix:socialnetwork.activity"],
         "body": [
             "// \u041b\u043e\u0433 \u0430\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u0438 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -8126,7 +8126,7 @@
         ]
     },
     "bitrix:socialnetwork.log.ex": {
-        "prefix": "bitrix:socialnetwork.log.ex",
+        "prefix": ["includecomponent__bitrix_socialnetwork.log.ex", "bitrix:socialnetwork.log.ex"],
         "body": [
             "// \u041b\u043e\u0433 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -8158,7 +8158,7 @@
         ]
     },
     "bitrix:socialnetwork.log.entry": {
-        "prefix": "bitrix:socialnetwork.log.entry",
+        "prefix": ["includecomponent__bitrix_socialnetwork.log.entry", "bitrix:socialnetwork.log.entry"],
         "body": [
             "// \u041b\u043e\u0433 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -8190,7 +8190,7 @@
         ]
     },
     "bitrix:socialnetwork.group_menu": {
-        "prefix": "bitrix:socialnetwork.group_menu",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_menu", "bitrix:socialnetwork.group_menu"],
         "body": [
             "// \u041c\u0435\u043d\u044e \u043f\u0440\u043e\u0444\u0430\u0439\u043b\u0430 \u0433\u0440\u0443\u043f\u043f\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -8224,7 +8224,7 @@
         ]
     },
     "bitrix:socialnetwork.user_menu": {
-        "prefix": "bitrix:socialnetwork.user_menu",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_menu", "bitrix:socialnetwork.user_menu"],
         "body": [
             "// \u041c\u0435\u043d\u044e \u043f\u0440\u043e\u0444\u0430\u0439\u043b\u0430 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -8261,7 +8261,7 @@
         ]
     },
     "bitrix:socialnetwork.messages_menu": {
-        "prefix": "bitrix:socialnetwork.messages_menu",
+        "prefix": ["includecomponent__bitrix_socialnetwork.messages_menu", "bitrix:socialnetwork.messages_menu"],
         "body": [
             "// \u041c\u0435\u043d\u044e \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0439 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -8289,7 +8289,7 @@
         ]
     },
     "bitrix:socialnetwork.group_mods": {
-        "prefix": "bitrix:socialnetwork.group_mods",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_mods", "bitrix:socialnetwork.group_mods"],
         "body": [
             "// \u041c\u043e\u0434\u0435\u0440\u0430\u0442\u043e\u0440\u044b \u0433\u0440\u0443\u043f\u043f\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -8322,7 +8322,7 @@
         ]
     },
     "bitrix:socialnetwork.user_settings_edit": {
-        "prefix": "bitrix:socialnetwork.user_settings_edit",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_settings_edit", "bitrix:socialnetwork.user_settings_edit"],
         "body": [
             "// \u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043d\u0438\u0439 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -8349,7 +8349,7 @@
         ]
     },
     "bitrix:socialnetwork.features": {
-        "prefix": "bitrix:socialnetwork.features",
+        "prefix": ["includecomponent__bitrix_socialnetwork.features", "bitrix:socialnetwork.features"],
         "body": [
             "// \u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u0444\u0443\u043d\u043a\u0446\u0438\u043e\u043d\u0430\u043b\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -8379,7 +8379,7 @@
         ]
     },
     "bitrix:socialnetwork.bizproc_edit": {
-        "prefix": "bitrix:socialnetwork.bizproc_edit",
+        "prefix": ["includecomponent__bitrix_socialnetwork.bizproc_edit", "bitrix:socialnetwork.bizproc_edit"],
         "body": [
             "// \u041e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430 \u0437\u0430\u0434\u0430\u043d\u0438\u044f \u0411\u0438\u0437\u043d\u0435\u0441-\u043f\u0440\u043e\u0446\u0435\u0441\u0441\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -8405,7 +8405,7 @@
         ]
     },
     "bitrix:socialnetwork.messages_chat": {
-        "prefix": "bitrix:socialnetwork.messages_chat",
+        "prefix": ["includecomponent__bitrix_socialnetwork.messages_chat", "bitrix:socialnetwork.messages_chat"],
         "body": [
             "// \u041f\u0435\u0440\u0435\u043f\u0438\u0441\u043a\u0430 \u0432 \u0432\u0438\u0434\u0435 \u0447\u0430\u0442\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -8432,7 +8432,7 @@
         ]
     },
     "bitrix:socialnetwork.messages_users_messages": {
-        "prefix": "bitrix:socialnetwork.messages_users_messages",
+        "prefix": ["includecomponent__bitrix_socialnetwork.messages_users_messages", "bitrix:socialnetwork.messages_users_messages"],
         "body": [
             "// \u041f\u0435\u0440\u0435\u043f\u0438\u0441\u043a\u0430 \u0441 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u043c",
             "$APPLICATION->IncludeComponent(",
@@ -8467,7 +8467,7 @@
         ]
     },
     "bitrix:socialnetwork.messages_users": {
-        "prefix": "bitrix:socialnetwork.messages_users",
+        "prefix": ["includecomponent__bitrix_socialnetwork.messages_users", "bitrix:socialnetwork.messages_users"],
         "body": [
             "// \u041f\u0435\u0440\u0435\u043f\u0438\u0441\u043a\u0430 \u0441 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f\u043c\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -8500,7 +8500,7 @@
         ]
     },
     "bitrix:socialnetwork.subscribe": {
-        "prefix": "bitrix:socialnetwork.subscribe",
+        "prefix": ["includecomponent__bitrix_socialnetwork.subscribe", "bitrix:socialnetwork.subscribe"],
         "body": [
             "// \u041f\u043e\u0434\u043f\u0438\u0441\u043a\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -8531,7 +8531,7 @@
         ]
     },
     "bitrix:socialnetwork.group_search": {
-        "prefix": "bitrix:socialnetwork.group_search",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_search", "bitrix:socialnetwork.group_search"],
         "body": [
             "// \u041f\u043e\u0438\u0441\u043a \u0433\u0440\u0443\u043f\u043f",
             "$APPLICATION->IncludeComponent(",
@@ -8564,7 +8564,7 @@
         ]
     },
     "bitrix:socialnetwork.user_search": {
-        "prefix": "bitrix:socialnetwork.user_search",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_search", "bitrix:socialnetwork.user_search"],
         "body": [
             "// \u041f\u043e\u0438\u0441\u043a \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -8616,7 +8616,7 @@
         ]
     },
     "bitrix:socialnetwork.events": {
-        "prefix": "bitrix:socialnetwork.events",
+        "prefix": ["includecomponent__bitrix_socialnetwork.events", "bitrix:socialnetwork.events"],
         "body": [
             "// \u041f\u043e\u043a\u0430\u0437 \u0441\u043e\u0431\u044b\u0442\u0438\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -8645,7 +8645,7 @@
         ]
     },
     "bitrix:socialnetwork.events_dyn": {
-        "prefix": "bitrix:socialnetwork.events_dyn",
+        "prefix": ["includecomponent__bitrix_socialnetwork.events_dyn", "bitrix:socialnetwork.events_dyn"],
         "body": [
             "// \u041f\u043e\u043a\u0430\u0437 \u0441\u043e\u0431\u044b\u0442\u0438\u0439 (ajax)",
             "$APPLICATION->IncludeComponent(",
@@ -8680,7 +8680,7 @@
         ]
     },
     "bitrix:socialnetwork.group_users": {
-        "prefix": "bitrix:socialnetwork.group_users",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_users", "bitrix:socialnetwork.group_users"],
         "body": [
             "// \u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0438 \u0433\u0440\u0443\u043f\u043f\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -8713,7 +8713,7 @@
         ]
     },
     "bitrix:socialnetwork.user_friends.ex": {
-        "prefix": "bitrix:socialnetwork.user_friends.ex",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_friends.ex", "bitrix:socialnetwork.user_friends.ex"],
         "body": [
             "// \u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0438 \u0433\u0440\u0443\u043f\u043f\u044b (\u0440\u0430\u0441\u0448\u0438\u0440\u0435\u043d\u043d\u044b\u0439)",
             "$APPLICATION->IncludeComponent(",
@@ -8746,7 +8746,7 @@
         ]
     },
     "bitrix:socialnetwork.group_users.ex": {
-        "prefix": "bitrix:socialnetwork.group_users.ex",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_users.ex", "bitrix:socialnetwork.group_users.ex"],
         "body": [
             "// \u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0438 \u0433\u0440\u0443\u043f\u043f\u044b (\u0440\u0430\u0441\u0448\u0438\u0440\u0435\u043d\u043d\u044b\u0439)",
             "$APPLICATION->IncludeComponent(",
@@ -8782,7 +8782,7 @@
         ]
     },
     "bitrix:socialnetwork.group_create.popup": {
-        "prefix": "bitrix:socialnetwork.group_create.popup",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_create.popup", "bitrix:socialnetwork.group_create.popup"],
         "body": [
             "// \u041f\u043e\u043f\u0430\u043f-\u0434\u0438\u0430\u043b\u043e\u0433\u0430 \u0434\u043b\u044f \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f \u0438 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0433\u0440\u0443\u043f\u043f\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -8794,7 +8794,7 @@
         ]
     },
     "bitrix:socialnetwork.group_request_search": {
-        "prefix": "bitrix:socialnetwork.group_request_search",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_request_search", "bitrix:socialnetwork.group_request_search"],
         "body": [
             "// \u041f\u0440\u0438\u0433\u043b\u0430\u0448\u0435\u043d\u0438\u0435 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439 \u0432 \u0433\u0440\u0443\u043f\u043f\u0443",
             "$APPLICATION->IncludeComponent(",
@@ -8826,7 +8826,7 @@
         ]
     },
     "bitrix:socialnetwork.user_requests.ex": {
-        "prefix": "bitrix:socialnetwork.user_requests.ex",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_requests.ex", "bitrix:socialnetwork.user_requests.ex"],
         "body": [
             "// \u041f\u0440\u0438\u0433\u043b\u0430\u0448\u0435\u043d\u0438\u044f \u0438 \u0437\u0430\u043f\u0440\u043e\u0441\u044b \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -8853,7 +8853,7 @@
         ]
     },
     "bitrix:socialnetwork.group_requests_out": {
-        "prefix": "bitrix:socialnetwork.group_requests_out",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_requests_out", "bitrix:socialnetwork.group_requests_out"],
         "body": [
             "// \u041f\u0440\u0438\u0433\u043b\u0430\u0448\u0435\u043d\u0438\u044f \u043d\u0430 \u0432\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u0435 \u0432 \u0433\u0440\u0443\u043f\u043f\u0443",
             "$APPLICATION->IncludeComponent(",
@@ -8885,7 +8885,7 @@
         ]
     },
     "bitrix:socialnetwork.group_create": {
-        "prefix": "bitrix:socialnetwork.group_create",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_create", "bitrix:socialnetwork.group_create"],
         "body": [
             "// \u0421\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u0433\u0440\u0443\u043f\u043f\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -8916,7 +8916,7 @@
         ]
     },
     "bitrix:socialnetwork.group.iframe.popup": {
-        "prefix": "bitrix:socialnetwork.group.iframe.popup",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group.iframe.popup", "bitrix:socialnetwork.group.iframe.popup"],
         "body": [
             "// \u0421\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u0433\u0440\u0443\u043f\u043f\u044b \u0432 \u043f\u043e\u043f\u0430\u043f-\u0434\u0438\u0430\u043b\u043e\u0433\u0435",
             "$APPLICATION->IncludeComponent(",
@@ -8928,7 +8928,7 @@
         ]
     },
     "bitrix:socialnetwork.group_create.ex": {
-        "prefix": "bitrix:socialnetwork.group_create.ex",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_create.ex", "bitrix:socialnetwork.group_create.ex"],
         "body": [
             "// \u0421\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u0433\u0440\u0443\u043f\u043f\u044b \u0432 \u043f\u043e\u043f\u0430\u043f-\u0434\u0438\u0430\u043b\u043e\u0433\u0435",
             "$APPLICATION->IncludeComponent(",
@@ -8940,7 +8940,7 @@
         ]
     },
     "bitrix:socialnetwork.subscribe_list": {
-        "prefix": "bitrix:socialnetwork.subscribe_list",
+        "prefix": ["includecomponent__bitrix_socialnetwork.subscribe_list", "bitrix:socialnetwork.subscribe_list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u043f\u043e\u0434\u043f\u0438\u0441\u043a\u0438 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -8973,7 +8973,7 @@
         ]
     },
     "bitrix:socialnetwork.group_delete": {
-        "prefix": "bitrix:socialnetwork.group_delete",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_delete", "bitrix:socialnetwork.group_delete"],
         "body": [
             "// \u0423\u0434\u0430\u043b\u0435\u043d\u0438\u0435 \u0433\u0440\u0443\u043f\u043f\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -9001,7 +9001,7 @@
         ]
     },
     "bitrix:socialnetwork.user_friends_delete": {
-        "prefix": "bitrix:socialnetwork.user_friends_delete",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_friends_delete", "bitrix:socialnetwork.user_friends_delete"],
         "body": [
             "// \u0423\u0434\u0430\u043b\u0435\u043d\u0438\u0435 \u0434\u0440\u0443\u0433\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -9027,7 +9027,7 @@
         ]
     },
     "bitrix:socialnetwork.message_form": {
-        "prefix": "bitrix:socialnetwork.message_form",
+        "prefix": ["includecomponent__bitrix_socialnetwork.message_form", "bitrix:socialnetwork.message_form"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u043e\u0442\u043f\u0440\u0430\u0432\u043a\u0438 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -9057,7 +9057,7 @@
         ]
     },
     "bitrix:socialnetwork.group_request_user": {
-        "prefix": "bitrix:socialnetwork.group_request_user",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_request_user", "bitrix:socialnetwork.group_request_user"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u043f\u0440\u0438\u0433\u043b\u0430\u0448\u0435\u043d\u0438\u044f \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f \u0432\u0441\u0442\u0443\u043f\u0438\u0442\u044c \u0432 \u0433\u0440\u0443\u043f\u043f\u0443",
             "$APPLICATION->IncludeComponent(",
@@ -9086,7 +9086,7 @@
         ]
     },
     "bitrix:socialnetwork.group_ban": {
-        "prefix": "bitrix:socialnetwork.group_ban",
+        "prefix": ["includecomponent__bitrix_socialnetwork.group_ban", "bitrix:socialnetwork.group_ban"],
         "body": [
             "// \u0427\u0435\u0440\u043d\u044b\u0439 \u0441\u043f\u0438\u0441\u043e\u043a \u0433\u0440\u0443\u043f\u043f\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -9119,7 +9119,7 @@
         ]
     },
     "bitrix:socialnetwork.user_ban": {
-        "prefix": "bitrix:socialnetwork.user_ban",
+        "prefix": ["includecomponent__bitrix_socialnetwork.user_ban", "bitrix:socialnetwork.user_ban"],
         "body": [
             "// \u0427\u0435\u0440\u043d\u044b\u0439 \u0441\u043f\u0438\u0441\u043e\u043a \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -9145,7 +9145,7 @@
         ]
     },
     "bitrix:socialnetwork.blog.post.edit": {
-        "prefix": "bitrix:socialnetwork.blog.post.edit",
+        "prefix": ["includecomponent__bitrix_socialnetwork.blog.post.edit", "bitrix:socialnetwork.blog.post.edit"],
         "body": [
             "// \u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -9183,7 +9183,7 @@
         ]
     },
     "bitrix:socialnetwork.blog.rss": {
-        "prefix": "bitrix:socialnetwork.blog.rss",
+        "prefix": ["includecomponent__bitrix_socialnetwork.blog.rss", "bitrix:socialnetwork.blog.rss"],
         "body": [
             "// RSS \u0431\u043b\u043e\u0433\u043e\u0432",
             "$APPLICATION->IncludeComponent(",
@@ -9220,7 +9220,7 @@
         ]
     },
     "bitrix:forum.pm.edit": {
-        "prefix": "bitrix:forum.pm.edit",
+        "prefix": ["includecomponent__bitrix_forum.pm.edit", "bitrix:forum.pm.edit"],
         "body": [
             "// PM (\u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0435) - http://dev.1c-bitrix.ru/user_help/service/forum/components_2/forum_pm_edit.php",
             "$APPLICATION->IncludeComponent(",
@@ -9257,7 +9257,7 @@
         ]
     },
     "bitrix:forum.pm.folder": {
-        "prefix": "bitrix:forum.pm.folder",
+        "prefix": ["includecomponent__bitrix_forum.pm.folder", "bitrix:forum.pm.folder"],
         "body": [
             "// PM (\u043f\u0430\u043f\u043a\u0438) - http://dev.1c-bitrix.ru/user_help/service/forum/components_2/forum_pm_folder.php",
             "$APPLICATION->IncludeComponent(",
@@ -9284,7 +9284,7 @@
         ]
     },
     "bitrix:forum.pm.search": {
-        "prefix": "bitrix:forum.pm.search",
+        "prefix": ["includecomponent__bitrix_forum.pm.search", "bitrix:forum.pm.search"],
         "body": [
             "// PM (\u043f\u043e\u0438\u0441\u043a) - http://dev.1c-bitrix.ru/user_help/service/forum/components_2/forum_pm_search.php",
             "$APPLICATION->IncludeComponent(",
@@ -9301,7 +9301,7 @@
         ]
     },
     "bitrix:forum.pm.list": {
-        "prefix": "bitrix:forum.pm.list",
+        "prefix": ["includecomponent__bitrix_forum.pm.list", "bitrix:forum.pm.list"],
         "body": [
             "// PM (\u0441\u043f\u0438\u0441\u043e\u043a) - http://dev.1c-bitrix.ru/user_help/service/forum/components_2/forum_pm_list.php",
             "$APPLICATION->IncludeComponent(",
@@ -9337,7 +9337,7 @@
         ]
     },
     "bitrix:forum.pm.read": {
-        "prefix": "bitrix:forum.pm.read",
+        "prefix": ["includecomponent__bitrix_forum.pm.read", "bitrix:forum.pm.read"],
         "body": [
             "// PM (\u0447\u0442\u0435\u043d\u0438\u0435) - http://dev.1c-bitrix.ru/user_help/service/forum/components_2/forum_pm_read.php",
             "$APPLICATION->IncludeComponent(",
@@ -9369,7 +9369,7 @@
         ]
     },
     "bitrix:forum": {
-        "prefix": "bitrix:forum",
+        "prefix": ["includecomponent__bitrix_forum", "bitrix:forum"],
         "body": [
             "// \u0424\u043e\u0440\u0443\u043c. \u041a\u043e\u043c\u043f\u043b\u0435\u043a\u0441\u043d\u044b\u0439 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442 - http://dev.1c-bitrix.ru/user_help/service/forum/components_2/forum_composite.php",
             "$APPLICATION->IncludeComponent(",
@@ -9466,7 +9466,7 @@
         ]
     },
     "bitrix:forum.comments": {
-        "prefix": "bitrix:forum.comments",
+        "prefix": ["includecomponent__bitrix_forum.comments", "bitrix:forum.comments"],
         "body": [
             "// \u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -9523,7 +9523,7 @@
         ]
     },
     "bitrix:forum.message.send": {
-        "prefix": "bitrix:forum.message.send",
+        "prefix": ["includecomponent__bitrix_forum.message.send", "bitrix:forum.message.send"],
         "body": [
             "// \u041f\u0438\u0441\u044c\u043c\u043e - http://dev.1c-bitrix.ru/user_help/service/forum/components_2/forum_message_send.php",
             "$APPLICATION->IncludeComponent(",
@@ -9547,7 +9547,7 @@
         ]
     },
     "bitrix:forum.subscribe.list": {
-        "prefix": "bitrix:forum.subscribe.list",
+        "prefix": ["includecomponent__bitrix_forum.subscribe.list", "bitrix:forum.subscribe.list"],
         "body": [
             "// \u041f\u043e\u0434\u043f\u0438\u0441\u043a\u0430 (\u0441\u043f\u0438\u0441\u043e\u043a)",
             "$APPLICATION->IncludeComponent(",
@@ -9577,7 +9577,7 @@
         ]
     },
     "bitrix:forum.search": {
-        "prefix": "bitrix:forum.search",
+        "prefix": ["includecomponent__bitrix_forum.search", "bitrix:forum.search"],
         "body": [
             "// \u041f\u043e\u0438\u0441\u043a",
             "$APPLICATION->IncludeComponent(",
@@ -9612,7 +9612,7 @@
         ]
     },
     "bitrix:forum.user.profile.edit": {
-        "prefix": "bitrix:forum.user.profile.edit",
+        "prefix": ["includecomponent__bitrix_forum.user.profile.edit", "bitrix:forum.user.profile.edit"],
         "body": [
             "// \u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c (\u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0444\u0438\u043b\u044f)",
             "$APPLICATION->IncludeComponent(",
@@ -9640,7 +9640,7 @@
         ]
     },
     "bitrix:forum.user.profile.view": {
-        "prefix": "bitrix:forum.user.profile.view",
+        "prefix": ["includecomponent__bitrix_forum.user.profile.view", "bitrix:forum.user.profile.view"],
         "body": [
             "// \u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c (\u043f\u0440\u043e\u0444\u0438\u043b\u044c)",
             "$APPLICATION->IncludeComponent(",
@@ -9686,7 +9686,7 @@
         ]
     },
     "bitrix:forum.user.post": {
-        "prefix": "bitrix:forum.user.post",
+        "prefix": ["includecomponent__bitrix_forum.user.post", "bitrix:forum.user.post"],
         "body": [
             "// \u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c (\u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f)",
             "$APPLICATION->IncludeComponent(",
@@ -9727,7 +9727,7 @@
         ]
     },
     "bitrix:forum.user.list": {
-        "prefix": "bitrix:forum.user.list",
+        "prefix": ["includecomponent__bitrix_forum.user.list", "bitrix:forum.user.list"],
         "body": [
             "// \u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c (\u0441\u043f\u0438\u0441\u043e\u043a \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439)",
             "$APPLICATION->IncludeComponent(",
@@ -9761,7 +9761,7 @@
         ]
     },
     "bitrix:forum.help": {
-        "prefix": "bitrix:forum.help",
+        "prefix": ["includecomponent__bitrix_forum.help", "bitrix:forum.help"],
         "body": [
             "// \u041f\u043e\u043c\u043e\u0449\u044c - http://dev.1c-bitrix.ru/user_help/service/forum/components_2/forum_help.php",
             "$APPLICATION->IncludeComponent(",
@@ -9783,7 +9783,7 @@
         ]
     },
     "bitrix:forum.rules": {
-        "prefix": "bitrix:forum.rules",
+        "prefix": ["includecomponent__bitrix_forum.rules", "bitrix:forum.rules"],
         "body": [
             "// \u041f\u0440\u0430\u0432\u0438\u043b\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -9805,7 +9805,7 @@
         ]
     },
     "bitrix:forum.message.move": {
-        "prefix": "bitrix:forum.message.move",
+        "prefix": ["includecomponent__bitrix_forum.message.move", "bitrix:forum.message.move"],
         "body": [
             "// \u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f (\u043f\u0435\u0440\u0435\u043c\u0435\u0449\u0435\u043d\u0438\u0435) - http://dev.1c-bitrix.ru/user_help/service/forum/components_2/forum_message_move.php",
             "$APPLICATION->IncludeComponent(",
@@ -9844,7 +9844,7 @@
         ]
     },
     "bitrix:forum.message.approve": {
-        "prefix": "bitrix:forum.message.approve",
+        "prefix": ["includecomponent__bitrix_forum.message.approve", "bitrix:forum.message.approve"],
         "body": [
             "// \u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f (\u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0430) - http://dev.1c-bitrix.ru/user_help/service/forum/components_2/forum_message_approve.php",
             "$APPLICATION->IncludeComponent(",
@@ -9888,7 +9888,7 @@
         ]
     },
     "bitrix:forum.statistic": {
-        "prefix": "bitrix:forum.statistic",
+        "prefix": ["includecomponent__bitrix_forum.statistic", "bitrix:forum.statistic"],
         "body": [
             "// \u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -9919,7 +9919,7 @@
         ]
     },
     "bitrix:forum.topic.reviews": {
-        "prefix": "bitrix:forum.topic.reviews",
+        "prefix": ["includecomponent__bitrix_forum.topic.reviews", "bitrix:forum.topic.reviews"],
         "body": [
             "// \u0422\u0435\u043c\u0430 (\u043e\u0442\u0437\u044b\u0432\u044b)",
             "$APPLICATION->IncludeComponent(",
@@ -9961,7 +9961,7 @@
         ]
     },
     "bitrix:forum.topic.new": {
-        "prefix": "bitrix:forum.topic.new",
+        "prefix": ["includecomponent__bitrix_forum.topic.new", "bitrix:forum.topic.new"],
         "body": [
             "// \u0422\u0435\u043c\u0430 (\u0441\u043e\u0437\u0434\u0430\u043d\u0438\u0435)",
             "$APPLICATION->IncludeComponent(",
@@ -9999,7 +9999,7 @@
         ]
     },
     "bitrix:forum.topic.read": {
-        "prefix": "bitrix:forum.topic.read",
+        "prefix": ["includecomponent__bitrix_forum.topic.read", "bitrix:forum.topic.read"],
         "body": [
             "// \u0422\u0435\u043c\u0430 (\u0447\u0442\u0435\u043d\u0438\u0435)",
             "$APPLICATION->IncludeComponent(",
@@ -10057,7 +10057,7 @@
         ]
     },
     "bitrix:forum.topic.active": {
-        "prefix": "bitrix:forum.topic.active",
+        "prefix": ["includecomponent__bitrix_forum.topic.active", "bitrix:forum.topic.active"],
         "body": [
             "// \u0422\u0435\u043c\u044b (\u043d\u043e\u0432\u044b\u0435)",
             "$APPLICATION->IncludeComponent(",
@@ -10098,7 +10098,7 @@
         ]
     },
     "bitrix:forum.topic.move": {
-        "prefix": "bitrix:forum.topic.move",
+        "prefix": ["includecomponent__bitrix_forum.topic.move", "bitrix:forum.topic.move"],
         "body": [
             "// \u0422\u0435\u043c\u044b (\u043f\u0435\u0440\u0435\u043c\u0435\u0449\u0435\u043d\u0438\u0435)",
             "$APPLICATION->IncludeComponent(",
@@ -10132,7 +10132,7 @@
         ]
     },
     "bitrix:forum.topic.search": {
-        "prefix": "bitrix:forum.topic.search",
+        "prefix": ["includecomponent__bitrix_forum.topic.search", "bitrix:forum.topic.search"],
         "body": [
             "// \u0422\u0435\u043c\u044b (\u043f\u043e\u0438\u0441\u043a)",
             "$APPLICATION->IncludeComponent(",
@@ -10157,7 +10157,7 @@
         ]
     },
     "bitrix:forum.topic.last": {
-        "prefix": "bitrix:forum.topic.last",
+        "prefix": ["includecomponent__bitrix_forum.topic.last", "bitrix:forum.topic.last"],
         "body": [
             "// \u0422\u0435\u043c\u044b (\u0441\u043f\u0438\u0441\u043e\u043a \u0432\u043d\u0435\u0448\u043d\u0438\u0439)",
             "$APPLICATION->IncludeComponent(",
@@ -10196,7 +10196,7 @@
         ]
     },
     "bitrix:forum.topic.list": {
-        "prefix": "bitrix:forum.topic.list",
+        "prefix": ["includecomponent__bitrix_forum.topic.list", "bitrix:forum.topic.list"],
         "body": [
             "// \u0422\u0435\u043c\u044b (\u0441\u043f\u0438\u0441\u043e\u043a)",
             "$APPLICATION->IncludeComponent(",
@@ -10242,7 +10242,7 @@
         ]
     },
     "bitrix:forum.post_form": {
-        "prefix": "bitrix:forum.post_form",
+        "prefix": ["includecomponent__bitrix_forum.post_form", "bitrix:forum.post_form"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f - http://dev.1c-bitrix.ru/user_help/service/forum/components_2/forum_post_form.php",
             "$APPLICATION->IncludeComponent(",
@@ -10278,7 +10278,7 @@
         ]
     },
     "bitrix:forum.index": {
-        "prefix": "bitrix:forum.index",
+        "prefix": ["includecomponent__bitrix_forum.index", "bitrix:forum.index"],
         "body": [
             "// \u0424\u043e\u0440\u0443\u043c\u044b (\u0441\u043f\u0438\u0441\u043e\u043a) - http://dev.1c-bitrix.ru/user_help/service/forum/components_2/forum_index.php",
             "$APPLICATION->IncludeComponent(",
@@ -10323,7 +10323,7 @@
         ]
     },
     "bitrix:forum.interface": {
-        "prefix": "bitrix:forum.interface",
+        "prefix": ["includecomponent__bitrix_forum.interface", "bitrix:forum.interface"],
         "body": [
             "// \u0428\u0430\u0431\u043b\u043e\u043d\u044b - http://dev.1c-bitrix.ru/user_help/service/forum/components_2/forum_menu.php",
             "$APPLICATION->IncludeComponent(",
@@ -10335,7 +10335,7 @@
         ]
     },
     "bitrix:forum.rss": {
-        "prefix": "bitrix:forum.rss",
+        "prefix": ["includecomponent__bitrix_forum.rss", "bitrix:forum.rss"],
         "body": [
             "// RSS \u0444\u043e\u0440\u0443\u043c\u0430 - http://dev.1c-bitrix.ru/user_help/service/forum/components_2/forum_rss.php",
             "$APPLICATION->IncludeComponent(",
@@ -10373,7 +10373,7 @@
         ]
     },
     "bitrix:sale.affiliate.plans": {
-        "prefix": "bitrix:sale.affiliate.plans",
+        "prefix": ["includecomponent__bitrix_sale.affiliate.plans", "bitrix:sale.affiliate.plans"],
         "body": [
             "// \u0410\u0444\u0444\u0438\u043b\u0438\u0430\u0442\u0441\u043a\u0438\u0435 \u043f\u043b\u0430\u043d\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -10388,7 +10388,7 @@
         ]
     },
     "bitrix:sale.affiliate.account": {
-        "prefix": "bitrix:sale.affiliate.account",
+        "prefix": ["includecomponent__bitrix_sale.affiliate.account", "bitrix:sale.affiliate.account"],
         "body": [
             "// \u041e\u0442\u0447\u0435\u0442 \u0430\u0444\u0444\u0438\u043b\u0438\u0430\u0442\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -10404,7 +10404,7 @@
         ]
     },
     "bitrix:sale.affiliate.report": {
-        "prefix": "bitrix:sale.affiliate.report",
+        "prefix": ["includecomponent__bitrix_sale.affiliate.report", "bitrix:sale.affiliate.report"],
         "body": [
             "// \u041e\u0442\u0447\u0435\u0442 \u043f\u043e \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0435 \u0430\u0444\u0444\u0438\u043b\u0438\u0430\u0442\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -10420,7 +10420,7 @@
         ]
     },
     "bitrix:sale.affiliate.register": {
-        "prefix": "bitrix:sale.affiliate.register",
+        "prefix": ["includecomponent__bitrix_sale.affiliate.register", "bitrix:sale.affiliate.register"],
         "body": [
             "// \u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044f \u0430\u0444\u0444\u0438\u043b\u0438\u0430\u0442\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -10439,7 +10439,7 @@
         ]
     },
     "bitrix:sale.affiliate.instructions": {
-        "prefix": "bitrix:sale.affiliate.instructions",
+        "prefix": ["includecomponent__bitrix_sale.affiliate.instructions", "bitrix:sale.affiliate.instructions"],
         "body": [
             "// \u0422\u0435\u0445\u043d\u0438\u0447\u0435\u0441\u043a\u0438\u0435 \u0438\u043d\u0441\u0442\u0440\u0443\u043a\u0446\u0438\u0438 \u0430\u0444\u0444\u0438\u043b\u0438\u0430\u0442\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -10460,7 +10460,7 @@
         ]
     },
     "bitrix:sale.basket.basket": {
-        "prefix": "bitrix:sale.basket.basket",
+        "prefix": ["includecomponent__bitrix_sale.basket.basket", "bitrix:sale.basket.basket"],
         "body": [
             "// \u041a\u043e\u0440\u0437\u0438\u043d\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -10485,7 +10485,7 @@
         ]
     },
     "bitrix:sale.basket.basket.small": {
-        "prefix": "bitrix:sale.basket.basket.small",
+        "prefix": ["includecomponent__bitrix_sale.basket.basket.small", "bitrix:sale.basket.basket.small"],
         "body": [
             "// \u041c\u0430\u043b\u0430\u044f \u043a\u043e\u0440\u0437\u0438\u043d\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -10504,7 +10504,7 @@
         ]
     },
     "bitrix:sale.basket.basket.line": {
-        "prefix": "bitrix:sale.basket.basket.line",
+        "prefix": ["includecomponent__bitrix_sale.basket.basket.line", "bitrix:sale.basket.basket.line"],
         "body": [
             "// \u0421\u0441\u044b\u043b\u043a\u0430 \u043d\u0430 \u043a\u043e\u0440\u0437\u0438\u043d\u0443",
             "$APPLICATION->IncludeComponent(",
@@ -10537,7 +10537,7 @@
         ]
     },
     "bitrix:sale.account.pay": {
-        "prefix": "bitrix:sale.account.pay",
+        "prefix": ["includecomponent__bitrix_sale.account.pay", "bitrix:sale.account.pay"],
         "body": [
             "// \u0414\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0441\u0440\u0435\u0434\u0441\u0442\u0432 \u043d\u0430 \u0441\u0447\u0435\u0442 \u0442\u0435\u043a\u0443\u0449\u0435\u0433\u043e \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -10558,7 +10558,7 @@
         ]
     },
     "bitrix:sale.personal.order": {
-        "prefix": "bitrix:sale.personal.order",
+        "prefix": ["includecomponent__bitrix_sale.personal.order", "bitrix:sale.personal.order"],
         "body": [
             "// \u0417\u0430\u043a\u0430\u0437\u044b \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -10600,7 +10600,7 @@
         ]
     },
     "bitrix:catalog.discsave.info": {
-        "prefix": "bitrix:catalog.discsave.info",
+        "prefix": ["includecomponent__bitrix_catalog.discsave.info", "bitrix:catalog.discsave.info"],
         "body": [
             "// \u041d\u0430\u043a\u043e\u043f\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0435 \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -10619,7 +10619,7 @@
         ]
     },
     "bitrix:sale.personal.order.cancel": {
-        "prefix": "bitrix:sale.personal.order.cancel",
+        "prefix": ["includecomponent__bitrix_sale.personal.order.cancel", "bitrix:sale.personal.order.cancel"],
         "body": [
             "// \u041e\u0442\u043c\u0435\u043d\u0430 \u0437\u0430\u043a\u0430\u0437\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -10637,7 +10637,7 @@
         ]
     },
     "bitrix:sale.personal.subscribe.cancel": {
-        "prefix": "bitrix:sale.personal.subscribe.cancel",
+        "prefix": ["includecomponent__bitrix_sale.personal.subscribe.cancel", "bitrix:sale.personal.subscribe.cancel"],
         "body": [
             "// \u041e\u0442\u043c\u0435\u043d\u0430 \u043f\u043e\u0434\u043f\u0438\u0441\u043a\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -10654,7 +10654,7 @@
         ]
     },
     "bitrix:sale.personal.cc": {
-        "prefix": "bitrix:sale.personal.cc",
+        "prefix": ["includecomponent__bitrix_sale.personal.cc", "bitrix:sale.personal.cc"],
         "body": [
             "// \u041f\u043b\u0430\u0441\u0442\u0438\u043a\u043e\u0432\u044b\u0435 \u043a\u0430\u0440\u0442\u044b \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -10676,7 +10676,7 @@
         ]
     },
     "bitrix:sale.personal.subscribe": {
-        "prefix": "bitrix:sale.personal.subscribe",
+        "prefix": ["includecomponent__bitrix_sale.personal.subscribe", "bitrix:sale.personal.subscribe"],
         "body": [
             "// \u041f\u043e\u0434\u043f\u0438\u0441\u043a\u0438 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -10698,7 +10698,7 @@
         ]
     },
     "bitrix:sale.personal.order.detail": {
-        "prefix": "bitrix:sale.personal.order.detail",
+        "prefix": ["includecomponent__bitrix_sale.personal.order.detail", "bitrix:sale.personal.order.detail"],
         "body": [
             "// \u041f\u043e\u0434\u0440\u043e\u0431\u043d\u0430\u044f \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u0437\u0430\u043a\u0430\u0437\u0435",
             "$APPLICATION->IncludeComponent(",
@@ -10734,7 +10734,7 @@
         ]
     },
     "bitrix:sale.personal.profile": {
-        "prefix": "bitrix:sale.personal.profile",
+        "prefix": ["includecomponent__bitrix_sale.personal.profile", "bitrix:sale.personal.profile"],
         "body": [
             "// \u041f\u0440\u043e\u0444\u0438\u043b\u0438 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -10757,7 +10757,7 @@
         ]
     },
     "bitrix:sale.personal.cc.detail": {
-        "prefix": "bitrix:sale.personal.cc.detail",
+        "prefix": ["includecomponent__bitrix_sale.personal.cc.detail", "bitrix:sale.personal.cc.detail"],
         "body": [
             "// \u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u043f\u043b\u0430\u0441\u0442\u0438\u043a\u043e\u0432\u044b\u0445 \u043a\u0430\u0440\u0442",
             "$APPLICATION->IncludeComponent(",
@@ -10774,7 +10774,7 @@
         ]
     },
     "bitrix:sale.personal.profile.detail": {
-        "prefix": "bitrix:sale.personal.profile.detail",
+        "prefix": ["includecomponent__bitrix_sale.personal.profile.detail", "bitrix:sale.personal.profile.detail"],
         "body": [
             "// \u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -10793,7 +10793,7 @@
         ]
     },
     "bitrix:sale.personal.order.list": {
-        "prefix": "bitrix:sale.personal.order.list",
+        "prefix": ["includecomponent__bitrix_sale.personal.order.list", "bitrix:sale.personal.order.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u0437\u0430\u043a\u0430\u0437\u043e\u0432",
             "$APPLICATION->IncludeComponent(",
@@ -10826,7 +10826,7 @@
         ]
     },
     "bitrix:sale.personal.cc.list": {
-        "prefix": "bitrix:sale.personal.cc.list",
+        "prefix": ["includecomponent__bitrix_sale.personal.cc.list", "bitrix:sale.personal.cc.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u043f\u043b\u0430\u0441\u0442\u0438\u043a\u043e\u0432\u044b\u0445 \u043a\u0430\u0440\u0442 \u0442\u0435\u043a\u0443\u0449\u0435\u0433\u043e \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -10843,7 +10843,7 @@
         ]
     },
     "bitrix:sale.personal.subscribe.list": {
-        "prefix": "bitrix:sale.personal.subscribe.list",
+        "prefix": ["includecomponent__bitrix_sale.personal.subscribe.list", "bitrix:sale.personal.subscribe.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u043f\u043e\u0434\u043f\u0438\u0441\u043e\u043a \u0442\u0435\u043a\u0443\u0449\u0435\u0433\u043e \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -10860,7 +10860,7 @@
         ]
     },
     "bitrix:sale.personal.profile.list": {
-        "prefix": "bitrix:sale.personal.profile.list",
+        "prefix": ["includecomponent__bitrix_sale.personal.profile.list", "bitrix:sale.personal.profile.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u043f\u0440\u043e\u0444\u0438\u043b\u0435\u0439 \u0442\u0435\u043a\u0443\u0449\u0435\u0433\u043e \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -10877,7 +10877,7 @@
         ]
     },
     "bitrix:sale.personal.account": {
-        "prefix": "bitrix:sale.personal.account",
+        "prefix": ["includecomponent__bitrix_sale.personal.account", "bitrix:sale.personal.account"],
         "body": [
             "// \u0421\u0447\u0435\u0442\u0430 \u0442\u0435\u043a\u0443\u0449\u0435\u0433\u043e \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -10892,7 +10892,7 @@
         ]
     },
     "bitrix:sale.ajax.locations": {
-        "prefix": "bitrix:sale.ajax.locations",
+        "prefix": ["includecomponent__bitrix_sale.ajax.locations", "bitrix:sale.ajax.locations"],
         "body": [
             "// AJAX-\u043c\u0435\u0441\u0442\u043e\u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u044f",
             "$APPLICATION->IncludeComponent(",
@@ -10914,7 +10914,7 @@
         ]
     },
     "bitrix:sale.ajax.delivery.calculator": {
-        "prefix": "bitrix:sale.ajax.delivery.calculator",
+        "prefix": ["includecomponent__bitrix_sale.ajax.delivery.calculator", "bitrix:sale.ajax.delivery.calculator"],
         "body": [
             "// \u041a\u0430\u043b\u044c\u043a\u0443\u043b\u044f\u0442\u043e\u0440 \u0434\u043e\u0441\u0442\u0430\u0432\u043a\u0438 (AJAX)",
             "$APPLICATION->IncludeComponent(",
@@ -10926,7 +10926,7 @@
         ]
     },
     "bitrix:sale.basket.order.ajax": {
-        "prefix": "bitrix:sale.basket.order.ajax",
+        "prefix": ["includecomponent__bitrix_sale.basket.order.ajax", "bitrix:sale.basket.order.ajax"],
         "body": [
             "// \u041a\u043e\u0440\u0437\u0438\u043d\u0430 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f \u0441 \u043e\u0444\u043e\u0440\u043c\u043b\u0435\u043d\u0438\u0435\u043c",
             "$APPLICATION->IncludeComponent(",
@@ -10955,7 +10955,7 @@
         ]
     },
     "bitrix:sale.order.ajax": {
-        "prefix": "bitrix:sale.order.ajax",
+        "prefix": ["includecomponent__bitrix_sale.order.ajax", "bitrix:sale.order.ajax"],
         "body": [
             "// \u041e\u0434\u043d\u043e\u0448\u0430\u0433\u043e\u0432\u043e\u0435 \u043e\u0444\u043e\u0440\u043c\u043b\u0435\u043d\u0438\u0435 \u0437\u0430\u043a\u0430\u0437\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -10990,7 +10990,7 @@
         ]
     },
     "bitrix:sale.order.payment.receive": {
-        "prefix": "bitrix:sale.order.payment.receive",
+        "prefix": ["includecomponent__bitrix_sale.order.payment.receive", "bitrix:sale.order.payment.receive"],
         "body": [
             "// \u041f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435 \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u0447\u0438\u043a\u0430 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u0430 \u043f\u043b\u0430\u0442\u0435\u0436\u043d\u043e\u0439 \u0441\u0438\u0441\u0442\u0435\u043c\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -11006,7 +11006,7 @@
         ]
     },
     "bitrix:sale.order.payment": {
-        "prefix": "bitrix:sale.order.payment",
+        "prefix": ["includecomponent__bitrix_sale.order.payment", "bitrix:sale.order.payment"],
         "body": [
             "// \u041f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435 \u043f\u043b\u0430\u0442\u0435\u0436\u043d\u043e\u0439 \u0441\u0438\u0441\u0442\u0435\u043c\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -11018,7 +11018,7 @@
         ]
     },
     "bitrix:sale.order.full": {
-        "prefix": "bitrix:sale.order.full",
+        "prefix": ["includecomponent__bitrix_sale.order.full", "bitrix:sale.order.full"],
         "body": [
             "// \u041f\u0440\u043e\u0446\u0435\u0434\u0443\u0440\u0430 \u043e\u0444\u043e\u0440\u043c\u043b\u0435\u043d\u0438\u044f \u0437\u0430\u043a\u0430\u0437\u0430",
             "$APPLICATION->IncludeComponent(",
@@ -11053,7 +11053,7 @@
         ]
     },
     "bitrix:sale.export.1c": {
-        "prefix": "bitrix:sale.export.1c",
+        "prefix": ["includecomponent__bitrix_sale.export.1c", "bitrix:sale.export.1c"],
         "body": [
             "// \u042d\u043a\u0441\u043f\u043e\u0440\u0442 \u0437\u0430\u043a\u0430\u0437\u043e\u0432 \u0432 1\u0421:\u041f\u0440\u0435\u0434\u043f\u0440\u0438\u044f\u0442\u0438\u0435",
             "$APPLICATION->IncludeComponent(",
@@ -11080,7 +11080,7 @@
         ]
     },
     "bitrix:catalog.viewed.products": {
-        "prefix": "bitrix:catalog.viewed.products",
+        "prefix": ["includecomponent__bitrix_catalog.viewed.products", "bitrix:catalog.viewed.products"],
         "body": [
             "// \u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440\u0435\u043d\u043d\u044b\u0435 \u0442\u043e\u0432\u0430\u0440\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -11150,7 +11150,7 @@
         ]
     },
     "bitrix:catalog.recommended.products": {
-        "prefix": "bitrix:catalog.recommended.products",
+        "prefix": ["includecomponent__bitrix_catalog.recommended.products", "bitrix:catalog.recommended.products"],
         "body": [
             "// \u0420\u0435\u043a\u043e\u043c\u0435\u043d\u0434\u0443\u0435\u043c\u044b\u0435 \u0442\u043e\u0432\u0430\u0440\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -11222,7 +11222,7 @@
         ]
     },
     "bitrix:sale.bestsellers": {
-        "prefix": "bitrix:sale.bestsellers",
+        "prefix": ["includecomponent__bitrix_sale.bestsellers", "bitrix:sale.bestsellers"],
         "body": [
             "// \u0421\u0430\u043c\u044b\u0435 \u043f\u0440\u043e\u0434\u0430\u0432\u0430\u0435\u043c\u044b\u0435 \u0442\u043e\u0432\u0430\u0440\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -11299,7 +11299,7 @@
         ]
     },
     "bitrix:sale.recommended.products": {
-        "prefix": "bitrix:sale.recommended.products",
+        "prefix": ["includecomponent__bitrix_sale.recommended.products", "bitrix:sale.recommended.products"],
         "body": [
             "// \u0421 \u044d\u0442\u0438\u043c \u0442\u043e\u0432\u0430\u0440\u043e\u043c \u043f\u043e\u043a\u0443\u043f\u0430\u044e\u0442",
             "$APPLICATION->IncludeComponent(",
@@ -11369,7 +11369,7 @@
         ]
     },
     "bitrix:sale.notice.product": {
-        "prefix": "bitrix:sale.notice.product",
+        "prefix": ["includecomponent__bitrix_sale.notice.product", "bitrix:sale.notice.product"],
         "body": [
             "// \u041f\u043e\u0434\u043f\u0438\u0441\u043a\u0430 \u043d\u0430 \u0442\u043e\u0432\u0430\u0440\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -11386,7 +11386,7 @@
         ]
     },
     "bitrix:catalog.store": {
-        "prefix": "bitrix:catalog.store",
+        "prefix": ["includecomponent__bitrix_catalog.store", "bitrix:catalog.store"],
         "body": [
             "// \u0421\u043a\u043b\u0430\u0434\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -11416,7 +11416,7 @@
         ]
     },
     "bitrix:catalog.store.list": {
-        "prefix": "bitrix:catalog.store.list",
+        "prefix": ["includecomponent__bitrix_catalog.store.list", "bitrix:catalog.store.list"],
         "body": [
             "// \u0421\u043f\u0438\u0441\u043e\u043a \u0441\u043a\u043b\u0430\u0434\u043e\u0432",
             "$APPLICATION->IncludeComponent(",
@@ -11442,7 +11442,7 @@
         ]
     },
     "bitrix:catalog.store.detail": {
-        "prefix": "bitrix:catalog.store.detail",
+        "prefix": ["includecomponent__bitrix_catalog.store.detail", "bitrix:catalog.store.detail"],
         "body": [
             "// \u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u0441\u043a\u043b\u0430\u0434\u0435",
             "$APPLICATION->IncludeComponent(",
@@ -11464,7 +11464,7 @@
         ]
     },
     "bitrix:catalog.store.amount": {
-        "prefix": "bitrix:catalog.store.amount",
+        "prefix": ["includecomponent__bitrix_catalog.store.amount", "bitrix:catalog.store.amount"],
         "body": [
             "// \u041e\u0441\u0442\u0430\u0442\u043a\u0438 \u043f\u043e \u0441\u043a\u043b\u0430\u0434\u0430\u043c",
             "$APPLICATION->IncludeComponent(",
@@ -11496,7 +11496,7 @@
         ]
     },
     "bitrix:security.user.otp.init": {
-        "prefix": "bitrix:security.user.otp.init",
+        "prefix": ["includecomponent__bitrix_security.user.otp.init", "bitrix:security.user.otp.init"],
         "body": [
             "// \u041f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430 OTP",
             "$APPLICATION->IncludeComponent(",
@@ -11511,7 +11511,7 @@
         ]
     },
     "bitrix:security.user.recovery.codes": {
-        "prefix": "bitrix:security.user.recovery.codes",
+        "prefix": ["includecomponent__bitrix_security.user.recovery.codes", "bitrix:security.user.recovery.codes"],
         "body": [
             "// \u0420\u0435\u0437\u0435\u0440\u0432\u043d\u044b\u0435 \u043a\u043e\u0434\u044b OTP",
             "$APPLICATION->IncludeComponent(",
@@ -11523,7 +11523,7 @@
         ]
     },
     "bitrix:main.include": {
-        "prefix": "bitrix:main.include",
+        "prefix": ["includecomponent__bitrix_main.include", "bitrix:main.include"],
         "body": [
             "// \u0412\u0441\u0442\u0430\u0432\u043a\u0430 \u0432\u043a\u043b\u044e\u0447\u0430\u0435\u043c\u043e\u0439 \u043e\u0431\u043b\u0430\u0441\u0442\u0438 - http://dev.1c-bitrix.ru/user_help/settings/settings/components_2/include_areas/main_include.php",
             "$APPLICATION->IncludeComponent(",
@@ -11540,7 +11540,7 @@
         ]
     },
     "bitrix:main.site.selector": {
-        "prefix": "bitrix:main.site.selector",
+        "prefix": ["includecomponent__bitrix_main.site.selector", "bitrix:main.site.selector"],
         "body": [
             "// \u0412\u044b\u0431\u043e\u0440 \u0441\u0430\u0439\u0442\u0430 - http://dev.1c-bitrix.ru/user_help/settings/settings/components_2/navigation/main_site_selector.php",
             "$APPLICATION->IncludeComponent(",
@@ -11560,7 +11560,7 @@
         ]
     },
     "bitrix:menu": {
-        "prefix": "bitrix:menu",
+        "prefix": ["includecomponent__bitrix_menu", "bitrix:menu"],
         "body": [
             "// \u041c\u0435\u043d\u044e - http://dev.1c-bitrix.ru/user_help/settings/settings/components_2/navigation/menu.php",
             "$APPLICATION->IncludeComponent(",
@@ -11588,7 +11588,7 @@
         ]
     },
     "bitrix:mobileapp.menu": {
-        "prefix": "bitrix:mobileapp.menu",
+        "prefix": ["includecomponent__bitrix_mobileapp.menu", "bitrix:mobileapp.menu"],
         "body": [
             "// \u041c\u0435\u043d\u044e \u0434\u043b\u044f \u043c\u043e\u0431\u0438\u043b\u044c\u043d\u043e\u0439 \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u044b",
             "$APPLICATION->IncludeComponent(",
@@ -11600,7 +11600,7 @@
         ]
     },
     "bitrix:breadcrumb": {
-        "prefix": "bitrix:breadcrumb",
+        "prefix": ["includecomponent__bitrix_breadcrumb", "bitrix:breadcrumb"],
         "body": [
             "// \u041d\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u043e\u043d\u043d\u0430\u044f \u0446\u0435\u043f\u043e\u0447\u043a\u0430 - http://dev.1c-bitrix.ru/user_help/settings/settings/components_2/navigation/breadcrumb.php",
             "$APPLICATION->IncludeComponent(",
@@ -11617,7 +11617,7 @@
         ]
     },
     "bitrix:menu.sections": {
-        "prefix": "bitrix:menu.sections",
+        "prefix": ["includecomponent__bitrix_menu.sections", "bitrix:menu.sections"],
         "body": [
             "// \u041f\u0443\u043d\u043a\u0442\u044b \u043c\u0435\u043d\u044e - http://dev.1c-bitrix.ru/user_help/settings/settings/components_2/navigation/menu_section.php",
             "$APPLICATION->IncludeComponent(",
@@ -11644,7 +11644,7 @@
         ]
     },
     "bitrix:search.tags.cloud": {
-        "prefix": "bitrix:search.tags.cloud",
+        "prefix": ["includecomponent__bitrix_search.tags.cloud", "bitrix:search.tags.cloud"],
         "body": [
             "// \u041e\u0431\u043b\u0430\u043a\u043e \u0442\u0435\u0433\u043e\u0432 - http://dev.1c-bitrix.ru/user_help/settings/search/components_2/search_tags_cloud.php",
             "$APPLICATION->IncludeComponent(",
@@ -11673,7 +11673,7 @@
         ]
     },
     "bitrix:search.title": {
-        "prefix": "bitrix:search.title",
+        "prefix": ["includecomponent__bitrix_search.title", "bitrix:search.title"],
         "body": [
             "// \u041f\u043e\u0438\u0441\u043a \u043f\u043e \u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043a\u0430\u043c - http://dev.1c-bitrix.ru/user_help/settings/search/components_2/search_title.php",
             "$APPLICATION->IncludeComponent(",
@@ -11700,7 +11700,7 @@
         ]
     },
     "bitrix:search.suggest.input": {
-        "prefix": "bitrix:search.suggest.input",
+        "prefix": ["includecomponent__bitrix_search.suggest.input", "bitrix:search.suggest.input"],
         "body": [
             "// \u041f\u043e\u043b\u0435 \u0432\u0432\u043e\u0434\u0430 \u043f\u043e\u0438\u0441\u043a\u043e\u0432\u043e\u0433\u043e \u0437\u0430\u043f\u0440\u043e\u0441\u0430 - http://dev.1c-bitrix.ru/user_help/settings/search/components_2/search_suggest_input.php",
             "$APPLICATION->IncludeComponent(",
@@ -11718,7 +11718,7 @@
         ]
     },
     "bitrix:search.page": {
-        "prefix": "bitrix:search.page",
+        "prefix": ["includecomponent__bitrix_search.page", "bitrix:search.page"],
         "body": [
             "// \u0421\u0442\u0430\u043d\u0434\u0430\u0440\u0442\u043d\u0430\u044f \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0430 \u043f\u043e\u0438\u0441\u043a\u0430 - http://dev.1c-bitrix.ru/user_help/settings/search/components_2/search_page.php",
             "$APPLICATION->IncludeComponent(",
@@ -11767,7 +11767,7 @@
         ]
     },
     "bitrix:search.tags.input": {
-        "prefix": "bitrix:search.tags.input",
+        "prefix": ["includecomponent__bitrix_search.tags.input", "bitrix:search.tags.input"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u0432\u0432\u043e\u0434\u0430 \u0442\u0435\u0433\u043e\u0432 - http://dev.1c-bitrix.ru/user_help/settings/search/components_2/search_tags_input.php",
             "$APPLICATION->IncludeComponent(",
@@ -11787,7 +11787,7 @@
         ]
     },
     "bitrix:search.form": {
-        "prefix": "bitrix:search.form",
+        "prefix": ["includecomponent__bitrix_search.form", "bitrix:search.form"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u043f\u043e\u0438\u0441\u043a\u0430 - http://dev.1c-bitrix.ru/user_help/settings/search/components_2/search_form.php",
             "$APPLICATION->IncludeComponent(",
@@ -11802,7 +11802,7 @@
         ]
     },
     "bitrix:main.user.link": {
-        "prefix": "bitrix:main.user.link",
+        "prefix": ["includecomponent__bitrix_main.user.link", "bitrix:main.user.link"],
         "body": [
             "// \u0418\u043c\u044f \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f \u0441 \u0442\u0443\u043b\u0442\u0438\u043f\u043e\u043c - http://dev.1c-bitrix.ru/user_help/settings/users/components_2/main_user_link.php",
             "$APPLICATION->IncludeComponent(",
@@ -11837,7 +11837,7 @@
         ]
     },
     "bitrix:main.register": {
-        "prefix": "bitrix:main.register",
+        "prefix": ["includecomponent__bitrix_main.register", "bitrix:main.register"],
         "body": [
             "// \u041d\u0430\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u0435\u043c\u0430\u044f \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044f - http://dev.1c-bitrix.ru/user_help/settings/users/components_2/main_register.php",
             "$APPLICATION->IncludeComponent(",
@@ -11860,7 +11860,7 @@
         ]
     },
     "bitrix:main.profile": {
-        "prefix": "bitrix:main.profile",
+        "prefix": ["includecomponent__bitrix_main.profile", "bitrix:main.profile"],
         "body": [
             "// \u041f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u044b \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f - http://dev.1c-bitrix.ru/user_help/settings/users/components_2/main_profile.php",
             "$APPLICATION->IncludeComponent(",
@@ -11885,7 +11885,7 @@
         ]
     },
     "bitrix:main.app.passwords": {
-        "prefix": "bitrix:main.app.passwords",
+        "prefix": ["includecomponent__bitrix_main.app.passwords", "bitrix:main.app.passwords"],
         "body": [
             "// \u041f\u0430\u0440\u043e\u043b\u0438 \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -11897,7 +11897,7 @@
         ]
     },
     "bitrix:socserv.auth.split": {
-        "prefix": "bitrix:socserv.auth.split",
+        "prefix": ["includecomponent__bitrix_socserv.auth.split", "bitrix:socserv.auth.split"],
         "body": [
             "// \u0423\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u043e\u0431\u044a\u0435\u0434\u0438\u043d\u0435\u043d\u0438\u0435\u043c \u043f\u0440\u043e\u0444\u0438\u043b\u0435\u0439",
             "$APPLICATION->IncludeComponent(",
@@ -11913,7 +11913,7 @@
         ]
     },
     "bitrix:system.auth.form": {
-        "prefix": "bitrix:system.auth.form",
+        "prefix": ["includecomponent__bitrix_system.auth.form", "bitrix:system.auth.form"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u0430\u0432\u0442\u043e\u0440\u0438\u0437\u0430\u0446\u0438\u0438 - http://dev.1c-bitrix.ru/user_help/settings/users/components_2/system_auth_form.php",
             "$APPLICATION->IncludeComponent(",
@@ -11931,7 +11931,7 @@
         ]
     },
     "bitrix:system.auth.initialize": {
-        "prefix": "bitrix:system.auth.initialize",
+        "prefix": ["includecomponent__bitrix_system.auth.initialize", "bitrix:system.auth.initialize"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u0438\u043d\u0438\u0446\u0438\u0430\u043b\u0438\u0437\u0430\u0446\u0438\u0438 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438",
             "$APPLICATION->IncludeComponent(",
@@ -11947,7 +11947,7 @@
         ]
     },
     "bitrix:system.auth.confirmation": {
-        "prefix": "bitrix:system.auth.confirmation",
+        "prefix": ["includecomponent__bitrix_system.auth.confirmation", "bitrix:system.auth.confirmation"],
         "body": [
             "// \u0424\u043e\u0440\u043c\u0430 \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u044f \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438 - http://dev.1c-bitrix.ru/user_help/settings/users/components_2/system_auth_confirmation.php",
             "$APPLICATION->IncludeComponent(",
@@ -11964,7 +11964,7 @@
         ]
     },
     "bitrix:statistic.table": {
-        "prefix": "bitrix:statistic.table",
+        "prefix": ["includecomponent__bitrix_statistic.table", "bitrix:statistic.table"],
         "body": [
             "// \u0422\u0430\u0431\u043b\u0438\u0446\u0430 \u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0438 - http://dev.1c-bitrix.ru/user_help/statistic/components_2/statistic_table.php",
             "$APPLICATION->IncludeComponent(",
