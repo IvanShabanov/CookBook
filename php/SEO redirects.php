@@ -51,7 +51,7 @@ function SEOredirects(array	$arParams = [])
 
 	/* А вдруг мы не в битрикс ))) */
 	if (!function_exists('LocalRedirect')) {
-		function LocalRedirect($url, $http_code)
+		function LocalRedirect($url, $secure, $http_code)
 		{
 			header("HTTP/1.1 " . $http_code);
 			header("Location: " . $url);
@@ -222,7 +222,7 @@ function SEOredirects(array	$arParams = [])
 		if ((defined('REDIRECT_DEBUG')) && (REDIRECT_DEBUG == 'Y')) {
 			echo '<p>REDIRECT <br>' . $cururl . '<br>to<br><a href="' . $newurl . '">' . $newurl . '</a></p>';
 		} else {
-			LocalRedirect($newurl, "301 Moved Permanently");
+			LocalRedirect($newurl, false, "301 Moved Permanently");
 		}
 		exit();
 	}
