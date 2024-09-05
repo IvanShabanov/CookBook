@@ -5,13 +5,13 @@
 if (typeof lozad != 'undefined') {
 	/* Если на сайте используется Lozad */
 	const observer = lozad("#map", {
-		loaded: function(el) {
-			LazyMapShow ();
+		loaded: function (el) {
+			LazyMap();
 		}
 	});
 	observer.observe();
 } else {
-	LazyMapShow ();
+	LazyMap();
 }
 
 function LazyMap() {
@@ -27,42 +27,40 @@ function LazyMap() {
 function initMap() {
 
 	let myMap = new ymaps.Map("map", {
-		center: [56.316667, 44.0], /* Центр карты */
+		center: [56.316667, 44.0],
+		/* Центр карты */
 		zoom: 16
 	}, {
 		maxZoom: 17
 	});
 
- 	/* Маркеры на карте */
-	let markers =
-		[
-			{
-				lat: 56.316667,
-				lon: 44.0,
-				text: 'Первый маркер',
-				params: {
-					preset: 'islands#icon',
-					iconColor: '#0095b6'
-				}
-			},
-			{
-				lat: 56.316667,
-				lon: 44.0,
-				text: 'Второй маркер',
-				params: {
-					preset: 'islands#icon',
-					iconColor: '#0095b6'
-				}
+	/* Маркеры на карте */
+	let markers = [{
+			lat: 56.316667,
+			lon: 44.0,
+			text: 'Первый маркер',
+			params: {
+				preset: 'islands#icon',
+				iconColor: '#0095b6'
 			}
-		];
+		},
+		{
+			lat: 56.316667,
+			lon: 44.0,
+			text: 'Второй маркер',
+			params: {
+				preset: 'islands#icon',
+				iconColor: '#0095b6'
+			}
+		}
+	];
 
 	/* Расставим маркеры на карте */
 	var myGeoObjects = [];
 	for (i = 0; i < markers.length; i++) {
 		let myPlacemark = new ymaps.Placemark([markers[i].lat, markers[i].lon], {
 			balloonContent: markers[i].text
-		}, markers[i].params
-		);
+		}, markers[i].params);
 		myGeoObjects.push(myPlacemark);
 	};
 	clusterer = new ymaps.Clusterer();
@@ -70,9 +68,11 @@ function initMap() {
 	myMap.geoObjects.add(clusterer);
 
 	/* Далее Сделаем выравнивание и зуммирование карты для того чтобы показать все маркеры */
-	setTimeout(function() {
-		myMap.setBounds(myMap.geoObjects.getBounds(),{checkZoomRange:true, zoomMargin:9});
+	setTimeout(function () {
+		myMap.setBounds(myMap.geoObjects.getBounds(), {
+			checkZoomRange: true,
+			zoomMargin: 9
+		});
 	}, 1000);
 
 }
-
