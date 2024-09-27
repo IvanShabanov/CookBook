@@ -23,20 +23,23 @@
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "mainEntity": [{
-        "@type": "Question",
-        "name": "Вопрос?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Тут ответ"
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Вопрос?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Тут ответ"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Вопрос 2?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Полный ответ на вопрос 2"
+          }
         }
-      }, {
-        "@type": "Question",
-        "name": "Вопрос 2?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Полный ответ на вопрос 2"
-        }
-      }]
+      ]
     }
     </script>
