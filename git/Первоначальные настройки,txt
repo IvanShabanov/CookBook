@@ -1,0 +1,8 @@
+Глоюальные настройки
+
+git config --global user.name "Иван Шабанов"
+git config --global user.email "ivan.shabanov@____.ru"
+
+Локальные настройки
+git config user.name "Иван Шабанов"
+git config user.email "ivan.shabanov@____.ru"

@@ -1,0 +1,12 @@
+Установить remote
+
+git remote set-url origin https://_____.git
+
+или
+
+git remote set-url origin git@_____.git
+
+или переименуем текущий и добавить новый
+
+git remote rename origin old-origin
+git remote add origin https://__________.git
