@@ -8,3 +8,33 @@ git pull origin master
 git stash
 git pull origin master
 git stash pop
+
+--------------------------------------------
+
+Поредача в коммандную строку логин и пароль
+
+git pull https://username:password@git____.ru/______.git
+
+Символы можно кодировать %hex
+%7E - ~
+%21 - !
+%40 - @
+%23 - #
+%24 - $
+%25 - %
+%5E - ^
+%26 - &
+%2A - *
+%28 - (
+%29 - )
+%5F - _
+%2B - +
+%7C - |
+%3D - =
+%5C - \
+%2F - |
+%2A - *
+%2D - -
+
+Если username user@git.ru
+git pull https://user%40git.ru:password@git____.ru/______.git
