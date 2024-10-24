@@ -1,0 +1,10 @@
+Получить все изменения с сервера origin в ветке master
+
+git pull origin master
+
+
+Если надо обновить ветку без изменения файлов
+
+git stash
+git pull origin master
+git stash pop

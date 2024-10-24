@@ -1,0 +1,6 @@
+Добавить все измененные файлы в ветку master
+
+git add -A
+git commit -m "feat: message"
+git push -u origin master
+

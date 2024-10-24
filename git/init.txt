@@ -2,6 +2,6 @@
 
 git init
 git remote add origin https://git____.ru/___.git
-git add .
+git add -A
 git commit -m "Initial commit"
 git push -u origin master
