@@ -464,7 +464,7 @@ if (!empty($_GET['pageurl'])) {
 
 		<tr>
 			<td>
-				Собирать Title, Description и H1 (первый)
+				Собирать Title, Description, H1 (первый), canonical
 			</td>
 			<td>
 				<input id="title_descr" type="checkbox" value="Y" />
@@ -664,6 +664,10 @@ if (!empty($_GET['pageurl'])) {
 			return description?.getAttribute('content');
 		}
 
+		function getCanonical(resultDom) {
+			let description = resultDom.querySelector('link[rel="canonical"]');
+			return description?.getAttribute('href');
+		}
 
 		function getH1(resultDom) {
 			let h1 = resultDom.querySelector('body h1');
@@ -697,6 +701,8 @@ if (!empty($_GET['pageurl'])) {
 						table += '<td class="description">';
 						table += '</td>';
 						table += '<td class="h1">';
+						table += '</td>';
+						table += '<td class="canonical">';
 						table += '</td>';
 						table += '<td>';
 						table += '<button type="button" title="Повторить проверку">&#10227;</button>';
@@ -787,6 +793,7 @@ if (!empty($_GET['pageurl'])) {
 						const title_place = res.parentElement?.querySelector('.title');
 						const desc_place = res.parentElement?.querySelector('.description');
 						const h1_place = res.parentElement?.querySelector('.h1');
+						const canonical_place = res.parentElement?.querySelector('.canonical');
 						let parser = new DOMParser();
 						let resultDom = parser.parseFromString(result, 'text/html');
 						if (title_place) {
@@ -797,6 +804,9 @@ if (!empty($_GET['pageurl'])) {
 						}
 						if (h1_place) {
 							h1_place.innerHTML = getH1(resultDom);
+						}
+						if (canonical_place) {
+							canonical_place.innerHTML = getCanonical(resultDom);
 						}
 					}
 					if (search_text.value !== '') {
