@@ -775,11 +775,10 @@ if (!empty($_GET['pageurl'])) {
 				}).then(function(response) {
 					let status = response.status;
 					if (status != 200) {
-						res.innerHTML = '<div style="padding: 10px; background: #a00; color: #fff">' + status + '</div>';
-					} else {
-						res.innerHTML = '200';
-						hide200();
-					}
+						res.setAttribute('style' , 'padding: 10px; background: #a00; color: #fff');;
+					};
+					res.innerHTML = status;
+					hide200();
 					checked++;
 					setTimeout(function() {
 						streems_active--;
@@ -806,7 +805,12 @@ if (!empty($_GET['pageurl'])) {
 							h1_place.innerHTML = getH1(resultDom);
 						}
 						if (canonical_place) {
-							canonical_place.innerHTML = getCanonical(resultDom);
+							const link = res.parentElement?.querySelector('.link a');
+							const canonical = getCanonical(resultDom);
+							if ((link) && link.getAttribute('href') !== canonical) {
+								canonical_place.setAttribute('style' , 'padding: 10px; background: #a00; color: #fff');
+							}
+							canonical_place.innerHTML = canonical;
 						}
 					}
 					if (search_text.value !== '') {
