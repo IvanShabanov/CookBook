@@ -8,6 +8,7 @@ $token = $_SESSION['token'];
 
 function get_contents($url, $params = array())
 {
+	$url    = urldecode($url);
 	$result = array();
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
@@ -295,8 +296,7 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 		$links = [];
 		switch ($_POST['filetype']) {
 			case 'yadirect':
-				foreach ($filecontent as $key => $fileline)
-				{
+				foreach ($filecontent as $key => $fileline) {
 					if ($key <= 2) {
 						continue;
 					}
@@ -320,7 +320,6 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 	die();
 }
 
-
 function DirList($directory, $ignore = array('bitrix', 'upload', 'uploads'))
 {
 	$result = array();
@@ -337,8 +336,6 @@ function DirList($directory, $ignore = array('bitrix', 'upload', 'uploads'))
 	closedir($handle);
 	return $result;
 };
-
-
 
 $streems = 3;
 if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
@@ -379,6 +376,7 @@ if (!empty($_GET['pageurl'])) {
 
 		table {
 			width: 100%;
+			max-width: 100vw;
 		}
 
 		table tr:hover td {
@@ -394,9 +392,21 @@ if (!empty($_GET['pageurl'])) {
 			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 		}
 
+		table#urlsTable tr td.link,
+		table#urlsTable tr td.canonical {
+			max-width: 200px;
+			word-wrap: break-word;
+		}
+
 		textarea#log {
 			width: 100%;
 			height: 50px;
+		}
+
+		table#urlsTable tr td.error, .error {
+			padding: 10px;
+			background: #a00;
+			color: #fff
 		}
 	</style>
 </head>
@@ -464,10 +474,10 @@ if (!empty($_GET['pageurl'])) {
 
 		<tr>
 			<td>
-				Собирать Title, Description, H1 (первый), canonical
+				Собирать SEO meta
 			</td>
 			<td>
-				<input id="title_descr" type="checkbox" value="Y" />
+				<input id="collect_meta" type="checkbox" value="Y" />
 			</td>
 		</tr>
 		<tr>
@@ -501,6 +511,7 @@ if (!empty($_GET['pageurl'])) {
 		let checked = 0;
 		let streems_active = 0;
 		let streems_max = 0;
+		let addUrlToTable = false;
 
 		function Start() {
 			const res = document.querySelector('#res');
@@ -509,6 +520,7 @@ if (!empty($_GET['pageurl'])) {
 			counter = 0;
 			checked = 0;
 			CreateResultTable(links);
+			localStorage.clear();
 		}
 
 		function log(text) {
@@ -516,37 +528,43 @@ if (!empty($_GET['pageurl'])) {
 			el.value += text + "\r\n";
 		}
 
+		function isValidLink(link) {
+			if ((link) && (typeof link != 'undefined')) {
+				if ((link.includes('tel:')) || (link.includes('mailto:')) || (link.includes('javascript:')) || (link.includes('#'))) {
+					return false;
+				}
+				return true;
+			}
+			return false;
+		}
+
 		function parseHtml(result, base, callback) {
 			let parser = new DOMParser();
 			let resultDom = parser.parseFromString(result, 'text/html');
-			let links = '';
-			let urls = resultDom.getElementsByTagName('a');
+			getAlinks(resultDom, base, callback);
+		}
 
+		function getAlinks(resultDom, base, callback) {
+			const urls = resultDom.getElementsByTagName('a');
 			if (urls.length > 0) {
 				for (var i = 0; i < urls.length; i++) {
 					const urlElement = urls[i];
 					let link = urlElement.getAttribute('href');
-					if ((link) && (typeof link != 'undefined')) {
-						if ((link.includes('tel:')) || (link.includes('mailto:')) || (link.includes('javascript:')) || (link.includes('#'))) {
-							link = '';
+					if (isValidLink(link)) {
+						base = new URL(base);
+						link = new URL(link, base.origin);
+						if (addUrlToTable && link.href.includes(base.origin) && addLineTableRes(link.href, base.href)) {
+							document.querySelector('#links').value += "\r\n" + link;
+						} else if (!addUrlToTable && link.href.includes(base.origin)) {
+							document.querySelector('#links').value += "\r\n" + link;
 						}
-					} else {
-						link = '';
-					}
-					if (link != '') {
-						link = new URL(link, base);
-						if (links != '') {
-							links += "\r\n";
-						};
-						links += link;
 					};
 				};
-				document.querySelector('#links').value = links;
-				log('Links collected');
 
-				if (typeof callback == 'function') {
-					callback();
-				};
+				log('Links collected');
+			};
+			if (typeof callback == 'function') {
+				callback();
 			};
 		}
 
@@ -640,17 +658,17 @@ if (!empty($_GET['pageurl'])) {
 				data.append('file', file.files[0]);
 
 				fetch(action, {
-					method: 'POST',
-					body: data,
-				}).then(function (response) {
-					return response.text(); /* to get HTML */
-					//return response.json(); /* to get JSON */
-				}).then(function (result) {
-					document.querySelector('#links').value = result;
-				})
-				.catch(function (err) {
-					console.log('Something went wrong. ', err);
-				});
+						method: 'POST',
+						body: data,
+					}).then(function(response) {
+						return response.text(); /* to get HTML */
+						//return response.json(); /* to get JSON */
+					}).then(function(result) {
+						document.querySelector('#links').value = result;
+					})
+					.catch(function(err) {
+						console.log('Something went wrong. ', err);
+					});
 			}
 		}
 
@@ -669,72 +687,186 @@ if (!empty($_GET['pageurl'])) {
 			return description?.getAttribute('href');
 		}
 
+		function getRobots(resultDom) {
+			let robots = resultDom.querySelector('meta[name="robots"]');
+			return robots?.getAttribute('content');
+		}
+
 		function getH1(resultDom) {
 			let h1 = resultDom.querySelector('body h1');
-			return h1?.innerHTML;
+			return h1?.textContent;
 		}
 
 		function CreateResultTable(links) {
-
 			const res = document.querySelector('#res');
-			let table = '';
+			let table = document.createElement('table');
+			table.setAttribute('id', 'urlsTable');
 			let urls = links.split("\n");
 
 			if (urls.length > 0) {
+				let tableHeader = HeaderTableRes();
+				if (tableHeader) {
+					table.appendChild(tableHeader);
+				}
 				for (var i = 0; i < urls.length; i++) {
-					const urlElement = urls[i];
-					const loc = urlElement.trim();
-					const search_text = document.querySelector('#search_text');
-					let linktoscan = '?pageurl=' + loc.replace('&', '??');
-					if (search_text.value !== '') {
-						linktoscan = linktoscan + '&search_text=' + search_text.value;
-					};
-					if (loc != '') {
-						table += '<tr>';
-						table += '<td class="link">';
-						table += '<a href="' + loc + '" target="_blank">' + loc + '</a>';
-						table += '</td>';
-						table += '<td class="res">';
-						table += '</td>';
-						table += '<td class="title">';
-						table += '</td>';
-						table += '<td class="description">';
-						table += '</td>';
-						table += '<td class="h1">';
-						table += '</td>';
-						table += '<td class="canonical">';
-						table += '</td>';
-						table += '<td>';
-						table += '<button type="button" title="Повторить проверку">&#10227;</button>';
-						table += '</td>';
-						table += '<td>';
-
-						table += '<a href="' + linktoscan + '" target="_blank">Проверить ссылки на странице</a>';
-						table += '</td>';
-						table += '</tr>';
+					let row = LineTableRes(urls[i]);
+					if (row) {
+						table.appendChild(row);
 					}
 				};
-
-				if (table.length > 0) {
-					table = '<table id="urlsTable">' + table + '</table>';
-					res.innerHTML = table;
-					setTimeout(function() {
-						CheckTable();
-					}, 100);
-				}
-
+				res.textContent = '';
+				res.appendChild(table);
+				setTimeout(function() {
+					CheckTable();
+				}, 100);
 			}
 		}
 
-		function CheckTable() {
+		function getTableColums() {
+			return {
+				'link': 'Ссылка',
+				'res': 'Код',
+				'title': 'title',
+				'description': 'meta description',
+				'h1': 'H1',
+				'canonical': 'canonical',
+				'robots': 'meta robots',
+				'button': '',
+				'pageLinks': ''
+			}
+		}
+
+		function HeaderTableRes() {
+			const columns = getTableColums();
+			if (!columns || columns.length == 0) {
+				return false;
+			}
+			const row = document.createElement('tr');
+			row.classList.add('header');
+			for (var key in columns) {
+				if (columns.hasOwnProperty(key)) {
+					let cell = document.createElement('th');
+					cell.textContent = columns[key];
+					row.appendChild(cell);
+				}
+			}
+			return row;
+		}
+
+		function addLineTableRes(url, source) {
 			const table = document.querySelector('#urlsTable');
-			const trs = table.querySelectorAll('tr');
-			trs.forEach(tr => {
-				const reload = tr.querySelector('button');
-				reload.addEventListener('click', function(event) {
-					CheckLine(tr);
-				});
-			});
+			if (!table || typeof table == 'indefined') {
+				return false;
+			}
+			if (typeof source != 'undefined') {
+				addSource(url, source);
+			}
+			const allreadylink = document.querySelector('#urlsTable .link a[href="' + url + '"]');
+			if (allreadylink) {
+				return false;
+			}
+			const row = LineTableRes(url);
+
+			if (row) {
+				table.appendChild(row);
+			}
+			return true;
+		}
+
+		function addSource(loc, source) {
+			if (!loc || typeof loc =='undefined' || loc == '' || !source || typeof source == 'undefined' || source == '') {
+				return;
+			}
+			let data = localStorage.getItem(loc);
+			let ardata = [];
+			if (data && data.length > 0) {
+				ardata = data.split(',');
+			}
+			if (typeof source != 'undefined' && !ardata.includes(source)) {
+				ardata.push(source);
+			}
+			data = ardata.join(',');
+			localStorage.setItem(loc, data);
+		}
+
+		function showSource(el) {
+			const cell = el.closest('td')
+			if (!cell || typeof cell == 'undefined') {
+				return;
+			}
+			const alink = cell.querySelector('a');
+			if (alink) {
+				const loc = alink.getAttribute('href');
+				let data = localStorage.getItem(loc);
+				let newdata = [];
+				let str = '<h3>Источники ссылок на страницу ' + loc + '</h3>';
+				if (data) {
+					str += '<ol>';
+					newdata = data.split(',');
+					newdata.forEach((curdata) => {
+						str += '<li><a href="' + curdata + '" target="_blank">' + curdata + "<a></li>";
+					});
+					str += '</ol>';
+				}
+				var win = window.open("", "", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=500");
+				win.document.body.innerHTML = str;
+			}
+		}
+
+		function LineTableRes(url) {
+			const loc = url.trim();
+			const search_text = document.querySelector('#search_text');
+			let linktoscan = '?pageurl=' + loc.replace('&', '??');
+			if (search_text.value !== '') {
+				linktoscan = linktoscan + '&search_text=' + search_text.value;
+			};
+			if (loc == '') {
+				return false;
+			}
+			const columns = getTableColums();
+			if (!columns || columns.length == 0) {
+				return false;
+			}
+			const row = document.createElement('tr');
+			for (var key in columns) {
+				let cell = document.createElement('td');
+
+				cell.classList.add(key);
+				if (key == 'link') {
+					let button = document.createElement('button');
+					button.setAttribute('type', 'button');
+					button.setAttribute('title', 'Источники');
+					button.setAttribute('onClick', 'showSource(this);');
+					button.innerHTML = '...';
+					cell.appendChild(button);
+
+					let a = document.createElement('a');
+					a.setAttribute('href', loc);
+					a.setAttribute('target', "_blank");
+					a.textContent = loc
+					cell.appendChild(a);
+				}
+				if (key == 'button') {
+					let button = document.createElement('button');
+					button.setAttribute('type', 'button');
+					button.setAttribute('title', 'Повторить проверку');
+					button.setAttribute('onClick', 'reScan(this);');
+					button.innerHTML = '&#10227;'
+					cell.appendChild(button);
+				}
+				if (key == 'pageLinks') {
+					let a = document.createElement('a');
+					a.setAttribute('href', linktoscan);
+					a.setAttribute('target', "_blank");
+					a.textContent = 'Проверить ссылки на странице';
+					cell.appendChild(a);
+				}
+				row.appendChild(cell);
+			}
+			return row;
+		}
+
+		function CheckTable() {
 			CheckLineLazy();
 		}
 
@@ -743,7 +875,7 @@ if (!empty($_GET['pageurl'])) {
 			streems_max = streems.value;
 			if (streems_active < streems_max) {
 				const table = document.querySelector('#urlsTable');
-				const trs = table.querySelectorAll('tr');
+				const trs = table.querySelectorAll('tr:not(.header)');
 				const btnDownload = document.querySelector('#btnDownload');
 				if ((trs.length > 0) && (counter < trs.length)) {
 					CheckLine(trs[counter]);
@@ -757,9 +889,17 @@ if (!empty($_GET['pageurl'])) {
 			}
 		}
 
-		function CheckLine(tr) {
-			const url = tr.querySelector('a').getAttribute('href');
-			const res = tr.querySelector('.res');
+		function reScan(el) {
+			const row = el.closest('tr');
+			if (row) {
+				CheckLine(row);
+			}
+		}
+
+
+		function CheckLine(row) {
+			const url = row.querySelector('.link a').getAttribute('href');
+			const res = row.querySelector('.res');
 			res.innerHTML = 'loading....';
 			CheckLink(url, res);
 		}
@@ -775,7 +915,7 @@ if (!empty($_GET['pageurl'])) {
 				}).then(function(response) {
 					let status = response.status;
 					if (status != 200) {
-						res.setAttribute('style' , 'padding: 10px; background: #a00; color: #fff');;
+						res.classList.add('error');
 					};
 					res.innerHTML = status;
 					hide200();
@@ -786,13 +926,16 @@ if (!empty($_GET['pageurl'])) {
 					}, 100);
 					return response.text();
 				}).then(function(result) {
-					const need_meta = document.querySelector('#title_descr');
+					const collect_meta = document.querySelector('#collect_meta');
 					const search_text = document.querySelector('#search_text');
-					if (need_meta.checked) {
+					const collect_pages = document.querySelector('#collect_pages');
+
+					if (collect_meta.checked) {
 						const title_place = res.parentElement?.querySelector('.title');
 						const desc_place = res.parentElement?.querySelector('.description');
 						const h1_place = res.parentElement?.querySelector('.h1');
 						const canonical_place = res.parentElement?.querySelector('.canonical');
+						const robots_place = res.parentElement?.querySelector('.robots');
 						let parser = new DOMParser();
 						let resultDom = parser.parseFromString(result, 'text/html');
 						if (title_place) {
@@ -807,19 +950,34 @@ if (!empty($_GET['pageurl'])) {
 						if (canonical_place) {
 							const link = res.parentElement?.querySelector('.link a');
 							const canonical = getCanonical(resultDom);
-							if ((link) && link.getAttribute('href') !== canonical) {
-								canonical_place.setAttribute('style' , 'padding: 10px; background: #a00; color: #fff');
+							if (canonical && typeof canonical !== 'undefined') {
+								if ((link) && link.getAttribute('href') !== canonical) {
+									canonical_place.classList.add('error');
+								}
+								canonical_place.innerHTML = canonical;
 							}
-							canonical_place.innerHTML = canonical;
 						}
+						if (robots_place) {
+							const robots = getRobots(resultDom);
+							if (robots && typeof robots !== 'undefined') {
+								robots_place.innerHTML = robots;
+							}
+						}
+
 					}
 					if (search_text.value !== '') {
 						const search_text_reg = '/' + search_text.value + '/g';
 						if (parseInt(result.search(search_text_reg)) > -1) {
 							res.innerHTML = res.innerHTML + ' найдено';
+						} else if (result.includes(search_text.value)) {
+							res.innerHTML = res.innerHTML + ' найдено';
 						} else if (result.indexOf(search_text.value) > 0) {
 							res.innerHTML = res.innerHTML + ' найдено';
 						}
+					}
+					if (collect_pages.checked) {
+						addUrlToTable = true;
+						parseHtml(result, url);
 					}
 				}).catch(function(err) {
 					log('ERROR cant get ' + url);
@@ -831,7 +989,7 @@ if (!empty($_GET['pageurl'])) {
 		function hide200() {
 			const hide = document.querySelector('#hide200');
 			const table = document.querySelector('#urlsTable');
-			const trs = table?.querySelectorAll('tr');
+			const trs = table?.querySelectorAll('tr:not(.header)');
 			if (trs.length > 0) {
 				trs.forEach((tr) => {
 					const res = tr.querySelector('.res').textContent;
@@ -845,7 +1003,6 @@ if (!empty($_GET['pageurl'])) {
 				})
 			}
 		}
-
 
 		function PrepareToDownload() {
 			const table = document.querySelector('#urlsTable');
