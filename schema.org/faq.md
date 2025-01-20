@@ -20,26 +20,54 @@
 Пример LD JSON
 
 	<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Вопрос?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Тут ответ"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Вопрос 2?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Полный ответ на вопрос 2"
-          }
-        }
-      ]
-    }
-    </script>
+	{
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		"mainEntity": [
+			{
+				"@type": "Question",
+				"name": "Вопрос?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Тут ответ"
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Вопрос 2?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Полный ответ на вопрос 2"
+				}
+			}
+		]
+	}
+	</script>
+
+PHP LD JSON
+
+	<?
+	$LDjson = [
+		"@context" => "https://schema.org",
+		"@type"		=> "FAQPage",
+		"mainEntity" => [
+			[
+				"@type" => "Question",
+				"name"	=> "Вопрос?",
+				"acceptedAnswer" => [
+					"@type" => "Answer",
+					"text"	=> "Тут ответ"
+				]
+			],
+			[
+				"@type" => "Question",
+				"name"	=> "Вопрос 2?",
+				"acceptedAnswer" => [
+					"@type" => "Answer",
+					"text"	=> "Полный ответ на вопрос 2"
+				]
+			],
+		]
+	];
+	echo '<script type="application/ld+json">'.json_encode($LDjson).'</script>';
+	?>
