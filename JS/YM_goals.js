@@ -1,4 +1,4 @@
-function Goal(GOALNAME) {
+function Goal(goalName) {
 	if (typeof Ya === 'undefined') {
 		return;
 	}
@@ -7,6 +7,18 @@ function Goal(GOALNAME) {
 		return;
 	}
 	counters.forEach((counter) => {
-		ym(counter.id, 'reachGoal', GOALNAME);
+		ym(counter.id, 'reachGoal', goalName);
+	});
+}
+
+function addGoal(querySelector, eventName, goalName) {
+	let elements = document.querySelectorAll(querySelector);
+	if (typeof elements == "undefined" || !elements || elements.length == 0) {
+		return;
+	}
+	elements.forEach((el) => {
+		el.addEventListener(eventName, () => {
+			Goal(goalName);
+		});
 	});
 }
