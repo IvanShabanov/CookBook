@@ -54,3 +54,6 @@ https://r-morozov.ru/bitrix/vsjo-o-keshirovanii-v-bitriks-d7-tegirovannyj-kesh-k
 
 https://dev.1c-bitrix.ru/community/webdev/user/127124/blog/38176/
 
+###Ксастомизация Sale.order.ajax
+
+https://it-stories.ru/blog/bitrix/rabota-s-sale-order-ajax-v-bitriks-kastomizacija/
