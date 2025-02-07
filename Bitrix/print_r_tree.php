@@ -43,11 +43,12 @@ function print_r_tree($data, $level = 0, $parent = '')
 		$bagtrace = debug_backtrace();
 		if (isset($USER) && $USER->IsAdmin()) {
 			echo '<div data-id="!!!----------DEBUG----------!!!" data-debug="' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '">';
+			echo '<p style="font-size: 10px; color: #888">' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '</p>';
 			echo $out;
 			echo '</div>';
 		} else {
-
 			echo '<div data-id="!!!----------DEBUG----------!!!" data-debug="' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '" style="dislay: none">';
+			echo '<p style="font-size: 10px; color: #888">' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '</p>';
 			echo $out;
 			echo '</div>';
 		}
@@ -62,7 +63,6 @@ function print_r_php($value, $pre = false, $level = 0)
 	$type = gettype($value);
 	if ($type == 'array') {
 		$result .= '[' . "\n";
-		$level++;
 		foreach ($value as $key => $val) {
 			$result .= str_repeat("\t", 1 + $level);
 			$result .= '"' . $key . '" => ' . print_r_php($val, false, $level + 1);
@@ -88,9 +88,15 @@ function print_r_php($value, $pre = false, $level = 0)
 		if ($pre) {
 			$bagtrace = debug_backtrace();
 			if (isset($USER) && $USER->IsAdmin()) {
-				$result = '<pre>' . $result . '</pre>';
+				$result = '<pre data-id="!!!----------DEBUG----------!!!" data-debug="' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '">' .
+					'/* ' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '*/' . "\n" .
+					$result .
+					'</pre>';
 			} else {
-				$result = '<pre data-id="!!!----------DEBUG----------!!!" data-debug="' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '" style="dislay: none">' . $result . '</pre>';
+				$result = '<pre data-id="!!!----------DEBUG----------!!!" data-debug="' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '" style="dislay: none">' .
+					'/* ' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '*/' . "\n" .
+					$result .
+					'</pre>';
 			}
 			echo $result;
 		}
