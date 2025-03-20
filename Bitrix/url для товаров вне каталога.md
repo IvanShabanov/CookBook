@@ -130,7 +130,7 @@
 ## 5. Поиск
 
 Иногда ломается поиск в разных готовых решениях.
-В начале файлв /catalog/index.php
+В начале файла /catalog/index.php
 
 	$cururl = $_SERVER['REQUEST_URI'];
 	if (!empty($_GET['q']) && mb_strpos($cururl, 'catalog/search/') === false) {
