@@ -127,3 +127,18 @@
 		$APPLICATION->AddChainItem("Каталог", "/catalog/");
 	}
 
+## 5. Поиск
+
+Иногда ломается поиск в разных готовых решениях.
+В начале файлв /catalog/index.php
+
+	$cururl = $_SERVER['REQUEST_URI'];
+	if (!empty($_GET['q']) && mb_strpos($cururl, 'catalog/search/') === false) {
+		$newurl = str_replace('catalog/', 'catalog/search/', $cururl);
+		if ($cururl != $newurl) {
+			header("Location: $newurl");
+			die();
+		}
+	}
+
+Не самое лучшее решение для починки поиска.
