@@ -41,17 +41,14 @@ function print_r_tree($data, $level = 0, $parent = '')
 	};
 	if ($level == 0) {
 		$bagtrace = debug_backtrace();
+		$display  = ' style="dislay: none"';
 		if (isset($USER) && $USER->IsAdmin()) {
-			echo '<p style="font-size: 10px; color: #888">' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '</p>';
-			echo '<div data-id="!!!----------DEBUG----------!!!" data-debug="' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '">';
-			echo $out;
-			echo '</div>';
-		} else {
-			echo '<p style="font-size: 10px; color: #888">' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '</p>';
-			echo '<div data-id="!!!----------DEBUG----------!!!" data-debug="' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '" style="dislay: none">';
-			echo $out;
-			echo '</div>';
+			$display  = '';
 		}
+		echo '<div data-id="!!!----------DEBUG----------!!!" data-debug="' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '" .$display.>';
+		echo '<p style="font-size: 10px; color: #888">' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '</p>';
+		echo $out;
+		echo '</div>';
 	};
 	return $out;
 };
