@@ -103,3 +103,14 @@ function print_r_php($value, $pre = false, $level = 0)
 	$result .= "\n";
 	return $result;
 }
+
+function dtfp($arResult) {
+	$filename = $_SERVER['DOCUMENT_ROOT'] . '/__bx_debug.php';
+	$text  = '<? require_once($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");';
+	$text .= 'echo "<hr>";';
+	$text .= 'echo "'.__FILE__.':'.__LINE__.'";';
+	$text .= '$ar='.print_r_php($arResult).';';
+	$text .= 'print_r_tree($ar);';
+	$text .= '?>';
+	file_put_contents($filename, $text,FILE_APPEND);
+}
