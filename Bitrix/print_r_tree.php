@@ -109,7 +109,7 @@ function dtfp($arResult)
 	$filename = $_SERVER['DOCUMENT_ROOT'] . '/__bx_debug.php';
 	$text  = '<? require_once($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");';
 	$text .= 'echo "<hr>";';
-	$text .= 'echo "' . date('Y.m.d H:i:s') . " " . __FILE__ . ':' . __LINE__ . '";';
+	$text .= 'echo "<p>' . date('Y.m.d H:i:s') . " " . __FILE__ . ':' . __LINE__ . '</p>";';
 	$text .= '$ar=' . print_r_php($arResult) . ';';
 	$text .= 'print_r_tree($ar);';
 	$text .= '?>';
