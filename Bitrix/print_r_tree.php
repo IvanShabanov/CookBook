@@ -54,7 +54,7 @@ function print_r_tree($data, $level = 0, $parent = '')
 		if (isset($USER) && $USER->IsAdmin()) {
 			$display = '';
 		}
-		echo '<div data-id="!!!----------DEBUG----------!!!" data-debug="' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '" .$display.>';
+		echo '<div data-id="!!!----------DEBUG----------!!!" data-debug="' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '" ' . $display . '>';
 		echo '<p style="font-size: 10px; color: #888">' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '</p>';
 		echo $out;
 		echo '</div>';
@@ -128,7 +128,7 @@ function dtfp($value)
 	$bagtrace = debug_backtrace();
 	$filename = $_SERVER['DOCUMENT_ROOT'] . '/__bx_debug.php';
 
-	$text  = '<?php require_once("' . __FILE__ . '");';
+	$text = '<?php require_once("' . __FILE__ . '");';
 	$text .= 'echo "<hr>";';
 	$text .= 'echo "<p>' . date('Y.m.d H:i:s') . ' ' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '</p>";';
 	$text .= '$ar=' . print_r_php($value) . ';';
