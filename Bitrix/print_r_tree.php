@@ -91,7 +91,7 @@ function print_r_php($value, $echo = false, $level = 0)
 	} else if ($type == 'NULL') {
 		$result .= 'NULL';
 	} else if (!in_array($type, ["object", "resource", "unknown type", "resource (closed)"])) {
-		$result .= '"' . $value . '"';
+		$result .= '"' . addslashes($value) . '"';
 	} else {
 		$result .= '"" /* not supported value */';
 	}
