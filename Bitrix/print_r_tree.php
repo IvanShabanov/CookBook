@@ -9,14 +9,14 @@
 function print_r_tree($data, $level = 0, $parent = '')
 {
 	global $USER;
-	$out = '';
+	$result = '';
 	if ($level == 0) {
-		$out .= '<script data-skip-moving="true">function showinner(el) {if(el.nextSibling.style.display == "block") {el.nextSibling.style.display = "none";} else {el.nextSibling.style.display = "block";};}; </script>';
+		$result .= '<script data-skip-moving="true">function showinner(el) {if(el.nextSibling.style.display == "block") {el.nextSibling.style.display = "none";} else {el.nextSibling.style.display = "block";};}; </script>';
 	}
 	$type = gettype($data);
 	if ($type == 'array') {
 		if ($level > 0) {
-			$out .= '<div style="display: none; padding: 5px; border: 1px solid #000;">';
+			$result .= '<div style="display: none; padding: 5px; border: 1px solid #000;">';
 		}
 		foreach ($data as $key => $val) {
 			$item    = '["' . $key . '"]';
@@ -28,25 +28,25 @@ function print_r_tree($data, $level = 0, $parent = '')
 			} else {
 				$count = '';
 			}
-			$out .= '<div><div onclick="showinner(this);" style="padding: 5px;">' . gettype($val) . ' ' . $parent . $item . ' &nbsp; &nbsp; ' . $count . '</div>';
+			$result .= '<div><div onclick="showinner(this);" style="padding: 5px;">' . gettype($val) . ' ' . $parent . $item . ' &nbsp; &nbsp; ' . $count . '</div>';
 
-			$out .= print_r_tree($val, $level + 1, $parent . $item);
+			$result .= print_r_tree($val, $level + 1, $parent . $item);
 
-			$out .= '</div>';
+			$result .= '</div>';
 		}
 		if ($level > 0) {
-			$out .= '</div>';
+			$result .= '</div>';
 		}
 	} else if ($type == 'boolean') {
 		if ($data) {
-			$out .= '<pre style="display: none;  padding: 5px; border: 1px solid #000;">TRUE</pre>';
+			$result .= '<pre style="display: none;  padding: 5px; border: 1px solid #000;">TRUE</pre>';
 		} else {
-			$out .= '<pre style="display: none;  padding: 5px; border: 1px solid #000;">FALSE</pre>';
+			$result .= '<pre style="display: none;  padding: 5px; border: 1px solid #000;">FALSE</pre>';
 		}
 	} else if (in_array($type, array('integer', 'double', 'float', 'string'))) {
-		$out .= '<pre style="display: none;  padding: 5px; border: 1px solid #000;">' . str_replace('<', '&lt;', $data) . '</pre>';
+		$result .= '<pre style="display: none;  padding: 5px; border: 1px solid #000;">' . str_replace('<', '&lt;', $data) . '</pre>';
 	} else {
-		$out .= '<pre style="display: none;  padding: 5px; border: 1px solid #000;">' . print_r($data, true) . '</pre>';
+		$result .= '<pre style="display: none;  padding: 5px; border: 1px solid #000;">' . print_r($data, true) . '</pre>';
 	}
 	if ($level == 0) {
 		$bagtrace = debug_backtrace();
@@ -56,10 +56,10 @@ function print_r_tree($data, $level = 0, $parent = '')
 		}
 		echo '<div data-id="!!!----------DEBUG----------!!!" data-debug="' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '" ' . $display . '>';
 		echo '<p style="font-size: 10px; color: #888">' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '</p>';
-		echo $out;
+		echo $result;
 		echo '</div>';
 	}
-	return $out;
+	return $result;
 }
 
 /**
@@ -128,11 +128,11 @@ function dtfp($value)
 	$bagtrace = debug_backtrace();
 	$filename = $_SERVER['DOCUMENT_ROOT'] . '/__bx_debug.php';
 
-	$text = '<?php require_once("' . __FILE__ . '");';
-	$text .= 'echo "<hr>";';
-	$text .= 'echo "<p>' . date('Y.m.d H:i:s') . ' ' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '</p>";';
-	$text .= '$ar=' . print_r_php($value) . ';';
-	$text .= 'print_r_tree($ar);';
-	$text .= '?>';
-	file_put_contents($filename, $text, FILE_APPEND);
+	$result = '<?php require_once("' . __FILE__ . '");';
+	$result .= 'echo "<hr>";';
+	$result .= 'echo "<p>' . date('Y.m.d H:i:s') . ' ' . $bagtrace[0]['file'] . ':' . $bagtrace[0]['line'] . '</p>";';
+	$result .= '$ar=' . print_r_php($value) . ';';
+	$result .= 'print_r_tree($ar);';
+	$result .= '?>';
+	file_put_contents($filename, $result, FILE_APPEND);
 }
