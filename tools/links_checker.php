@@ -10,7 +10,7 @@ function get_contents($url, $params = array())
 {
 	$url    = urldecode($url);
 	$result = array();
-	$ch = curl_init();
+	$ch     = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLINFO_HEADER_OUT, true);
@@ -18,15 +18,18 @@ function get_contents($url, $params = array())
 		curl_setopt($ch, CURLOPT_USERAGENT, $params['USER_AGENT']);
 	} else {
 		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36');
-	};
+	}
+	;
 	if ((isset($params['POST'])) && ($params['POST'] != '')) {
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $params['POST']);
-	};
+	}
+	;
 	if ((isset($params['REFER'])) && ($params['REFER'] != '')) {
 		curl_setopt($ch, CURLOPT_REFERER, $params['REFER']);
 	} else {
 		curl_setopt($ch, CURLOPT_REFERER, 'https://ya.ru');
-	};
+	}
+	;
 	if ((isset($params['COOKIEFILE'])) && ($params['COOKIEFILE'] != '')) {
 		curl_setopt($ch, CURLOPT_COOKIEJAR, $params['COOKIEFILE']);
 		curl_setopt($ch, CURLOPT_COOKIEFILE, $params['COOKIEFILE']);
@@ -34,7 +37,8 @@ function get_contents($url, $params = array())
 		$params['COOKIEFILE'] = __DIR__ . '/linkы_checker.cookie.txt';
 		curl_setopt($ch, CURLOPT_COOKIEJAR, $params['COOKIEFILE']);
 		curl_setopt($ch, CURLOPT_COOKIEFILE, $params['COOKIEFILE']);
-	};
+	}
+	;
 	if ((isset($params['IGNORE_SSL_ERRORS'])) && ($params['IGNORE_SSL_ERRORS'] != '')) {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -44,9 +48,9 @@ function get_contents($url, $params = array())
 	if (!$response) {
 		$result['error'] = curl_error($ch);
 	} else {
-		$info = curl_getinfo($ch);
+		$info              = curl_getinfo($ch);
 		$result['content'] = $response;
-		$result['info'] = $info;
+		$result['info']    = $info;
 	}
 	curl_close($ch);
 	return $result;
@@ -98,7 +102,7 @@ function http_header($code)
 		505 => "HTTP Version Not Supported"
 	];
 	if (isset($codes[$code])) {
-		return  'HTTP/1.1 ' . $code . ' ' . $codes[$code];
+		return 'HTTP/1.1 ' . $code . ' ' . $codes[$code];
 	}
 	return false;
 }
@@ -125,20 +129,21 @@ function SimpleUpload($fieldname, $dir, $savenames = false, $avalable_extensions
 	$Result = array();
 	if (substr($dir, 0, -1) != '/') {
 		$dir .= '/';
-	};
+	}
+	;
 	if (is_array($_FILES[$fieldname]["tmp_name"])) {
 		foreach ($_FILES[$fieldname]["tmp_name"] as $key => $value) {
 			if (!empty($_FILES[$fieldname]["tmp_name"][$key])) {
-				$upload_this = true;
-				$file = array();
+				$upload_this      = true;
+				$file             = array();
 				$file['original'] = basename($_FILES[$fieldname]["name"][$key]);
 
 				$file['uploaded'] = $file['original'];
-				$extension = explode(".", $file['original']);
-				$extension = end($extension);
-				$extension = mb_strtolower($extension);
+				$extension        = explode(".", $file['original']);
+				$extension        = end($extension);
+				$extension        = mb_strtolower($extension);
 				if (!$savenames) {
-					$hash = substr(md5(uniqid(microtime())), 1, 16);
+					$hash             = substr(md5(uniqid(microtime())), 1, 16);
 					$file['uploaded'] = $hash . '.' . $extension;
 				}
 				$file['full_path'] = $dir . $file['uploaded'];
@@ -146,20 +151,23 @@ function SimpleUpload($fieldname, $dir, $savenames = false, $avalable_extensions
 				if (!is_null($avalable_extensions)) {
 					if (!is_array($avalable_extensions)) {
 						$avalable_extensions = explode(',', $avalable_extensions);
-					};
+					}
+					;
 					if (is_array($avalable_extensions)) {
 						if (!in_array($extension, $avalable_extensions)) {
-							$upload_this = false;
+							$upload_this        = false;
 							$Result['errors'][] = 'Не допустимый тип файла: ' . $file['original'];
 						}
 					}
-				};
+				}
+				;
 				if (!is_null($pattern)) {
 					if (!preg_match($pattern, $file['uploaded'])) {
-						$upload_this = false;
+						$upload_this        = false;
 						$Result['errors'][] = 'Не допустимые символы в имени файла: ' . $file['original'];
 					}
-				};
+				}
+				;
 				if ($upload_this) {
 					$tmp_name = $_FILES[$fieldname]["tmp_name"][$key];
 					$isloaded = true;
@@ -172,21 +180,25 @@ function SimpleUpload($fieldname, $dir, $savenames = false, $avalable_extensions
 						$Result[] = $file;
 					} else {
 						$Result['errors'][] = 'Ошибка загрузки: ' . $file['original'];
-					};
-				};
-			};
-		};
+					}
+					;
+				}
+				;
+			}
+			;
+		}
+		;
 	} else {
 		if (!empty($_FILES[$fieldname]["tmp_name"])) {
-			$upload_this = true;
-			$file = array();
+			$upload_this      = true;
+			$file             = array();
 			$file['original'] = basename($_FILES[$fieldname]["name"]);
 			$file['uploaded'] = $file['original'];
-			$extension = explode(".", $file['original']);
-			$extension = end($extension);
-			$extension = mb_strtolower($extension);
+			$extension        = explode(".", $file['original']);
+			$extension        = end($extension);
+			$extension        = mb_strtolower($extension);
 			if (!$savenames) {
-				$hash = substr(md5(uniqid(microtime())), 1, 16);
+				$hash             = substr(md5(uniqid(microtime())), 1, 16);
 				$file['uploaded'] = $hash . '.' . $extension;
 			}
 			$file['full_path'] = $dir . $file['uploaded'];
@@ -194,20 +206,23 @@ function SimpleUpload($fieldname, $dir, $savenames = false, $avalable_extensions
 			if (!is_null($avalable_extensions)) {
 				if (!is_array($avalable_extensions)) {
 					$avalable_extensions = explode(',', $avalable_extensions);
-				};
+				}
+				;
 				if (is_array($avalable_extensions)) {
 					if (!in_array($extension, $avalable_extensions)) {
-						$upload_this = false;
+						$upload_this        = false;
 						$Result['errors'][] = 'Не допустимый тип файла: ' . $file['original'];
 					}
 				}
-			};
+			}
+			;
 			if (!is_null($pattern)) {
 				if (!preg_match($pattern, $file['uploaded'])) {
-					$upload_this = false;
+					$upload_this        = false;
 					$Result['errors'][] = 'Не допустимые символы в имени файла: ' . $file['original'];
 				}
-			};
+			}
+			;
 			if ($upload_this) {
 				$tmp_name = $_FILES[$fieldname]["tmp_name"];
 				$isloaded = true;
@@ -220,10 +235,14 @@ function SimpleUpload($fieldname, $dir, $savenames = false, $avalable_extensions
 					$Result[] = $file;
 				} else {
 					$Result['errors'][] = 'Ошибка загрузки: ' . $file['original'];
-				};
-			};
-		};
-	};
+				}
+				;
+			}
+			;
+		}
+		;
+	}
+	;
 	return $Result;
 }
 
@@ -241,12 +260,13 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 				'bitrix',
 				'upload',
 				'local',
-				'images'
+				'images',
+				'.git',
 			));
 
 			foreach ($result as $r) {
 				$https = 'https://' . $_SERVER['HTTP_HOST'] . '/';
-				$link = $https . str_replace($_SERVER['DOCUMENT_ROOT'] . '/', '', $r);
+				$link  = $https . str_replace($_SERVER['DOCUMENT_ROOT'] . '/', '', $r);
 				echo $link . "\r\n";
 			}
 		} else {
@@ -264,8 +284,8 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 				echo $data;
 			} else {
 				$curl_params = $_SERVER;
-				$url = str_replace('??', '&', $_GET['url']);
-				$res = get_contents($url, $curl_params);
+				$url         = str_replace('??', '&', $_GET['url']);
+				$res         = get_contents($url, $curl_params);
 				if ((isset($res['error'])) && ($res['error'] != '')) {
 					$header = http_header(500);
 					header($header);
@@ -301,7 +321,7 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 						continue;
 					}
 
-					$arfileline  = explode("\t", trim($fileline));
+					$arfileline = explode("\t", trim($fileline));
 
 					$arQuiklinks = explode('||', any2utf($arfileline[31]));
 					$links[]     = any2utf($arfileline[18]);
@@ -328,14 +348,19 @@ function DirList($directory, $ignore = array('bitrix', 'upload', 'uploads'))
 			if ($file != '.' and $file != '..' and is_dir($directory . $file)) {
 				if (!in_array($file, $ignore)) {
 					$result[] = $directory . $file . '/';
-					$result = array_merge($result, DirList($directory . $file . '/', $ignore));
-				};
-			};
-		};
-	};
+					$result   = array_merge($result, DirList($directory . $file . '/', $ignore));
+				}
+				;
+			}
+			;
+		}
+		;
+	}
+	;
 	closedir($handle);
 	return $result;
-};
+}
+;
 
 $streems = 3;
 if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
@@ -403,7 +428,8 @@ if (!empty($_GET['pageurl'])) {
 			height: 50px;
 		}
 
-		table#urlsTable tr td.error, .error {
+		table#urlsTable tr td.error,
+		.error {
 			padding: 10px;
 			background: #a00;
 			color: #fff
@@ -418,10 +444,13 @@ if (!empty($_GET['pageurl'])) {
 		<tr>
 			<td style="width: 30%;">
 				<p>Ссылки на проверку:</p>
-				<p><button id="getFromSitemep" onclick="GetSitemap(prompt('Url sitemep.xml'))">Загрузить из sitemap.xml</button></p>
-				<p><button id="getFromPage" onclick="GetPage(prompt('Url страницы'))">Собрать ссылки со страницы</button></p>
+				<p><button id="getFromSitemep" onclick="GetSitemap(prompt('Url sitemep.xml'))">Загрузить из
+						sitemap.xml</button></p>
+				<p><button id="getFromPage" onclick="GetPage(prompt('Url страницы'))">Собрать ссылки со
+						страницы</button></p>
 				<p><button id="getDirs" onclick="GetDirs()">Каталоги текущего сайта</button><br>
-					<a href="?url=<?= __FILE__; ?>&token=<?= $token; ?>" download="<? ?>">скрипт</a> должен лежать на сайте, который проверяется
+					<a href="?url=<?= __FILE__; ?>&token=<?= $token; ?>" download="<? ?>">скрипт</a> должен лежать на
+					сайте, который проверяется
 				</p>
 				<p><button id="getHtml" onclick="GetFromHTML()">Получить ссылки из HTML</button><br>
 					Вставьте HTML код в поле и нажмите кнопку
@@ -437,7 +466,8 @@ if (!empty($_GET['pageurl'])) {
 				<p>Собрать ссылки из файла</p>
 			</td>
 			<td>
-				<form id="formfile" action="?action=file&token=<?= $token ?>" enctype="multipart/form-data" method="post" onsubmit="GetFromFile(event)">
+				<form id="formfile" action="?action=file&token=<?= $token ?>" enctype="multipart/form-data"
+					method="post" onsubmit="GetFromFile(event)">
 					<input type="file" name="file" />
 					<select name="filetype">
 						<option value="yadirect">CSV Yandex Direct</option>
@@ -575,11 +605,11 @@ if (!empty($_GET['pageurl'])) {
 				headers: {
 					'Content-Type': 'application/json'
 				},
-			}).then(function(response) {
+			}).then(function (response) {
 				return response.text();
-			}).then(function(result) {
+			}).then(function (result) {
 				callback(result);
-			}).catch(function(err) {
+			}).catch(function (err) {
 				log('ERROR cant get ' + url);
 				log('Error: ' + err);
 			});
@@ -587,7 +617,7 @@ if (!empty($_GET['pageurl'])) {
 
 		function GetDirs(callback) {
 			const url = '.';
-			GetUrl(url, function(result) {
+			GetUrl(url, function (result) {
 				document.querySelector('#links').value = result;
 				if (typeof callback == 'function') {
 					callback();
@@ -597,7 +627,7 @@ if (!empty($_GET['pageurl'])) {
 
 		function GetPage(url, callback) {
 			log('GetPage: ' + url);
-			GetUrl(url, function(result) {
+			GetUrl(url, function (result) {
 				log('Start collect links');
 				parseHtml(result, url, callback);
 			});
@@ -606,7 +636,7 @@ if (!empty($_GET['pageurl'])) {
 		function GetSitemap(url, callback) {
 			log('GetSitemap: ' + url);
 			if (url != '') {
-				GetUrl(url, function(result) {
+				GetUrl(url, function (result) {
 					log('Start parsing sitemap.xml');
 					let parser = new DOMParser();
 					let SitemapContent = parser.parseFromString(result, "text/xml");
@@ -658,15 +688,15 @@ if (!empty($_GET['pageurl'])) {
 				data.append('file', file.files[0]);
 
 				fetch(action, {
-						method: 'POST',
-						body: data,
-					}).then(function(response) {
-						return response.text(); /* to get HTML */
-						//return response.json(); /* to get JSON */
-					}).then(function(result) {
-						document.querySelector('#links').value = result;
-					})
-					.catch(function(err) {
+					method: 'POST',
+					body: data,
+				}).then(function (response) {
+					return response.text(); /* to get HTML */
+					//return response.json(); /* to get JSON */
+				}).then(function (result) {
+					document.querySelector('#links').value = result;
+				})
+					.catch(function (err) {
 						console.log('Something went wrong. ', err);
 					});
 			}
@@ -716,7 +746,7 @@ if (!empty($_GET['pageurl'])) {
 				};
 				res.textContent = '';
 				res.appendChild(table);
-				setTimeout(function() {
+				setTimeout(function () {
 					CheckTable();
 				}, 100);
 			}
@@ -774,7 +804,7 @@ if (!empty($_GET['pageurl'])) {
 		}
 
 		function addSource(loc, source) {
-			if (!loc || typeof loc =='undefined' || loc == '' || !source || typeof source == 'undefined' || source == '') {
+			if (!loc || typeof loc == 'undefined' || loc == '' || !source || typeof source == 'undefined' || source == '') {
 				return;
 			}
 			let data = localStorage.getItem(loc);
@@ -912,7 +942,7 @@ if (!empty($_GET['pageurl'])) {
 					headers: {
 						'Content-Type': 'application/json'
 					},
-				}).then(function(response) {
+				}).then(function (response) {
 					let status = response.status;
 					if (status != 200) {
 						res.classList.add('error');
@@ -920,12 +950,12 @@ if (!empty($_GET['pageurl'])) {
 					res.innerHTML = status;
 					hide200();
 					checked++;
-					setTimeout(function() {
+					setTimeout(function () {
 						streems_active--;
 						CheckLineLazy();
 					}, 100);
 					return response.text();
-				}).then(function(result) {
+				}).then(function (result) {
 					const collect_meta = document.querySelector('#collect_meta');
 					const search_text = document.querySelector('#search_text');
 					const collect_pages = document.querySelector('#collect_pages');
@@ -938,6 +968,7 @@ if (!empty($_GET['pageurl'])) {
 						const robots_place = res.parentElement?.querySelector('.robots');
 						let parser = new DOMParser();
 						let resultDom = parser.parseFromString(result, 'text/html');
+
 						if (title_place) {
 							title_place.innerHTML = getTitle(resultDom);
 						}
@@ -979,7 +1010,7 @@ if (!empty($_GET['pageurl'])) {
 						addUrlToTable = true;
 						parseHtml(result, url);
 					}
-				}).catch(function(err) {
+				}).catch(function (err) {
 					log('ERROR cant get ' + url);
 					log('Error: ' + err);
 				});
@@ -1009,16 +1040,34 @@ if (!empty($_GET['pageurl'])) {
 			const trs = table?.querySelectorAll('tr');
 			let content = '';
 			let yourDate = new Date()
-
+			const columns = getTableColums();
 			if (trs.length > 0) {
-				content += 'URL;HTML CODE;TITLE;DESCRIPTION;H1' + "\n";
+				for (var key in columns) {
+					if (columns.hasOwnProperty(key)) {
+						content += columns[key] + ';'
+					}
+				}
+
+				content += "\n";
 				trs.forEach((tr) => {
-					const url = tr.querySelector('a').getAttribute('href');;
-					const res = tr.querySelector('.res').textContent;
-					const title = tr.querySelector('.title').textContent;
-					const desc = tr.querySelector('.description').textContent;
-					const h1 = tr.querySelector('.h1').textContent;
-					content += '"' + url + '";"' + res + '";"' + title.replace('"', '&quot;') + '";"' + desc.replace('"', '&quot;') + '";"' + h1.replace('"', '&quot;') + '"' + "\n";
+					for (var key in columns) {
+						let cell_value;
+						cell_value = '';
+						if (key == 'link') {
+							cell_value = tr.querySelector('a')?.getAttribute('href');
+						} else if (key == 'pageLinks') {
+							cell_value = '';
+						} else if (key == 'button') {
+							cell_value = '';
+						} else {
+							cell_value = tr.querySelector('td.' + key)?.textContent;
+						}
+						if (typeof cell_value == 'undefined' || cell_value == 'undefined' || cell_value == null || !cell_value) {
+							cell_value = '';
+						}
+						content += '"' + cell_value  + '";';
+					}
+					content += "\n";
 				})
 				content += "\n";
 				content += "\n";
