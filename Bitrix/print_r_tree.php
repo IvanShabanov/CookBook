@@ -50,7 +50,7 @@ function print_r_tree($data, $level = 0, $parent = '')
 	}
 	if ($level == 0) {
 		$bagtrace = debug_backtrace();
-		$display  = ' style="dislay: none"';
+		$display  = ' style="display: none"';
 		if (isset($USER) && $USER->IsAdmin()) {
 			$display = '';
 		}
