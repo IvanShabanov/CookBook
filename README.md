@@ -69,3 +69,6 @@ https://github.com/igorescobar/jQuery-Mask-Plugin/blob/master/src/jquery.mask.js
 
 https://hallanalysis.com/json-ld-generator/
 
+URL-encoder для SVG
+
+https://yoksel.github.io/url-encoder/ru/
