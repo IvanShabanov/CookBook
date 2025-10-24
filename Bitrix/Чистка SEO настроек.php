@@ -4,10 +4,11 @@ $IBLOCK_ID = 43;
 CModule::IncludeModule('iblock');
 //Устанавливаем значения шаблонов SEO-данных у секция, в данном случае пустые, т.к. нужно было их удалить
 $res = CIBlockSection::GetList(
-	false,
+	[],
 	[
 		'IBLOCK_ID' => $IBLOCK_ID,
 	],
+	false,
 	[
 		'IBLOCK_ID',
 		'ID'
@@ -29,7 +30,7 @@ endwhile;
 
 //Устанавливаем значения шаблонов SEO-данных у элементов, в данном случае пустые, т.к. нужно было их удалить
 $res = CIBlockElement::GetList(
-	false,
+	[],
 	[
 		'IBLOCK_ID' => $IBLOCK_ID,
 	],
