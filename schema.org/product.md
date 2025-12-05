@@ -145,7 +145,7 @@
 				"description": "Описание товара",
 				"image": "https://site.ru/upload/image.jpg",
 				"url": "https://site.ru/product/tovar_1/",
-				"availability": "https://schema.org/InStock"
+				"availability": "https://schema.org/InStock",
 				"priceCurrency": "RUB",
 				"price": "4399.00"
 			},
@@ -155,7 +155,7 @@
 				"description": "Описание товара 2",
 				"image": "https://site.ru/upload/image2.jpg",
 				"url": "https://site.ru/product/tovar_2/",
-				"availability": "https://schema.org/InStock"
+				"availability": "https://schema.org/InStock",
 				"priceCurrency": "RUB",
 				"price": "1000.00"
 			}
