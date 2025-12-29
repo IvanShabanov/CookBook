@@ -10,7 +10,7 @@ function clean_expire_cache($path = "")
         require_once($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/classes/general/cache_files_cleaner.php");
     }
 
-    $curentTime = mktime();
+    $curentTime = time();
 
     if (defined("BX_CRONTAB") && BX_CRONTAB === true)
         $endTime = time() + 5; //Если на кроне, то работаем 5 секунд
