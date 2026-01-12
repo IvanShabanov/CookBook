@@ -3,8 +3,23 @@
 if (!isset($_SESSION['token'])) {
 	$_SESSION['token'] = uniqid();
 }
-
 $token = $_SESSION['token'];
+
+if ($_GET['debug'] == 'debug') {
+	$_SESSION['debug'] = '1';
+}
+
+function logit($text)
+{
+	if ($_SESSION['debug'] != '1') {
+		return;
+	}
+	if (is_array($text) || is_object($text)) {
+		$text = print_r($text, true);
+	}
+	$bagtrace = debug_backtrace();
+	file_put_contents(__DIR__ . '/links_checker.log', date('Y.m.d H:i:s') . "\t" . $bagtrace[0]['line'] . "\t" . $text, FILE_APPEND);
+}
 
 function get_contents($url, $params = array())
 {
@@ -19,26 +34,22 @@ function get_contents($url, $params = array())
 	} else {
 		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36');
 	}
-	;
 	if ((isset($params['POST'])) && ($params['POST'] != '')) {
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $params['POST']);
 	}
-	;
 	if ((isset($params['REFER'])) && ($params['REFER'] != '')) {
 		curl_setopt($ch, CURLOPT_REFERER, $params['REFER']);
 	} else {
 		curl_setopt($ch, CURLOPT_REFERER, 'https://ya.ru');
 	}
-	;
 	if ((isset($params['COOKIEFILE'])) && ($params['COOKIEFILE'] != '')) {
 		curl_setopt($ch, CURLOPT_COOKIEJAR, $params['COOKIEFILE']);
 		curl_setopt($ch, CURLOPT_COOKIEFILE, $params['COOKIEFILE']);
 	} else {
-		$params['COOKIEFILE'] = __DIR__ . '/linkы_checker.cookie.txt';
+		$params['COOKIEFILE'] = __DIR__ . '/links_checker.cookie.txt';
 		curl_setopt($ch, CURLOPT_COOKIEJAR, $params['COOKIEFILE']);
 		curl_setopt($ch, CURLOPT_COOKIEFILE, $params['COOKIEFILE']);
 	}
-	;
 	if ((isset($params['IGNORE_SSL_ERRORS'])) && ($params['IGNORE_SSL_ERRORS'] != '')) {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -47,12 +58,21 @@ function get_contents($url, $params = array())
 
 	if (!$response) {
 		$result['error'] = curl_error($ch);
-	} else {
-		$info              = curl_getinfo($ch);
-		$result['content'] = $response;
-		$result['info']    = $info;
+	}
+	if (empty($result['error'])) {
+		$info = curl_getinfo($ch);
+		if ($response) {
+			$result['content'] = $response;
+		}
+		$result['info'] = $info;
+		if (is_array($result['info'])) {
+			foreach ($result['info'] as $key => $val) {
+				$result['info'][mb_strtolower($key)] = $val;
+			}
+		}
 	}
 	curl_close($ch);
+	logit($result);
 	return $result;
 }
 
@@ -130,7 +150,6 @@ function SimpleUpload($fieldname, $dir, $savenames = false, $avalable_extensions
 	if (substr($dir, 0, -1) != '/') {
 		$dir .= '/';
 	}
-	;
 	if (is_array($_FILES[$fieldname]["tmp_name"])) {
 		foreach ($_FILES[$fieldname]["tmp_name"] as $key => $value) {
 			if (!empty($_FILES[$fieldname]["tmp_name"][$key])) {
@@ -152,7 +171,6 @@ function SimpleUpload($fieldname, $dir, $savenames = false, $avalable_extensions
 					if (!is_array($avalable_extensions)) {
 						$avalable_extensions = explode(',', $avalable_extensions);
 					}
-					;
 					if (is_array($avalable_extensions)) {
 						if (!in_array($extension, $avalable_extensions)) {
 							$upload_this        = false;
@@ -160,14 +178,12 @@ function SimpleUpload($fieldname, $dir, $savenames = false, $avalable_extensions
 						}
 					}
 				}
-				;
 				if (!is_null($pattern)) {
 					if (!preg_match($pattern, $file['uploaded'])) {
 						$upload_this        = false;
 						$Result['errors'][] = 'Не допустимые символы в имени файла: ' . $file['original'];
 					}
 				}
-				;
 				if ($upload_this) {
 					$tmp_name = $_FILES[$fieldname]["tmp_name"][$key];
 					$isloaded = true;
@@ -181,13 +197,9 @@ function SimpleUpload($fieldname, $dir, $savenames = false, $avalable_extensions
 					} else {
 						$Result['errors'][] = 'Ошибка загрузки: ' . $file['original'];
 					}
-					;
 				}
-				;
 			}
-			;
 		}
-		;
 	} else {
 		if (!empty($_FILES[$fieldname]["tmp_name"])) {
 			$upload_this      = true;
@@ -207,7 +219,6 @@ function SimpleUpload($fieldname, $dir, $savenames = false, $avalable_extensions
 				if (!is_array($avalable_extensions)) {
 					$avalable_extensions = explode(',', $avalable_extensions);
 				}
-				;
 				if (is_array($avalable_extensions)) {
 					if (!in_array($extension, $avalable_extensions)) {
 						$upload_this        = false;
@@ -215,14 +226,12 @@ function SimpleUpload($fieldname, $dir, $savenames = false, $avalable_extensions
 					}
 				}
 			}
-			;
 			if (!is_null($pattern)) {
 				if (!preg_match($pattern, $file['uploaded'])) {
 					$upload_this        = false;
 					$Result['errors'][] = 'Не допустимые символы в имени файла: ' . $file['original'];
 				}
 			}
-			;
 			if ($upload_this) {
 				$tmp_name = $_FILES[$fieldname]["tmp_name"];
 				$isloaded = true;
@@ -236,13 +245,9 @@ function SimpleUpload($fieldname, $dir, $savenames = false, $avalable_extensions
 				} else {
 					$Result['errors'][] = 'Ошибка загрузки: ' . $file['original'];
 				}
-				;
 			}
-			;
 		}
-		;
 	}
-	;
 	return $Result;
 }
 
@@ -350,18 +355,13 @@ function DirList($directory, $ignore = array('bitrix', 'upload', 'uploads'))
 					$result[] = $directory . $file . '/';
 					$result   = array_merge($result, DirList($directory . $file . '/', $ignore));
 				}
-				;
 			}
-			;
 		}
-		;
 	}
-	;
 	closedir($handle);
+	logit($result);
 	return $result;
 }
-;
-
 $streems = 3;
 if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 	$streems = (int) $_GET['streems'];
@@ -606,6 +606,11 @@ if (!empty($_GET['pageurl'])) {
 					'Content-Type': 'application/json'
 				},
 			}).then(function (response) {
+				<?
+				if ($_SESSION['DEBUG'] == '1') {
+					echo 'log(response.text());';
+				}
+				?>
 				return response.text();
 			}).then(function (result) {
 				callback(result);
@@ -1054,18 +1059,26 @@ if (!empty($_GET['pageurl'])) {
 						let cell_value;
 						cell_value = '';
 						if (key == 'link') {
-							cell_value = tr.querySelector('a')?.getAttribute('href');
+							try {
+								cell_value = tr.querySelector('a')?.getAttribute('href');
+							} catch (error) {
+								console.log(error);
+							}
 						} else if (key == 'pageLinks') {
 							cell_value = '';
 						} else if (key == 'button') {
 							cell_value = '';
 						} else {
-							cell_value = tr.querySelector('td.' + key)?.textContent;
+							try {
+								cell_value = tr.querySelector('td.' + key)?.textContent;
+							} catch (error) {
+								console.log(error);
+							}
 						}
 						if (typeof cell_value == 'undefined' || cell_value == 'undefined' || cell_value == null || !cell_value) {
 							cell_value = '';
 						}
-						content += '"' + cell_value  + '";';
+						content += '"' + cell_value + '";';
 					}
 					content += "\n";
 				})
