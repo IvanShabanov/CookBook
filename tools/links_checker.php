@@ -127,6 +127,113 @@ function http_header($code)
 	return false;
 }
 
+
+function get_tags($tag, $content, $haveClosedTag = true)
+{
+	preg_match_all('/^([a-zA-Z0-9]+)/', $tag, $seletorTag);
+	preg_match_all('/#([a-zA-Z0-9-_]+)*/', $tag, $seletorIds);
+	preg_match_all('/\.([a-zA-Z0-9-_]+)*/', $tag, $seletorClass);
+	preg_match_all('/\[(.*)\]/', $tag, $seletorParams);
+	if (!empty($seletorParams[1][0])) {
+		$strParams = ' ' . str_replace(',', ' ', $seletorParams[1][0]);
+		preg_match_all('/\s+([a-zA-Z0-9-]+)\s*=\s*"([^"]*)"/ismuU', $strParams, $seletorParams);
+	} else {
+		$seletorParams = [];
+	}
+	if (!empty($seletorTag[1][0])) {
+		$tag = $seletorTag[1][0];
+	} else {
+		$tag = '';
+	}
+	$arFilter = [];
+	if (!empty($seletorIds[1])) {
+		$arFilter['id'] = $seletorIds[1];
+	}
+	if (!empty($seletorClass[1])) {
+		$arFilter['class'] = $seletorClass[1];
+	}
+	if (is_array($seletorParams[1])) {
+		foreach ($seletorParams[1] as $key => $val) {
+			$arFilter[$val][] = $seletorParams[2][$key];
+		}
+	}
+	if ($tag == '') {
+		return;
+	}
+
+	$notClosedTags = [
+		'araa',
+		'base',
+		'br',
+		'col',
+		'command',
+		'embed',
+		'hr',
+		'img',
+		'input',
+		'keygen',
+		'link',
+		'meta',
+		'param',
+		'source',
+		'track',
+		'wbr',
+	];
+
+	if (!in_array($tag, $notClosedTags) && $haveClosedTag) {
+		$arTag['tag'] = '/(<' . $tag . '[^>]*>)(.*)<\/' . $tag . '>/ismuU';
+	} else {
+		$arTag['tag'] = '/(<' . $tag . '[^>]*>)/ismuU';
+	}
+
+	$arTag['attr'][0] = '/\s+([a-zA-Z-]+)\s*=\s*"([^"]*)"/ismuU';
+	$arTag['attr'][]  = str_replace('"', "'", $arTag['attr'][0]);
+	$result           = [];
+	if (preg_match_all($arTag['tag'], $content, $matches)) {
+		foreach ($matches[0] as $k => $match) {
+			$res_tag        = [];
+			$res_tag['tag'] = $match;
+			if (isset($matches[1][$k])) {
+				foreach ($arTag['attr'] as $arTagAttr) {
+					unset($attr_matches);
+					preg_match_all($arTagAttr, $matches[1][$k], $attr_matches);
+					if (is_array($attr_matches[1])) {
+						foreach ($attr_matches[1] as $key => $val) {
+							$res_tag[$val] = $attr_matches[2][$key];
+						}
+					}
+				}
+			}
+			if (isset($matches[2][$k])) {
+				$res_tag['text'] = $matches[2][$k];
+			}
+			$ok = true;
+			if (!empty($arFilter)) {
+				foreach ($arFilter as $attrkey => $arValues) {
+					if (!isset($res_tag[$attrkey])) {
+						$ok = false;
+						break;
+					}
+					if (!is_array($arValues)) {
+						continue;
+					}
+					$arCurValues = explode(' ', $res_tag[$attrkey]);
+					foreach ($arValues as $searchValue) {
+						if (!in_array($searchValue, $arCurValues)) {
+							$ok = false;
+							break 2;
+						}
+					}
+				}
+			}
+			if ($ok) {
+				$result[] = $res_tag;
+			}
+		}
+	}
+	return $result;
+}
+
 /* Return
 	array(
 		[] => array(
@@ -305,7 +412,8 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 			}
 		}
 	} elseif ($_GET['action'] == 'file') {
-		$result = SimpleUpload('file', __DIR__, false, 'csv');
+		$result = SimpleUpload('file', __DIR__, false, 'csv,xml');
+		logit($result);
 		$result = array_shift($result);
 
 		if (!is_array($result) || !empty($result['error'])) {
@@ -318,6 +426,7 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 		$filecontent = file($result['full_path']);
 
 		@unlink($result['full_path']);
+		logit($filecontent);
 		$links = [];
 		switch ($_POST['filetype']) {
 			case 'yadirect':
@@ -333,12 +442,21 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 					$links       = array_merge($links, $arQuiklinks);
 				}
 				break;
+			case 'sitemapxml':
+				$fileContentAll = implode('', $filecontent);
+				$locs = get_tags('loc', $fileContentAll, true);
+				$locs = get_tags('loc', $fileContentAll, true);
+				if (is_array($locs)) {
+					foreach ($locs as $loc) {
+						$links[] = trim($loc['text']);
+					}
+				}
+				break;
 		}
+		logit($links);
 		if (!empty($links)) {
 			foreach ($links as $link) {
 				echo $link . "\n";
-
-				// echo '<a href="' . $link . '">' . $link . '</a><br><br>';
 			}
 		}
 	}
@@ -471,6 +589,7 @@ if (!empty($_GET['pageurl'])) {
 					<input type="file" name="file" />
 					<select name="filetype">
 						<option value="yadirect">CSV Yandex Direct</option>
+						<option value="sitemapxml">Sitemap.xml</option>
 					</select>
 					<input type="submit" value="Отправить" />
 				</form>
@@ -642,33 +761,40 @@ if (!empty($_GET['pageurl'])) {
 			log('GetSitemap: ' + url);
 			if (url != '') {
 				GetUrl(url, function (result) {
-					log('Start parsing sitemap.xml');
-					let parser = new DOMParser();
-					let SitemapContent = parser.parseFromString(result, "text/xml");
-					let links = '';
-					let urls = SitemapContent.getElementsByTagName('url');
-					if (urls.length == 0) {
-						urls = SitemapContent.getElementsByTagName('sitemap');
-					}
-
-					if (urls.length > 0) {
-						for (var i = 0; i < urls.length; i++) {
-							const urlElement = urls[i];
-							const link = urlElement.getElementsByTagName('loc')[0].textContent;
-							if (links != '') {
-								links += "\r\n";
-							}
-							links += link;
-						};
-
-					}
-					document.querySelector('#links').value = links;
-					log('Links collected');
+					ParseSitemapXml(result, null);
 					if (typeof callback == 'function') {
 						callback();
-					};
+					}
 				});
 			};
+		}
+
+		function ParseSitemapXml(result, callback) {
+			log('Start parsing sitemap.xml');
+			let parser = new DOMParser();
+			let SitemapContent = parser.parseFromString(result, "text/xml");
+			let links = '';
+			let urls = SitemapContent.getElementsByTagName('url');
+			if (urls.length == 0) {
+				urls = SitemapContent.getElementsByTagName('sitemap');
+			}
+
+			if (urls.length > 0) {
+				for (var i = 0; i < urls.length; i++) {
+					const urlElement = urls[i];
+					const link = urlElement.getElementsByTagName('loc')[0].textContent;
+					if (links != '') {
+						links += "\r\n";
+					}
+					links += link;
+				};
+
+			}
+			document.querySelector('#links').value = links;
+			log('Links collected');
+			if (typeof callback == 'function') {
+				callback();
+			}
 		}
 
 		function GetFromHTML(callback) {
