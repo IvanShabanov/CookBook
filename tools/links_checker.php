@@ -452,6 +452,15 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 					}
 				}
 				break;
+			case 'yml':
+				$fileContentAll = implode('', $filecontent);
+				$locs = get_tags('url', $fileContentAll, true);
+				if (is_array($locs)) {
+					foreach ($locs as $loc) {
+						$links[] = trim($loc['text']);
+					}
+				}
+				break;
 		}
 		logit($links);
 		if (!empty($links)) {
@@ -590,6 +599,7 @@ if (!empty($_GET['pageurl'])) {
 					<select name="filetype">
 						<option value="yadirect">CSV Yandex Direct</option>
 						<option value="sitemapxml">Sitemap.xml</option>
+						<option value="yml">YML (Yandex Pricelist)</option>
 					</select>
 					<input type="submit" value="Отправить" />
 				</form>
