@@ -1,6 +1,6 @@
-    # Картинки будут брасть с сайта site.ru
+    # Картинки и другие большые файлы будут брасть с сайта site.ru
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-l
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{HTTP_HOST} !(www\.)*site\.ru$
-    RewriteRule \.(jpe?g|gif|bmp|png|webp)$ https://site.ru/%{REQUEST_URI} [L]
+    RewriteRule \.(jpe?g|gif|bmp|png|webp|svg|avi?f|mpeg|mp4|mp3|doc?x|xls?x|pdf|xml)$ https://site.ru/%{REQUEST_URI} [L]
