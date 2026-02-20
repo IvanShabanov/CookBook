@@ -32,7 +32,11 @@ function get_contents($url, $params = array())
 	if ((isset($params['USER_AGENT'])) && ($params['USER_AGENT'] != '')) {
 		curl_setopt($ch, CURLOPT_USERAGENT, $params['USER_AGENT']);
 	} else {
-		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36');
+		$HTTP_USER_AGENT = $_SERVER['HTTP_USER_AGENT'];
+		if (empty($HTTP_USER_AGENT)) {
+			$HTTP_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36';
+		}
+		curl_setopt($ch, CURLOPT_USERAGENT, $HTTP_USER_AGENT);
 	}
 	if ((isset($params['POST'])) && ($params['POST'] != '')) {
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $params['POST']);
@@ -49,6 +53,9 @@ function get_contents($url, $params = array())
 		$params['COOKIEFILE'] = __DIR__ . '/links_checker.cookie.txt';
 		curl_setopt($ch, CURLOPT_COOKIEJAR, $params['COOKIEFILE']);
 		curl_setopt($ch, CURLOPT_COOKIEFILE, $params['COOKIEFILE']);
+	}
+	if (!empty($_SERVER['HTTP_COOKIE'])) {
+			curl_setopt($ch, CURLOPT_COOKIE, $_SERVER['HTTP_COOKIE']);
 	}
 	if ((isset($params['IGNORE_SSL_ERRORS'])) && ($params['IGNORE_SSL_ERRORS'] != '')) {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
