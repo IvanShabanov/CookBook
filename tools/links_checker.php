@@ -21,53 +21,62 @@ function logit($text)
 	file_put_contents(__DIR__ . '/links_checker.log', date('Y.m.d H:i:s') . "\t" . $bagtrace[0]['line'] . "\t" . $text, FILE_APPEND);
 }
 
-function get_contents($url, $params = array())
+function get_contents($url, $params = [])
 {
 	$url    = urldecode($url);
-	$result = array();
+	$result = [];
 	$ch     = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-	if ((isset($params['USER_AGENT'])) && ($params['USER_AGENT'] != '')) {
-		curl_setopt($ch, CURLOPT_USERAGENT, $params['USER_AGENT']);
-	} else {
-		$HTTP_USER_AGENT = $_SERVER['HTTP_USER_AGENT'];
-		if (empty($HTTP_USER_AGENT)) {
-			$HTTP_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36';
-		}
-		curl_setopt($ch, CURLOPT_USERAGENT, $HTTP_USER_AGENT);
-	}
-	if ((isset($params['POST'])) && ($params['POST'] != '')) {
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $params['POST']);
-	}
-	if ((isset($params['REFER'])) && ($params['REFER'] != '')) {
-		curl_setopt($ch, CURLOPT_REFERER, $params['REFER']);
-	} else {
-		curl_setopt($ch, CURLOPT_REFERER, 'https://ya.ru');
-	}
-	if ((isset($params['COOKIEFILE'])) && ($params['COOKIEFILE'] != '')) {
-		curl_setopt($ch, CURLOPT_COOKIEJAR, $params['COOKIEFILE']);
-		curl_setopt($ch, CURLOPT_COOKIEFILE, $params['COOKIEFILE']);
-	} else {
-		$params['COOKIEFILE'] = __DIR__ . '/links_checker.cookie.txt';
-		curl_setopt($ch, CURLOPT_COOKIEJAR, $params['COOKIEFILE']);
-		curl_setopt($ch, CURLOPT_COOKIEFILE, $params['COOKIEFILE']);
-	}
-	if (!empty($_SERVER['HTTP_COOKIE'])) {
-			curl_setopt($ch, CURLOPT_COOKIE, $_SERVER['HTTP_COOKIE']);
-	}
-	if ((isset($params['IGNORE_SSL_ERRORS'])) && ($params['IGNORE_SSL_ERRORS'] != '')) {
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-	}
-	$response = curl_exec($ch);
+	$arCurlOptions = [
+		CURLOPT_URL            => $url,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_HEADER         => false,
+		CURLINFO_HEADER_OUT    => true,
+		CURLOPT_NOBODY         => false,
+		CURLOPT_FOLLOWLOCATION => false,
+		CURLOPT_TIMEOUT        => 20,
+		CURLOPT_USERAGENT      => $_SERVER['HTTP_USER_AGENT'] ?? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+		CURLOPT_POSTFIELDS     => $params['POST'],
+		CURLOPT_REFERER        => 'https://ya.ru',
+		CURLOPT_COOKIEJAR      =>  __FILE__ . '.cookie.txt',
+		CURLOPT_COOKIEFILE     =>  __FILE__ . '.cookie.txt',
+		CURLOPT_COOKIE         => '',
+		CURLOPT_SSL_VERIFYPEER => false,
+		CURLOPT_SSL_VERIFYHOST => false,
+	];
 
-	if (!$response) {
-		$result['error'] = curl_error($ch);
+	if (!empty($params['USER_AGENT']) || !empty($_SERVER['HTTP_USER_AGENT'])) {
+		$arCurlOptions[CURLOPT_USERAGENT] = $params['USER_AGENT'] ?? $_SERVER['HTTP_USER_AGENT'];
 	}
+	if (!empty($params['POST'])) {
+		$arCurlOptions[CURLOPT_POSTFIELDS] = $params['POST'];
+	}
+	if (!empty($params['REFER']) || !empty($params['REFERER'])) {
+		$arCurlOptions[CURLOPT_REFERER] = $params['REFER'] ?? $params['REFERER'];
+	}
+	if (!empty($params['COOKIEFILE'])) {
+		$arCurlOptions[CURLOPT_COOKIEJAR] = $params['COOKIEFILE'];
+		$arCurlOptions[CURLOPT_COOKIEFILE] =  $params['COOKIEFILE'];
+	}
+	if (!empty($params['COOKIE']) || !empty($_SERVER['HTTP_COOKIE'])) {
+		$arCurlOptions[CURLOPT_COOKIE] = $params['COOKIE'] ?? $_SERVER['HTTP_COOKIE'];
+	}
+
+	//$arCurlOptions = array_merge($arCurlOptions, $params);
+
+	curl_setopt_array($ch, $arCurlOptions);
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	$info     = curl_getinfo($ch);
+    $error    = curl_error($ch);
+
+    curl_close($ch);
+
+	if (!$response || !empty($error)) {
+		$result['error'] = $error;
+	}
+
 	if (empty($result['error'])) {
-		$info = curl_getinfo($ch);
 		if ($response) {
 			$result['content'] = $response;
 		}
@@ -78,7 +87,7 @@ function get_contents($url, $params = array())
 			}
 		}
 	}
-	curl_close($ch);
+
 	logit($result);
 	return $result;
 }
@@ -88,6 +97,8 @@ function http_header($code)
 	$codes = [
 		100 => "Continue",
 		101 => "Switching Protocols",
+		102 => "Processing",
+		103 => "Early Hints",
 		200 => "OK",
 		201 => "Created",
 		202 => "Accepted",
@@ -95,6 +106,9 @@ function http_header($code)
 		204 => "No Content",
 		205 => "Reset Content",
 		206 => "Partial Content",
+		207 => "Multi-Status",
+		208 => "Already Reported",
+		226 => "IM Used",
 		300 => "Multiple Choices",
 		301 => "Moved Permanently",
 		302 => "Found",
@@ -103,6 +117,7 @@ function http_header($code)
 		305 => "Use Proxy",
 		306 => "(Unused)",
 		307 => "Temporary Redirect",
+		308 => "Permanent Redirect",
 		400 => "Bad Request",
 		401 => "Unauthorized",
 		402 => "Payment Required",
@@ -121,19 +136,34 @@ function http_header($code)
 		415 => "Unsupported Media Type",
 		416 => "Requested Range Not Satisfiable",
 		417 => "Expectation Failed",
+		418 => "I'm a teapot",
+		421 => "Misdirected Request",
+		422 => "Unprocessable Content",
+		423 => "Locked",
+		424 => "Failed Dependency",
+		425 => "Too Early",
+		426 => "Upgrade Required",
+		428 => "Precondition Required",
+		429 => "Too Many Requests",
+		431 => "Request Header Fields Too Large",
+		451 => "Unavailable For Legal Reasons",
 		500 => "Internal Server Error",
 		501 => "Not Implemented",
 		502 => "Bad Gateway",
 		503 => "Service Unavailable",
 		504 => "Gateway Timeout",
-		505 => "HTTP Version Not Supported"
+		505 => "HTTP Version Not Supported",
+		506 => "Variant Also Negotiates",
+		507 => "Insufficient Storage",
+		508 => "Loop Detected",
+		510 => "Not Extended",
+		511 => "Network Authentication Required",
 	];
 	if (isset($codes[$code])) {
 		return 'HTTP/1.1 ' . $code . ' ' . $codes[$code];
 	}
 	return false;
 }
-
 
 function get_tags($tag, $content, $haveClosedTag = true)
 {
@@ -573,7 +603,7 @@ if (!empty($_GET['pageurl'])) {
 
 <body>
 	<h1>Проверка ссылок</h1>
-	<p>(c) <a href="https://github.com/IvanShabanov">Ivan Shabanov</a> 2023-2024</p>
+	<p>(c) <a href="https://github.com/IvanShabanov">Ivan Shabanov</a> 2023-2026</p>
 	<table style="width: 100%;">
 		<tr>
 			<td style="width: 30%;">
