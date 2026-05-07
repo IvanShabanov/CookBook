@@ -38,7 +38,7 @@
 ## Событие OnEpilog
 
 	$eventManager = \Bitrix\Main\EventManager::getInstance();
-	$eventManager->addEventHandler("main", "OnEpilog", ["MyClass", "SetPageCanonical"]);
+	$eventManager->addEventHandler("main", "OnEpilog", ["MyClass", "onEpilog"]);
 
 	class MyClass
 	{
