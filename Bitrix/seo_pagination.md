@@ -7,7 +7,7 @@
 
 ## Шаблон пагинации
 
-### result_modified.php
+### result_modifier.php
 
 	if ($cpParent = $this->getComponent()->GetParent()) {
 		$cpParent->arResult = array_merge($cpParent->arResult, $arResult);
