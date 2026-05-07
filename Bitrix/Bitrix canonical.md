@@ -10,14 +10,24 @@
 
 	function SetPageCanonical() {
 		global $APPLICATION;
-		if  (!empty($APPLICATION->GetProperty('canonical'))) {
+		/* Если canonical уже установлен или если это 404 ничего не делаем */
+		if  (!empty($APPLICATION->GetProperty('canonical')) || !defined('ERROR_404') ) {
 			return;
 		}
 		$context = \Bitrix\Main\Application::getInstance()->getContext();
 		$request = $context->getRequest();
 		$server = $context->getServer();
 		$cururl = ($request->isHttps() ? 'https://' : 'http://') . explode(':', $server->getHttpHost())[0] . $request->getRequestedPage();
+		/* Убираем index.php */
 		$cururl  = str_replace('index.php', '', $cururl);
+		/* Убираем GET параметры */
+		if (mb_strpos($cururl, '?') !== false) {
+			$cururl = explode('?', $cururl)[0];
+		}
+		/* Страницы отфильтрованных товаров */
+		if (mb_strpos($cururl, '/filter/') !== false) {
+			$cururl = explode('/filter/', $cururl)[0] . '/';
+		}
 		$APPLICATION->SetPageProperty('canonical', $cururl);
 	}
 
