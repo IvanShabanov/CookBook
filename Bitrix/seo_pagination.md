@@ -82,6 +82,7 @@
 					$canonical = $APPLICATION->GetPageProperty('canonical');
 					if (empty($canonical)) {
 						self::SetPageCanonical();
+						$canonical = $APPLICATION->GetPageProperty('canonical');
 					}
 					if (mb_str_contains($canonical, '?')) {
 						$canonical .= '&' . $NavPageNumber;
