@@ -11,7 +11,8 @@
 /**
  * Приводит URL к нормальному виду (добавляет http://, если нет схемы)
  */
-function normalizeUrl($url) {
+function normalizeUrl($url)
+{
     $url = trim($url);
     if (!preg_match('#^https?://#i', $url)) {
         $url = 'http://' . $url;
@@ -22,7 +23,8 @@ function normalizeUrl($url) {
 /**
  * Разрешает относительный Location на основе базового URL
  */
-function resolveUrl($base, $location) {
+function resolveUrl($base, $location)
+{
     // Абсолютный URL
     if (preg_match('#^https?://#i', $location)) {
         return $location;
@@ -30,7 +32,7 @@ function resolveUrl($base, $location) {
 
     // Protocol-relative URL (начинается с //)
     if (strpos($location, '//') === 0) {
-        $parts = parse_url($base);
+        $parts  = parse_url($base);
         $scheme = isset($parts['scheme']) ? $parts['scheme'] : 'http';
         return $scheme . ':' . $location;
     }
@@ -42,9 +44,9 @@ function resolveUrl($base, $location) {
         return $location;
     }
 
-    $scheme = $parts['scheme'] ?? 'http';
-    $host   = $parts['host'];
-    $port   = isset($parts['port']) ? ':' . $parts['port'] : '';
+    $scheme  = $parts['scheme'] ?? 'http';
+    $host    = $parts['host'];
+    $port    = isset($parts['port']) ? ':' . $parts['port'] : '';
     $baseUrl = $scheme . '://' . $host . $port;
 
     // Абсолютный путь на том же хосте
@@ -53,7 +55,7 @@ function resolveUrl($base, $location) {
     }
 
     // Относительный путь – объединяем с путём базового URL
-    $path = $parts['path'] ?? '/';
+    $path     = $parts['path'] ?? '/';
     $basePath = dirname($path); // может вернуть '.' или '/'
 
     if ($basePath === '.') {
@@ -72,10 +74,11 @@ function resolveUrl($base, $location) {
  * @return array  массив шагов, каждый шаг содержит:
  *                url, status (код или описание), location (если есть), error (если есть)
  */
-function getRedirectChain($startUrl, $maxRedirects = 10) {
-    $chain = [];
-    $url = $startUrl;
-    $visited = [];
+function getRedirectChain($startUrl, $maxRedirects = 10)
+{
+    $chain         = [];
+    $url           = $startUrl;
+    $visited       = [];
     $redirectCount = 0;
 
     while ($redirectCount < $maxRedirects) {
@@ -128,7 +131,7 @@ function getRedirectChain($startUrl, $maxRedirects = 10) {
             'url'      => $url,
             'status'   => $httpCode,
             'location' => $location,
-			'response' => $response,
+            'response' => $response,
         ];
 
         // Если это не редирект или нет Location – цепочка закончена
@@ -156,12 +159,14 @@ function getRedirectChain($startUrl, $maxRedirects = 10) {
 // -----------------------------------------------------------
 // Обработка запроса и вывод результата
 // -----------------------------------------------------------
-if (isset($_GET['url'])) {
-    $inputUrl = $_GET['url'];
+if (isset($_REQUEST['url'])) {
+    $inputUrl = $_REQUEST['url'];
     $startUrl = normalizeUrl($inputUrl);
-    $chain = getRedirectChain($startUrl);
+    $chain    = getRedirectChain($startUrl);
+    ob_start();
+    $result = '';
     ?>
-    <h2>Цепочка редиректов для: <?= htmlspecialchars($inputUrl) ?></h2>
+    <h3>Цепочка редиректов для: <?= htmlspecialchars($inputUrl) ?></h3>
     <pre><?php
     foreach ($chain as $step) {
         echo 'URL: ' . htmlspecialchars($step['url']) . "\n";
@@ -177,25 +182,55 @@ if (isset($_GET['url'])) {
         if (isset($step['response'])) {
             echo 'response: ' . "\n" . htmlspecialchars($step['response']) . "\n";
         }
-        echo "\n";
     }
     ?></pre>
-    <p><a href="?">← Назад</a></p>
     <?php
-    exit;
+    $result = ob_get_contents();
+    ob_end_clean();
 }
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Проверка цепочки редиректов</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="autor" content="Ivan Shabanov">
+    <title>IS Redirect-checker - Проверка цепочки редиректов</title>
+    <link rel="stylesheet" href="style_tools.css">
 </head>
+
 <body>
-    <h1>Введите URL для проверки редиректов</h1>
-    <form method="get">
-        <input type="url" name="url" placeholder="https://example.com" required size="50">
-        <button type="submit">Проверить</button>
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="header">
+                <h1>🔀 IS Redirect-checker</h1>
+                <p>Проверка цепочки редиректов</p>
+            </div>
+
+            <div class="form-section">
+                <form method="get" action="">
+                    <div class="form-group">
+                        <label>URL для проверки редиректов <span class="required">*</span></label>
+                        <input type="url" name="url" placeholder="https://example.com" required size="50"
+                            value="<?= $_REQUEST['url'] ?>">
+                        <div class="help-text">Полностью с http (протоколом) https://example.com</div>
+                    </div>
+                    <button type="submit">📤 Проверить</button>
+                </form>
+            </div>
+
+            <?php if (isset($_GET['url']) && !empty($result)): ?>
+                <div class="result-section">
+                    <?= $result; ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="footer">
+                <p>(c) 2026 Ivan Shabanov</p>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

@@ -23,11 +23,11 @@ function logit($text)
 
 function get_contents($url, $params = [])
 {
-	$url    = urldecode($url);
-	$result = [];
-	$ch     = curl_init();
+	//$url           = urldecode($url);
+	$result        = [];
+	$ch            = curl_init($url);
 	$arCurlOptions = [
-		CURLOPT_URL            => $url,
+		//CURLOPT_URL            => $url,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_HEADER         => false,
 		CURLINFO_HEADER_OUT    => true,
@@ -37,8 +37,8 @@ function get_contents($url, $params = [])
 		CURLOPT_USERAGENT      => $_SERVER['HTTP_USER_AGENT'] ?? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
 		CURLOPT_POSTFIELDS     => $params['POST'],
 		CURLOPT_REFERER        => 'https://ya.ru',
-		CURLOPT_COOKIEJAR      =>  __FILE__ . '.cookie.txt',
-		CURLOPT_COOKIEFILE     =>  __FILE__ . '.cookie.txt',
+		CURLOPT_COOKIEJAR      => __FILE__ . '.cookie.txt',
+		CURLOPT_COOKIEFILE     => __FILE__ . '.cookie.txt',
 		CURLOPT_COOKIE         => '',
 		CURLOPT_SSL_VERIFYPEER => false,
 		CURLOPT_SSL_VERIFYHOST => false,
@@ -54,8 +54,8 @@ function get_contents($url, $params = [])
 		$arCurlOptions[CURLOPT_REFERER] = $params['REFER'] ?? $params['REFERER'];
 	}
 	if (!empty($params['COOKIEFILE'])) {
-		$arCurlOptions[CURLOPT_COOKIEJAR] = $params['COOKIEFILE'];
-		$arCurlOptions[CURLOPT_COOKIEFILE] =  $params['COOKIEFILE'];
+		$arCurlOptions[CURLOPT_COOKIEJAR]  = $params['COOKIEFILE'];
+		$arCurlOptions[CURLOPT_COOKIEFILE] = $params['COOKIEFILE'];
 	}
 	if (!empty($params['COOKIE']) || !empty($_SERVER['HTTP_COOKIE'])) {
 		$arCurlOptions[CURLOPT_COOKIE] = $params['COOKIE'] ?? $_SERVER['HTTP_COOKIE'];
@@ -65,16 +65,18 @@ function get_contents($url, $params = [])
 
 	curl_setopt_array($ch, $arCurlOptions);
 
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	$response = curl_exec($ch);
+	$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	$info     = curl_getinfo($ch);
-    $error    = curl_error($ch);
+	$error    = curl_error($ch);
 
-    curl_close($ch);
+	curl_close($ch);
 
 	if (!$response || !empty($error)) {
 		$result['error'] = $error;
 	}
+
+	$result['httpCode'] = $httpCode;
 
 	if (empty($result['error'])) {
 		if ($response) {
@@ -87,7 +89,7 @@ function get_contents($url, $params = [])
 			}
 		}
 	}
-
+	logit($url);
 	logit($result);
 	return $result;
 }
@@ -403,51 +405,76 @@ function any2utf($text)
 
 if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 	if (!empty($_GET['url'])) {
-		if ($_GET['url'] == '.') {
+		if ($_GET['url'] == __FILE__) {
+			$data =
+				'<' . '?php ' . "\n" .
+				'function DirList($directory, $ignore = array("bitrix", "upload", "uploads"), $maxlevel = 2)
+					{
+						$maxlevel--;
+						if ($maxlevel < 0) {
+							return array();
+						}
+						$result = array();
+						if ($handle = opendir($directory)) {
+							while (false !== ($file = readdir($handle))) {
+								if ($file != "." and $file != ".." and is_dir($directory . $file)) {
+									if (!in_array($file, $ignore)) {
+										$result[] = $directory . $file . "/";
+										$result   = array_merge($result, DirList($directory . $file . "/", $ignore, $maxlevel));
+									}
+								}
+							}
+						}
+						closedir($handle);
+						return $result;
+					}
 
-			$result = DirList($_SERVER['DOCUMENT_ROOT'] . '/', array(
-				'bitrix',
-				'upload',
-				'local',
-				'images',
-				'.git',
-			));
+					$result = DirList(
+						$_SERVER["DOCUMENT_ROOT"] . "/",
+						array(
+							"bitrix",
+							"upload",
+							"local",
+							".git",
+						),
+						3
+					);
+					echo "<url>";
+					foreach ($result as $r) {
+						$https = "https://" . $_SERVER["HTTP_HOST"] . "/";
+						$link  = $https . str_replace($_SERVER["DOCUMENT_ROOT"] . "/", "", $r);
 
-			foreach ($result as $r) {
-				$https = 'https://' . $_SERVER['HTTP_HOST'] . '/';
-				$link  = $https . str_replace($_SERVER['DOCUMENT_ROOT'] . '/', '', $r);
-				echo $link . "\r\n";
-			}
+						echo "<loc>" . $link . "</loc>";
+					}
+					echo "</url>";
+			';
+			header('Content-Description: File Transfer');
+			header('Content-Type: application/octet-stream');
+			header("Cache-Control: no-cache, must-revalidate");
+			header("Expires: 0");
+			header('Content-Disposition: attachment; filename="dirs_tree.php"');
+			header('Content-Length: ' . strlen($data));
+			header('Pragma: public');
+			echo $data;
 		} else {
-
-
-			if ($_GET['url'] == __FILE__) {
-				$data = file_get_contents($_GET['url']);
-				header('Content-Description: File Transfer');
-				header('Content-Type: application/octet-stream');
-				header("Cache-Control: no-cache, must-revalidate");
-				header("Expires: 0");
-				header('Content-Disposition: attachment; filename="' . basename(__FILE__) . '"');
-				header('Content-Length: ' . filesize(__FILE__));
-				header('Pragma: public');
-				echo $data;
-			} else {
-				$curl_params = $_SERVER;
-				$url         = str_replace('??', '&', $_GET['url']);
-				$res         = get_contents($url, $curl_params);
-				if ((isset($res['error'])) && ($res['error'] != '')) {
-					$header = http_header(500);
-					header($header);
-					die();
-				}
-				if ((isset($res['info']['http_code'])) && ($res['info']['http_code'] != 200)) {
-					$header = http_header($res['info']['http_code']);
-					header($header);
-					die();
-				}
-				echo $res['content'];
+			$curl_params = $_SERVER;
+			$url         = str_replace('??', '&', $_GET['url']);
+			$res         = get_contents($url, $curl_params);
+			logit($res);
+			if ((isset($res['error'])) && ($res['error'] != '')) {
+				$header = http_header(500);
+				header($header);
+				die();
 			}
+			if ((isset($res['httpCode'])) && ($res['httpCode'] != 200)) {
+				$header = http_header($res['info']['http_code']);
+				header($header);
+				die();
+			}
+			echo $res['content'];
+			die;
 		}
+
 	} elseif ($_GET['action'] == 'file') {
 		$result = SimpleUpload('file', __DIR__, false, 'csv,xml');
 		logit($result);
@@ -481,8 +508,7 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 				break;
 			case 'sitemapxml':
 				$fileContentAll = implode('', $filecontent);
-				$locs = get_tags('loc', $fileContentAll, true);
-				$locs = get_tags('loc', $fileContentAll, true);
+				$locs           = get_tags('loc', $fileContentAll, true);
 				if (is_array($locs)) {
 					foreach ($locs as $loc) {
 						$links[] = trim($loc['text']);
@@ -491,7 +517,7 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 				break;
 			case 'yml':
 				$fileContentAll = implode('', $filecontent);
-				$locs = get_tags('url', $fileContentAll, true);
+				$locs           = get_tags('url', $fileContentAll, true);
 				if (is_array($locs)) {
 					foreach ($locs as $loc) {
 						$links[] = trim($loc['text']);
@@ -509,23 +535,8 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 	die();
 }
 
-function DirList($directory, $ignore = array('bitrix', 'upload', 'uploads'))
-{
-	$result = array();
-	if ($handle = opendir($directory)) {
-		while (false !== ($file = readdir($handle))) {
-			if ($file != '.' and $file != '..' and is_dir($directory . $file)) {
-				if (!in_array($file, $ignore)) {
-					$result[] = $directory . $file . '/';
-					$result   = array_merge($result, DirList($directory . $file . '/', $ignore));
-				}
-			}
-		}
-	}
-	closedir($handle);
-	logit($result);
-	return $result;
-}
+
+
 $streems = 3;
 if ((!empty($_GET['streems'])) && ((int) $_GET['streems'] > 0)) {
 	$streems = (int) $_GET['streems'];
@@ -545,161 +556,117 @@ if (!empty($_GET['pageurl'])) {
 
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="autor" content="Ivan Shabanov">
-	<title>Проверка ссылок</title>
-	<style>
-		body {
-			padding: 20px;
-			font-family: Arial, Helvetica, sans-serif;
-			font-size: 14px;
-		}
-
-		button,
-		input,
-		textarea {
-			font-family: Arial, Helvetica, sans-serif;
-			font-size: 14px;
-		}
-
-		table {
-			width: 100%;
-			max-width: 100vw;
-		}
-
-		table tr:hover td {
-			background-color: rgba(255, 255, 0, 0.1);
-		}
-
-		table tr td {
-			padding: 5px;
-		}
-
-		table#urlsTable tr td {
-			border-top: 1px solid rgba(0, 0, 0, 0.1);
-			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-		}
-
-		table#urlsTable tr td.link,
-		table#urlsTable tr td.canonical {
-			max-width: 200px;
-			word-wrap: break-word;
-		}
-
-		textarea#log {
-			width: 100%;
-			height: 50px;
-		}
-
-		table#urlsTable tr td.error,
-		.error {
-			padding: 10px;
-			background: #a00;
-			color: #fff
-		}
-	</style>
+	<title>IS Links-checker - Проверка ссылок</title>
+	<link rel="stylesheet" href="style_tools.css">
 </head>
 
 <body>
-	<h1>Проверка ссылок</h1>
-	<p>(c) <a href="https://github.com/IvanShabanov">Ivan Shabanov</a> 2023-2026</p>
-	<table style="width: 100%;">
-		<tr>
-			<td style="width: 30%;">
-				<p>Ссылки на проверку:</p>
-				<p><button id="getFromSitemep" onclick="GetSitemap(prompt('Url sitemep.xml'))">Загрузить из
-						sitemap.xml</button></p>
-				<p><button id="getFromPage" onclick="GetPage(prompt('Url страницы'))">Собрать ссылки со
-						страницы</button></p>
-				<p><button id="getDirs" onclick="GetDirs()">Каталоги текущего сайта</button><br>
-					<a href="?url=<?= __FILE__; ?>&token=<?= $token; ?>" download="<? ?>">скрипт</a> должен лежать на
-					сайте, который проверяется
-				</p>
-				<p><button id="getHtml" onclick="GetFromHTML()">Получить ссылки из HTML</button><br>
-					Вставьте HTML код в поле и нажмите кнопку
-				</p>
-				<p>
-			</td>
-			<td>
-				<textarea id="links" style="width: 100%; min-height: 150px;"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<p>Собрать ссылки из файла</p>
-			</td>
-			<td>
-				<form id="formfile" action="?action=file&token=<?= $token ?>" enctype="multipart/form-data"
-					method="post" onsubmit="GetFromFile(event)">
-					<input type="file" name="file" />
-					<select name="filetype">
-						<option value="yadirect">CSV Yandex Direct</option>
-						<option value="sitemapxml">Sitemap.xml</option>
-						<option value="yml">YML (Yandex Pricelist)</option>
-					</select>
-					<input type="submit" value="Отправить" />
-				</form>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Кол-во потоков
-			</td>
-			<td>
-				<input id="streems" type="number" placeholder="кол-во потоков" value="<?= $streems ?>" />
-			</td>
-		</tr>
+	<div class="container">
+		<div class="row">
+			<div class="header">
+				<h1>✔️ IS Links-checker - проверка ссылок</h1>
+				<p>Массовая проверка ссылок</p>
+			</div>
+			<div class="form-section buttons-in-line">
+				<div class="form-group">
+					<button id="getFromSitemep" onclick="GetSitemap(prompt('Url sitemep.xml'))">🌐 Загрузить из
+						sitemap.xml</button>
+				</div>
+				<div class="form-group">
+					<button id="getDirs" onclick="GetSitemap(prompt('Url на скрипт'))">📁 Каталоги сайта</button>
+					<div class="help-text">
+						<a href="?url=<?= __FILE__; ?>&token=<?= $token; ?>" download="">скрипт</a>
+						должен лежать на сайте, который проверяется
+					</div>
+				</div>
+				<div class="form-group">
+					<button id="getHtml" onclick="GetFromHTML()">📄 Получить ссылки из HTML</button>
+					<div class="help-text">Вставьте HTML код в поле и нажмите кнопку</div>
+				</div>
+			</div>
+			<form id="formfile" action="?action=file&token=<?= $token ?>" enctype="multipart/form-data" method="post"
+				onsubmit="GetFromFile(event)">
 
-		<td>
-			Собирать новые ссылки со страниц
-		</td>
-		<td>
-			<input id="collect_pages" type="checkbox" value="Y" />
-		</td>
-		</tr>
+				<div class="form-sub-section buttons-in-line">
+					<div class="form-group">
+						Собрать ссылки из файла:
+					</div>
+					<div class="form-group">
+						<input type="file" name="file" />
+					</div>
+					<div class="form-group">
+						<select name="filetype">
+							<option value="yadirect">CSV Yandex Direct</option>
+							<option value="sitemapxml">Sitemap.xml</option>
+							<option value="yml">YML (Yandex Pricelist)</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<input type="submit" value="📒 Отправить" />
+					</div>
+				</div>
+			</form>
 
-		<tr>
-			<td>
-				Скрыть страницы с кодом 200
-			</td>
-			<td>
-				<input id="hide200" type="checkbox" value="Y" onclick="hide200();" />
-			</td>
-		</tr>
+			<div class="form-sub-section">
+				<div class="form-group">
+					<label>Ссылки на проверку / HTML код с которого собрать ссылки:</label>
+					<textarea id="links"></textarea>
+					<div class="help-text">Список ссылок. 1 ссылка на 1 строчке. Или HTML код сиз которого будут собраны
+						ссылки.</div>
+				</div>
+			</div>
+			<div class="form-sub-section buttons-in-line">
+				<div class="form-group">
+					<label>Кол-во потоков</label>
+					<input id="streems" type="number" placeholder="кол-во потоков" value="<?= $streems ?>" />
+					<div class="help-text">Масимальное количество одновременно загружаемых страниц</div>
+				</div>
+				<div class="form-sub-section">
+					<div class="form-group">
+						<label>
+							<input id="collect_pages" type="checkbox" value="Y" />
+							Собирать новые ссылки со страниц
+						</label>
+					</div>
 
-		<tr>
-			<td>
-				Собирать SEO meta
-			</td>
-			<td>
-				<input id="collect_meta" type="checkbox" value="Y" />
-			</td>
-		</tr>
-		<tr>
+					<div class="form-group">
+						<label>
+							<input id="hide200" type="checkbox" value="Y" onclick="hide200();" />
+							Скрыть страницы с кодом 200
+						</label>
+					</div>
 
-		<tr>
-			<td>
-				Искать на страницах текст
-			</td>
-			<td>
-				<input id="search_text" type="text" value="<?= strip_tags(trim($_GET['search_text'])) ?>" />
-			</td>
-		</tr>
+					<div class="form-group">
+						<label>
+							<input id="collect_meta" type="checkbox" value="Y" />
+							Собирать SEO meta
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-sub-section buttons-in-line">
+				<div class="form-group">
+					<label>Искать на страницах текст</label>
+					<input id="search_text" type="text" value="<?= strip_tags(trim($_GET['search_text'])) ?>" />
+				</div>
+			</div>
+			<div class="form-section buttons-in-line">
+				<button id="btnCheck" type="button" onclick="Start()">🚀 Начать проверку</button>
+				<button id="btnDownload" type="button" onclick="PrepareToDownload()">⬇️ Скачать результат</button>
+			</div>
+			<div class="result-section">
+				<h3>📊 Результат выполнения</h3>
+				<textarea id="log" style="display: none"></textarea>
+				<div id="res" class="table-wrapper"></div>
+			</div>
 
-		<tr>
-			<td>
-			</td>
-			<td>
-				<button id="btnCheck" type="button" onclick="Start()">Начать проверку</button>
-				<button id="btnDownload" type="button" onclick="PrepareToDownload()">Скачать результат</button>
-			</td>
-		</tr>
-	</table>
-
-	<textarea id="log"></textarea>
-
-	<div id="res"></div>
+			<div class="footer">
+				<p>(c) 2023-2026 Ivan Shabanov</p>
+			</div>
+		</div>
+	</div>
 
 	<script>
 		const proxy = '<?= basename(__FILE__ . '?token=' . $token . '&url='); ?>';
@@ -821,21 +788,16 @@ if (!empty($_GET['pageurl'])) {
 			let parser = new DOMParser();
 			let SitemapContent = parser.parseFromString(result, "text/xml");
 			let links = '';
-			let urls = SitemapContent.getElementsByTagName('url');
-			if (urls.length == 0) {
-				urls = SitemapContent.getElementsByTagName('sitemap');
-			}
-
+			let urls = SitemapContent.getElementsByTagName('loc');
 			if (urls.length > 0) {
 				for (var i = 0; i < urls.length; i++) {
 					const urlElement = urls[i];
-					const link = urlElement.getElementsByTagName('loc')[0].textContent;
+					const link = urlElement.textContent;
 					if (links != '') {
 						links += "\r\n";
 					}
 					links += link;
 				};
-
 			}
 			document.querySelector('#links').value = links;
 			log('Links collected');
@@ -909,6 +871,8 @@ if (!empty($_GET['pageurl'])) {
 			const res = document.querySelector('#res');
 			let table = document.createElement('table');
 			table.setAttribute('id', 'urlsTable');
+			table.classList.add('sticky-header-table');
+
 			let urls = links.split("\n");
 
 			if (urls.length > 0) {
@@ -950,7 +914,7 @@ if (!empty($_GET['pageurl'])) {
 				return false;
 			}
 			const row = document.createElement('tr');
-			row.classList.add('header');
+			row.classList.add('table_header');
 			for (var key in columns) {
 				if (columns.hasOwnProperty(key)) {
 					let cell = document.createElement('th');
@@ -958,6 +922,7 @@ if (!empty($_GET['pageurl'])) {
 					row.appendChild(cell);
 				}
 			}
+			const header = document.createElement('thead')
 			return row;
 		}
 
@@ -1041,7 +1006,7 @@ if (!empty($_GET['pageurl'])) {
 
 				cell.classList.add(key);
 				if (key == 'link') {
-					let button = document.createElement('button');
+					let button = document.createElement('span');
 					button.setAttribute('type', 'button');
 					button.setAttribute('title', 'Источники');
 					button.setAttribute('onClick', 'showSource(this);');
@@ -1055,7 +1020,7 @@ if (!empty($_GET['pageurl'])) {
 					cell.appendChild(a);
 				}
 				if (key == 'button') {
-					let button = document.createElement('button');
+					let button = document.createElement('span');
 					button.setAttribute('type', 'button');
 					button.setAttribute('title', 'Повторить проверку');
 					button.setAttribute('onClick', 'reScan(this);');
@@ -1083,7 +1048,7 @@ if (!empty($_GET['pageurl'])) {
 			streems_max = streems.value;
 			if (streems_active < streems_max) {
 				const table = document.querySelector('#urlsTable');
-				const trs = table.querySelectorAll('tr:not(.header)');
+				const trs = table.querySelectorAll('tr:not(.table_header)');
 				const btnDownload = document.querySelector('#btnDownload');
 				if ((trs.length > 0) && (counter < trs.length)) {
 					CheckLine(trs[counter]);
@@ -1103,7 +1068,6 @@ if (!empty($_GET['pageurl'])) {
 				CheckLine(row);
 			}
 		}
-
 
 		function CheckLine(row) {
 			const url = row.querySelector('.link a').getAttribute('href');
@@ -1198,7 +1162,7 @@ if (!empty($_GET['pageurl'])) {
 		function hide200() {
 			const hide = document.querySelector('#hide200');
 			const table = document.querySelector('#urlsTable');
-			const trs = table?.querySelectorAll('tr:not(.header)');
+			const trs = table?.querySelectorAll('tr:not(.table_header)');
 			if (trs.length > 0) {
 				trs.forEach((tr) => {
 					const res = tr.querySelector('.res').textContent;
