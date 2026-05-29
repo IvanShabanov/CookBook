@@ -3,8 +3,8 @@
 Задача: Надо, чтобы
 
 - каталог открывался по адресу - "/catalog/"
-- разделы каталога открывался по адресу - "/catalog/[символьный_код_раздела]/"
-- товары каталога открывались по адресу - "/product/[символьный_код_товара]/"
+- разделы каталога открывался по адресу - "/catalog/#символьный_код_раздела#/"
+- товары каталога открывались по адресу - "/product/#символьный_код_товара#/"
 - использовать только стандартный комплексный компонент bitrix:catalog
 
 ## 1. Настроим урлы в catalog
@@ -12,22 +12,24 @@
 в файле /catalog/index.php делаем такую настройку комплексного компонента
 
 	"DETAIL_STRICT_SECTION_CHECK" => "N", /* Отключаем проверку правильности пути */
-	"SEF_MODE" => "Y",  /* Включаем ЧПУ */
-	"SEF_FOLDER" => "/", /* Ставим папку каталога коневую сайта */
-	"SEF_URL_TEMPLATES" => Array(
-		"compare" => "catalog/compare.php?action=#ACTION_CODE#", /* Сравнение товаров */
-		"element" => "product/#ELEMENT_CODE#/", /* Детальная товара */
-		"search" => "catalog/search/",  /* Страница поиска */
-		"section" => "catalog/#SECTION_CODE#/", /* Раздел каталога */
-		"sections" => "catalog/", /* Список разделов */
+	"SEF_MODE"                    => "Y",  /* Включаем ЧПУ */
+	"SEF_FOLDER"                  => SITE_DIR, /* Ставим папку каталога коневую сайта */
+	"SEF_URL_TEMPLATES"           => [
+		"compare"      => "catalog/compare.php?action=#ACTION_CODE#", /* Сравнение товаров */
+		"element"      => "product/#ELEMENT_CODE#/", /* Детальная товара */
+		"search"       => "catalog/search/",  /* Страница поиска */
+		"section"      => "catalog/#SECTION_CODE#/", /* Раздел каталога */
+		"sections"     => "catalog/", /* Список разделов */
 		"smart_filter" => "catalog/#SECTION_CODE#/filter/#SMART_FILTER_PATH#/apply/" /* Фильтр */
-	),
+	],
 
 
 ## 2. Настройка в инфоблоке
 
 В настройках инфоблока Каталога
 
+	URL страницы информационного блока: #SITE_DIR#catalog/
+	URL страницы раздела: #SITE_DIR#catalog/#SECTION_CODE#/
 	URL страницы детального просмотра: #SITE_DIR#product/#ELEMENT_CODE#/
 
 
@@ -37,18 +39,18 @@
 
 	array (
 		'CONDITION' => '#^/catalog/#',
-		'RULE' => '',
-		'ID' => NULL,
-		'PATH' => '/catalog/index.php',
-		'SORT' => 100,
+		'RULE'      => '',
+		'ID'        => NULL,
+		'PATH'      => '/catalog/index.php',
+		'SORT'      => 100,
 	),
 
 	array (
 		'CONDITION' => '#^/product/#',
-		'RULE' => '',
-		'ID' => NULL,
-		'PATH' => '/catalog/index.php',
-		'SORT' => 100,
+		'RULE'      => '',
+		'ID'        => NULL,
+		'PATH'      => '/catalog/index.php',
+		'SORT'      => 100,
 	),
 
 ## 4. Редирект со старых урлов и настройка хлебных крошек
@@ -66,18 +68,19 @@
 		/* Получим текущий урл */
 		$context = \Bitrix\Main\Application::getInstance()->getContext();
 		$request = $context->getRequest();
-		$url = (new \Bitrix\Main\Web\Uri($request->getRequestUri()))->getPath();
+		$url     = (new \Bitrix\Main\Web\Uri($request->getRequestUri()))->getPath();
+
 		/* Разобьем его на части и соберем все части в массив */
 		$urlPartsFull = explode('/', trim($url, '/'));
-		$urlParts = [];
+		$urlParts     = [];
 		if (is_array($urlPartsFull)) {
 			$collectPart = false;
 			foreach ($urlPartsFull as $key=>$uriPart) {
 				if ($uriPart == 'catalog') {
-					$collectPart =  true;
+					$collectPart = true;
 				};
 				if (in_array($uriPart, 'search', 'filter')) {
-					$collectPart =  false;
+					$collectPart = false;
 				};
 				if ($collectPart) {
 					$urlParts[] = $uriPart;
@@ -87,38 +90,38 @@
 		if (count($urlParts) > 2) {
 			/* Если кол-во частей урла больше 2 - скорее всго нам надо сделать редирект */
 			$urlLastPart = end($urlParts);
-			/* Проверим есть ли товар с символьныйм кодом из последней части урла */
+
+			/* Фильтр для  Разделов и Товаров */
 			$arFilter = [
-				"IBLOCK_ID" => $IBLOCK_ID,
-				"ACTIVE" => "Y",
-				"SECTION_ACTIVE" => "Y",
+				"IBLOCK_ID"             => $IBLOCK_ID,
+				"ACTIVE"                => "Y",
+				"GLOBAL_ACTIVE"         => "Y",
+				"SECTION_ACTIVE"        => "Y",
 				"SECTION_GLOBAL_ACTIVE" => "Y",
-				"CODE" => $urlLastPart
+				"CODE"                  => $urlLastPart
 			];
-			$res_count = \CIBlockElement::GetList([], $arFilter, [], false, []);
-			if ($res_count > 0) {
-				/* Редирект на товар */
-				LocalRedirect(
-					'/product/' . $urlLastPart . '/',
-					true,
-					'301 Moved Permanently'
-				);
-			} else {
-				/* Проверим есть ли раздел с символьныйм кодом из последней части урла */
-				$arFilterSection = [
-					"IBLOCK_ID" => $IBLOCK_ID,
-					"ACTIVE" => "Y",
-					"GLOBAL_ACTIVE" => "Y",
-					"CODE" => $urlLastPart
-				];
-				$res = \CIBlockSection::GetList([], $arFilterSection, false, []);
-				if ($res->GetNext()) {
+
+			/* Проверим есть ли Раздел с символьныйм кодом из последней части урла */
+			$res = \CIBlockSection::GetList([], $arFilterSection, false, []);
+			if ($res->GetNext()) {
 					/* Редирект на раздел */
 					LocalRedirect(
 						'/catalog/' . $urlLastPart . '/',
 						true,
 						'301 Moved Permanently'
 					);
+					exit;
+			} else {
+				/* Проверим есть ли элемент с символьныйм кодом из последней части урла */
+				$res_count = \CIBlockElement::GetList([], $arFilter, [], false, []);
+				if ($res_count > 0) {
+					/* Редирект на товар */
+					LocalRedirect(
+						'/product/' . $urlLastPart . '/',
+						true,
+						'301 Moved Permanently'
+					);
+					exit;
 				}
 			}
 		}
@@ -129,16 +132,16 @@
 
 ## 5. Поиск
 
-Иногда ломается поиск в разных готовых решениях.
-В начале файла /catalog/index.php
+В Aspro есть событие OnAsproGetSearchTitkeConfig
 
-	$cururl = $_SERVER['REQUEST_URI'];
-	if (!empty($_GET['q']) && mb_strpos($cururl, 'catalog/search/') === false) {
-		$newurl = str_replace('catalog/', 'catalog/search/', $cururl);
-		if ($cururl != $newurl) {
-			header("Location: $newurl");
-			die();
+	$em = \Bitrix\Main\EventManager::getInstance();
+	$em->addEventHandler("aspro.#решение#", "OnAsproGetSearchTitkeConfig", ["MyClass", "OnAsproGetSearchTitkeConfig"]);
+	class MyClass {
+		public static function OnAsproGetSearchTitkeConfig($type, &$arConfig)
+		{
+			if ($arConfig["PAGE"] == "/catalog/") {
+				$arConfig["PAGE"] = "/catalog/search/";
+			}
 		}
 	}
 
-Не самое лучшее решение для починки поиска.
