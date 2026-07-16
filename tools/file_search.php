@@ -45,6 +45,32 @@ function is_valid_regex($pattern)
 	return @preg_match($pattern, '') !== false;
 }
 
+function searchInFile($path, $searchString, &$results, $config)
+{
+	$content = @file_get_contents($path);
+	if ($content !== false) {
+		$found = false;
+		if ($config['regular'] && preg_match($searchString, $content)) {
+			$found = true;
+		} else {
+			if ($config['case_sensitive']) {
+				$found = strpos($content, $searchString) !== false;
+			} else {
+				$found = stripos($content, $searchString) !== false;
+			}
+		}
+
+		if ($found) {
+			$results[] = [
+				'path'	 => realpath($path),
+				'size'	 => filesize($path),
+				'modified' => date('Y-m-d H:i:s', filemtime($path))
+			];
+		}
+	}
+
+}
+
 function advancedSearch($dir, $searchString, &$results, $config)
 {
 	if (!is_readable($dir) || count($results) >= $config['max_results']) {
@@ -80,27 +106,7 @@ function advancedSearch($dir, $searchString, &$results, $config)
 				continue;
 			}
 
-			$content = @file_get_contents($path);
-			if ($content !== false) {
-				$found = false;
-				if ($config['regular'] && preg_match($searchString, $content)) {
-					$found = true;
-				} else {
-					if ($config['case_sensitive']) {
-						$found = strpos($content, $searchString) !== false;
-					} else {
-						$found = stripos($content, $searchString) !== false;
-					}
-				}
-
-				if ($found) {
-					$results[] = [
-						'path'	 => realpath($path),
-						'size'	 => filesize($path),
-						'modified' => date('Y-m-d H:i:s', filemtime($path))
-					];
-				}
-			}
+			searchInFile($path, $searchString, $results, $config);
 		}
 	}
 }
@@ -125,7 +131,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
 		$searchPerformed = true;
 		$currentDir	  = __DIR__;
 		$startTime	   = microtime(true);
-		advancedSearch($currentDir, $searchString, $results, $config);
+		if (!empty($_POST['search_in_files'])) {
+			$arFiles = explode(',', $_POST['search_in_files']);
+			foreach ($arFiles as $path) {
+				searchInFile($path, $searchString, $results, $config);
+			}
+		} else {
+			advancedSearch($currentDir, $searchString, $results, $config);
+		}
 		$endTime		   = microtime(true);
 		$executionTime	 = round(($endTime - $startTime) * 1000, 2);
 		$_SESSION['token'] = uniqid();
@@ -198,6 +211,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['token']) && $_GET['tok
 			padding: 15px;
 			margin: 15px 0;
 			border-radius: 4px;
+			display: flex;
+			flex-wrap: wrap;
 		}
 
 		.options label {
@@ -296,8 +311,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['token']) && $_GET['tok
 						<input type="checkbox" name="exclude_git" <?= !isset($_POST['exclude_git']) ? '' : 'checked'; ?>>
 						Исключить .git директорию
 					</label>
+					<?php if ($searchPerformed && !$error): ?>
+						<?php $search_in_files = implode(',', array_column($results, 'path')); ?>
+						<label>
+							<input type="checkbox" name="search_in_files" value="<?= $search_in_files; ?>">
+							Искать в найденом
+						</label>
+					<?php endif; ?>
 				</div>
-
 				<button type="submit">🔍 Найти</button>
 			</form>
 		<?php endif; ?>
