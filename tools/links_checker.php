@@ -60,6 +60,11 @@ function get_contents($url, $params = [])
 	if (!empty($params['COOKIE']) || !empty($_SERVER['HTTP_COOKIE'])) {
 		$arCurlOptions[CURLOPT_COOKIE] = $params['COOKIE'] ?? $_SERVER['HTTP_COOKIE'];
 	}
+	if ($params['NOCOOKIE']) {
+		unset($arCurlOptions[CURLOPT_COOKIEJAR]);
+		unset($arCurlOptions[CURLOPT_COOKIEFILE]);
+		unset($arCurlOptions[CURLOPT_COOKIE]);
+	}
 
 	//$arCurlOptions = array_merge($arCurlOptions, $params);
 
@@ -458,6 +463,9 @@ if ((!empty($_GET['token'])) && ($_GET['token'] == $token)) {
 			echo $data;
 		} else {
 			$curl_params = $_SERVER;
+			if ($_GET['nocookie'] == 'Y') {
+				$curl_params['NOCOOKIE'] = true;
+			}
 			$url         = str_replace('??', '&', $_GET['url']);
 			$res         = get_contents($url, $curl_params);
 			logit($res);
@@ -550,6 +558,8 @@ if (!empty($_GET['pageurl'])) {
 		$onload = 'GetPage("' . $url . '", function() { })';
 	}
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -644,6 +654,13 @@ if (!empty($_GET['pageurl'])) {
 							Собирать SEO meta
 						</label>
 					</div>
+
+					<div class="form-group">
+						<label>
+							<input id="nousecookie" type="checkbox" value="Y" onchange="onChangeNoCookie();" />
+							Отчищать куки (не использовать)
+						</label>
+					</div>
 				</div>
 			</div>
 			<div class="form-sub-section buttons-in-line">
@@ -669,7 +686,7 @@ if (!empty($_GET['pageurl'])) {
 	</div>
 
 	<script>
-		const proxy = '<?= basename(__FILE__ . '?token=' . $token . '&url='); ?>';
+		let proxy = '<?= basename(__FILE__ . '?token=' . $token . '&url='); ?>';
 		let counter = 0;
 		let checked = 0;
 		let streems_active = 0;
@@ -733,6 +750,7 @@ if (!empty($_GET['pageurl'])) {
 
 		function GetUrl(url, callback) {
 			log('GetUrl: ' + url);
+			if (document.querySelector('#links').value == '')
 			fetch(proxy + url.replace('&', '??'), {
 				method: 'GET',
 				headers: {
@@ -1237,6 +1255,13 @@ if (!empty($_GET['pageurl'])) {
 			a.click();
 		}
 
+		function onChangeNoCookie() {
+			if (document.querySelector('#nousecookie').checked) {
+				proxy = proxy.replace('token', 'nocookie=Y&token');
+			} else {
+				proxy = proxy.replace('nocookie=Y&', '');
+			}
+		}
 		<?= $onload; ?>;
 	</script>
 
